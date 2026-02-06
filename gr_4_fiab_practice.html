@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 4 Math Warmups</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/gr4.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <button class="home-btn" onclick="window.location.href='index.html'">🏠 Home</button>
+        
+        <button class="print-btn" onclick="window.print()">🖨️ Print Worksheet</button>
+
+        <h1>Grade 4 Math Warmups</h1>
+
+        <div class="module-nav">
+            <button class="btn-module" onclick="selectModule(0)">Build Fractions</button>
+            <button class="btn-module" onclick="selectModule(1)">Fractions & Decimals</button>
+            <button class="btn-module" onclick="selectModule(2)">Equivalence & Ordering</button>
+            <button class="btn-module" onclick="selectModule(3)">Place Value & Multidigit</button>
+        </div>
+
+        <div class="nav-container" id="navContainer"></div>
+
+        <div id="content-area"></div>
+
+        <div class="footer-controls" id="footer-controls" style="display:none;">
+            <div id="feedback-box" class="feedback-box"></div>
+            <button class="check-btn" onclick="checkAnswers()">Check Answers</button>
+        </div>
+
+        <button id="btnExtra" class="btn-extra hidden" onclick="startExtraPractice()">⚡ Bonus: Extra Practice</button>
+
+        <div id="extraPracticeContainer" class="hidden">
+            <h3 style="color: #8e44ad; border-bottom: 2px dashed #cdb4db;">Mixed Practice Drills</h3>
+            <p style="margin-bottom: 20px;">Solve the problems below!</p>
+            <div id="drillGrid" class="drill-grid"></div>
+            <button class="btn-extra" style="margin-top: 10px; background-color: #9b59b6;" onclick="checkDrills()">Check
+                My Work</button>
+            <div id="drillFeedback" class="feedback-box"></div>
+        </div>
+    </div>
+
+    <script src="data/gr4/mod1.js"></script>
+    <script src="data/gr4/mod2.js"></script>
+    <script src="data/gr4/bonus.js"></script>
+
+    <script>
+        const appData = {
+            modules: [
+                typeof module1 !== 'undefined' ? module1 : { id: "m1", name: "Module 1 (Missing)", weeks: [] },
+                typeof module2 !== 'undefined' ? module2 : { id: "m2", name: "Module 2 (Missing)", weeks: [] },
+                { id: "mod-3", name: "Fraction Equivalence and Ordering", weeks: [] },
+                { id: "mod-4", name: "Place Value and Multidigit Whole Numbers", weeks: [] }
+            ]
+        };
+
+        // --- DOM BUILDERS ---
+
+        // SVG Number Line Generator
+        function createNumberLine(section) {
+            const width = 600;
+            const height = 100;
+            const margin = 40;
+            const range = section.end - section.start;
+            const scale = (width - 2 * margin) / range;
+            const step = section.step || 0.1;
+            const targetX = margin + (section.target - section.start) * scale;
+            const arrowSize = 10;
+            const leftArrow = `<polygon points="${margin},35 ${margin},45 ${margin - arrowSize},40" fill="black" />`;
+            const rightArrow = `<polygon points="${width - margin},35 ${width - margin},45 ${width - margin + arrowSize},40" fill="black" />`;
+
+            let ticks = [];
+            const stepCount = Math.round(range / step);
+
+            for (let i = 0; i <= stepCount; i++) {
+                let val = section.start + (i * step);
+                val = parseFloat(val.toFixed(2));
+                let x = margin + (val - section.start) * scale;
+                let isMajor = false;
+                if (step === 0.01) {
+                    if (i % 5 === 0) isMajor = true;
+                } else {
+                    if (Number.isInteger(val) || (range <= 2 && i % 5 === 0)) isMajor = true;
+                }
+                let y2 = isMajor ? 60 : 50;
+                let label = '';
+                if (isMajor) {
+                    label = `<text x="${x}" y="85" text-anchor="middle" font-size="16">${val}</text>`;
+                }
+                ticks.push(`<line x1="${x}" y1="40" x2="${x}" y2="${y2}" stroke="black" stroke-width="${isMajor ? 3 : 2}" />${label}`);
+            }
+
+            const svgHTML = `
+            <div class="number-line-container">
+                <svg width="100%" height="100%" viewBox="0 0 ${width} 100" style="background:#fff; border-radius:10px; max-width:${width}px;">
+                    <line x1="${margin}" y1="40" x2="${width - margin}" y2="40" stroke="black" stroke-width="3" />
+                    ${leftArrow}
+                    ${rightArrow}
+                    ${ticks.join('')}
+                    <circle cx="${targetX}" cy="40" r="6" fill="#e74c3c" />
+                    <text x="${targetX}" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#e74c3c">${section.label}</text>
+                </svg>
+            </div>
+            <div style="text-align:center; margin-top:10px; font-size:18px;">
+                ${section.label} = <input type="text" class="std-input" data-answer="${section.ans}">
+            </div>
+        `;
+
+            const div = document.createElement('div');
+            div.innerHTML = svgHTML;
+            return div;
+        }
+
+        // Helper Functions (Fraction, Mixed, Grid, etc)
+        function createMixedRow(probData) {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'math-row';
+            probData.segments.forEach(seg => {
+                if (seg.type === 'text') {
+                    const span = document.createElement('span'); span.innerHTML = seg.val; rowDiv.appendChild(span);
+                }
+                else if (seg.type === 'input') {
+                    const inp = document.createElement('input'); inp.className = 'std-input'; inp.setAttribute('data-answer', seg.ans); rowDiv.appendChild(inp);
+                }
+                else if (seg.type === 'mixed_input') {
+                    rowDiv.appendChild(createMixedInput(seg.ans));
+                }
+                else if (seg.type === 'fraction_group') {
+                    rowDiv.appendChild(createFractionInputGroup(seg.ans));
+                }
+                else if (seg.type === 'fraction') {
+                    rowDiv.appendChild(createFraction(seg));
+                }
+            });
+            return rowDiv;
+        }
+
+        function createFractionInputGroup(correctValueDecimal) {
+            const container = document.createElement('div');
+            container.className = 'fraction-input-group';
+            container.setAttribute('data-answer', correctValueDecimal);
+            container.setAttribute('data-type', 'fraction-check');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'fraction-wrap';
+            const top = document.createElement('div'); top.className = 'frac-top';
+            const numInp = document.createElement('input'); numInp.className = 'frac-input'; top.appendChild(numInp);
+            const bot = document.createElement('div'); bot.className = 'frac-bottom';
+            const denInp = document.createElement('input'); denInp.className = 'frac-input'; bot.appendChild(denInp);
+            wrapper.appendChild(top); wrapper.appendChild(bot); container.appendChild(wrapper);
+            return container;
+        }
+
+        function createMixedInput(correctValueDecimal) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'mixed-input-group';
+            wrapper.setAttribute('data-answer', correctValueDecimal);
+            wrapper.setAttribute('data-type', 'mixed-check');
+            const wholeInp = document.createElement('input');
+            wholeInp.className = 'mixed-whole-input';
+            wholeInp.placeholder = "W";
+            const fracWrap = document.createElement('div');
+            fracWrap.className = 'fraction-wrap';
+            const top = document.createElement('div'); top.className = 'frac-top';
+            const numInp = document.createElement('input'); numInp.className = 'frac-input'; top.appendChild(numInp);
+            const bot = document.createElement('div'); bot.className = 'frac-bottom';
+            const denInp = document.createElement('input'); denInp.className = 'frac-input'; bot.appendChild(denInp);
+            fracWrap.appendChild(top); fracWrap.appendChild(bot); wrapper.appendChild(wholeInp); wrapper.appendChild(fracWrap);
+            return wrapper;
+        }
+
+        function createFraction(seg) {
+            const container = document.createElement('div');
+            container.className = 'fraction-wrap';
+            if (seg.w) {
+                const wSpan = document.createElement('span'); wSpan.className = 'whole-part'; wSpan.textContent = seg.w;
+                const wrapper = document.createElement('div'); wrapper.className = 'mixed-text-container';
+                const innerTop = document.createElement('div'); innerTop.className = 'frac-top'; innerTop.textContent = seg.n;
+                const innerBot = document.createElement('div'); innerBot.className = 'frac-bottom'; innerBot.textContent = seg.d;
+                container.appendChild(innerTop); container.appendChild(innerBot);
+                wrapper.appendChild(wSpan); wrapper.appendChild(container);
+                return wrapper;
+            }
+            const top = document.createElement('div'); top.className = 'frac-top';
+            if (seg.n === 'box') {
+                const inp = document.createElement('input'); inp.className = 'frac-input'; inp.setAttribute('data-answer', seg.ans || seg.ansN); top.appendChild(inp);
+            } else {
+                top.textContent = seg.n;
+            }
+            const bot = document.createElement('div'); bot.className = 'frac-bottom';
+            if (seg.d === 'box') {
+                const inp = document.createElement('input'); inp.className = 'frac-input'; inp.setAttribute('data-answer', seg.ansD); bot.appendChild(inp);
+            } else {
+                bot.textContent = seg.d;
+            }
+            container.appendChild(top); container.appendChild(bot);
+            return container;
+        }
+
+        function createGrid(rows) {
+            const table = document.createElement('table');
+            table.className = 'caaspp-grid';
+            table.innerHTML = `<tr><th style="width: 50%">Expression</th><th>True</th><th>False</th></tr>`;
+            rows.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.setAttribute('data-type', 'grid-row');
+                const tdLabel = document.createElement('td');
+                if (row.segments) {
+                    const mixedCont = document.createElement('div');
+                    mixedCont.className = 'mixed-text-container';
+                    row.segments.forEach(seg => {
+                        if (seg.type === 'text') {
+                            const s = document.createElement('span'); s.innerHTML = seg.val; mixedCont.appendChild(s);
+                        } else if (seg.type === 'fraction') {
+                            mixedCont.appendChild(createFraction(seg));
+                        }
+                    });
+                    tdLabel.appendChild(mixedCont);
+                } else {
+                    tdLabel.innerHTML = row.text;
+                }
+                tr.appendChild(tdLabel);
+                tr.innerHTML += `<td><input type="checkbox" data-correct="${row.correct}"></td><td><input type="checkbox" data-correct="${!row.correct}"></td>`;
+                table.appendChild(tr);
+            });
+            return table;
+        }
+
+        // --- MODULE & DAY SELECTION ---
+        let currentModuleIndex = -1;
+        let currentDayId = '';
+        let attempts = {};
+
+        function selectModule(index) {
+            currentModuleIndex = index;
+            document.querySelectorAll('.btn-module').forEach((btn, idx) => {
+                if (idx === index) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            const module = appData.modules[index];
+            const navContainer = document.getElementById('navContainer');
+            const contentArea = document.getElementById('content-area');
+
+            navContainer.innerHTML = '';
+            contentArea.innerHTML = '';
+            document.getElementById('footer-controls').style.display = 'none';
+
+            if (!module.weeks) {
+                contentArea.innerHTML = `<div class="tbd-message">Coming Soon: ${module.name} content is under development! 🚧</div>`;
+                document.getElementById('btnExtra').classList.add('hidden');
+                document.getElementById('extraPracticeContainer').classList.add('hidden');
+            } else {
+                document.getElementById('btnExtra').classList.remove('hidden');
+                document.getElementById('extraPracticeContainer').classList.add('hidden');
+
+                module.weeks.forEach(weekData => {
+                    const weekLabel = document.createElement('div');
+                    weekLabel.className = 'week-label';
+                    weekLabel.textContent = `Week ${weekData.weekNum}`;
+                    navContainer.appendChild(weekLabel);
+                    const row = document.createElement('div');
+                    row.className = 'week-row';
+                    
+                    weekData.days.forEach(day => {
+                        const btn = document.createElement('button');
+                        btn.className = 'nav-btn';
+                        btn.textContent = day.name;
+                        btn.onclick = () => showDay(day.id, btn);
+                        row.appendChild(btn);
+
+                        // Print Header Logic
+                        if (day.name === "Mon") {
+                            if (contentArea.children.length > 0) {
+                                const breakDiv = document.createElement('div');
+                                breakDiv.className = 'print-spacer';
+                                contentArea.appendChild(breakDiv);
+                            }
+                            const headerDiv = document.createElement('div');
+                            headerDiv.className = 'print-header';
+                            headerDiv.innerHTML = '<div>Name: __________________________</div><div>Date: __________________________</div>';
+                            contentArea.appendChild(headerDiv);
+                        }
+
+                        const dayDiv = document.createElement('div');
+                        dayDiv.id = day.id;
+                        dayDiv.className = 'day-content hidden';
+
+                        const modLabel = "M" + (index + 1);
+                        const h3 = document.createElement('h3');
+                        h3.innerHTML = `${day.title}<span class="print-mod-label">${modLabel}</span>`;
+                        dayDiv.appendChild(h3);
+
+                        day.sections.forEach(section => {
+                            const card = document.createElement('div');
+                            card.className = 'question-card';
+                            const instr = document.createElement('p');
+                            instr.className = 'instructions';
+
+                            if (section.instructionSegments) {
+                                const container = document.createElement('div');
+                                container.className = 'mixed-text-container';
+                                section.instructionSegments.forEach(seg => {
+                                    if (seg.type === 'text') {
+                                        const s = document.createElement('span'); s.textContent = seg.val; container.appendChild(s);
+                                    } else if (seg.type === 'fraction') {
+                                        container.appendChild(createFraction(seg));
+                                    }
+                                });
+                                instr.appendChild(container);
+                            } else {
+                                instr.textContent = section.instruction;
+                            }
+                            card.appendChild(instr);
+
+                            if (section.type === 'mixed_row') {
+                                section.problems.forEach(prob => card.appendChild(createMixedRow(prob)));
+                            } else if (section.type === 'grid') {
+                                card.appendChild(createGrid(section.rows));
+                            } else if (section.type === 'word_problem') {
+                                const pText = document.createElement('div');
+                                pText.className = 'word-prob-text';
+                                section.textSegments.forEach(seg => {
+                                    if (seg.type === 'text') {
+                                        const span = document.createElement('span');
+                                        span.textContent = seg.val;
+                                        pText.appendChild(span);
+                                    } else if (seg.type === 'fraction') {
+                                        pText.appendChild(createFraction(seg));
+                                    }
+                                });
+                                card.appendChild(pText);
+                                section.problems.forEach(prob => card.appendChild(createMixedRow(prob)));
+                            } else if (section.type === 'number_line') {
+                                card.appendChild(createNumberLine(section));
+                            }
+                            dayDiv.appendChild(card);
+                        });
+                        contentArea.appendChild(dayDiv);
+                    });
+                    navContainer.appendChild(row);
+                });
+
+                const placeholder = document.createElement('div');
+                placeholder.id = 'placeholder';
+                placeholder.style.textAlign = 'center';
+                placeholder.style.color = '#888';
+                placeholder.style.marginTop = '50px';
+                placeholder.style.fontSize = '20px';
+                placeholder.textContent = "Select a day above to view the problems.";
+                contentArea.appendChild(placeholder);
+            }
+        }
+
+        function showDay(dayId, btnElement) {
+            currentDayId = dayId;
+            const ph = document.getElementById('placeholder');
+            if (ph) ph.style.display = 'none';
+
+            document.querySelectorAll('.day-content').forEach(d => d.classList.add('hidden'));
+            document.getElementById(dayId).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            document.getElementById('footer-controls').style.display = 'flex';
+            document.getElementById('extraPracticeContainer').classList.add('hidden');
+
+            if (!attempts[dayId]) attempts[dayId] = 0;
+            resetUIForDay(dayId);
+        }
+
+        function resetUIForDay(dayId) {
+            const feedback = document.getElementById('feedback-box');
+            const btn = document.querySelector('.check-btn');
+            const container = document.getElementById(dayId);
+
+            if (attempts[dayId] >= 2) {
+                feedback.textContent = "Review your answers above.";
+                feedback.className = "feedback-box info";
+                btn.disabled = true;
+                btn.textContent = "Completed";
+                revealAnswers(container);
+            } else {
+                feedback.style.display = 'none';
+                btn.disabled = false;
+                btn.textContent = "Check Answers";
+            }
+        }
+
+        function checkAnswers() {
+            if (!currentDayId) return;
+            const container = document.getElementById(currentDayId);
+            let allCorrect = true;
+
+            container.querySelectorAll('input.std-input, input.frac-input').forEach(input => {
+                if (input.closest('.mixed-input-group') || input.closest('.fraction-input-group')) return;
+                const userVal = input.value.trim();
+                const correctVal = input.getAttribute('data-answer');
+
+                let isCorrect = false;
+
+                // Try numeric comparison first
+                const userNum = parseFloat(userVal);
+                const correctNum = parseFloat(correctVal);
+
+                if (!isNaN(userNum) && !isNaN(correctNum)) {
+                    // Numeric comparison with small epsilon for float precision
+                    if (Math.abs(userNum - correctNum) < 0.0001) isCorrect = true;
+                } else {
+                    // String comparison fallback (for <, >, =)
+                    if (userVal === correctVal) isCorrect = true;
+                }
+
+                if (isCorrect) {
+                    input.classList.add('correct-bg'); input.classList.remove('incorrect-bg');
+                } else {
+                    input.classList.add('incorrect-bg'); input.classList.remove('correct-bg');
+                    allCorrect = false;
+                }
+            });
+
+            container.querySelectorAll('.mixed-input-group').forEach(group => {
+                const inputs = group.querySelectorAll('input');
+                const wVal = parseFloat(inputs[0].value) || 0;
+                const nVal = parseFloat(inputs[1].value) || 0;
+                const dVal = parseFloat(inputs[2].value) || 1;
+                const userTotal = wVal + (nVal / dVal);
+                const target = parseFloat(group.getAttribute('data-answer'));
+                if (Math.abs(userTotal - target) < 0.001) {
+                    inputs.forEach(i => { i.classList.add('correct-bg'); i.classList.remove('incorrect-bg'); });
+                } else {
+                    inputs.forEach(i => { i.classList.add('incorrect-bg'); i.classList.remove('correct-bg'); });
+                    allCorrect = false;
+                }
+            });
+
+            container.querySelectorAll('.fraction-input-group').forEach(group => {
+                const inputs = group.querySelectorAll('input');
+                const nVal = parseFloat(inputs[0].value) || 0;
+                const dVal = parseFloat(inputs[1].value) || 1;
+                const userTotal = nVal / dVal;
+                const target = parseFloat(group.getAttribute('data-answer'));
+                if (Math.abs(userTotal - target) < 0.001) {
+                    inputs.forEach(i => { i.classList.add('correct-bg'); i.classList.remove('incorrect-bg'); });
+                } else {
+                    inputs.forEach(i => { i.classList.add('incorrect-bg'); i.classList.remove('correct-bg'); });
+                    allCorrect = false;
+                }
+            });
+
+            container.querySelectorAll('tr[data-type="grid-row"]').forEach(row => {
+                const checkboxes = row.querySelectorAll('input[type="checkbox"]');
+                const trueBox = checkboxes[0];
+                const falseBox = checkboxes[1];
+                const correctIsFirst = trueBox.getAttribute('data-correct') === 'true';
+                let isRowCorrect = false;
+                if (correctIsFirst && trueBox.checked && !falseBox.checked) isRowCorrect = true;
+                else if (!correctIsFirst && !trueBox.checked && falseBox.checked) isRowCorrect = true;
+                const cells = row.querySelectorAll('td');
+                if (isRowCorrect) { cells.forEach(td => { td.classList.add('cell-correct'); td.classList.remove('cell-incorrect'); }); }
+                else { cells.forEach(td => { td.classList.add('cell-incorrect'); td.classList.remove('cell-correct'); }); allCorrect = false; }
+            });
+
+            const feedback = document.getElementById('feedback-box');
+            const btn = document.querySelector('.check-btn');
+
+            if (allCorrect) {
+                feedback.textContent = "🎉 PERFECT! Great job!";
+                feedback.className = "feedback-box correct";
+                btn.disabled = true;
+                btn.textContent = "Completed";
+                attempts[currentDayId] = 2;
+            } else {
+                attempts[currentDayId]++;
+                if (attempts[currentDayId] < 2) {
+                    feedback.textContent = "🤔 Not quite. Try again! (Attempt 1 of 2)";
+                    feedback.className = "feedback-box warning";
+                } else {
+                    feedback.innerHTML = "❌ Nice try! Here are the correct answers.";
+                    feedback.className = "feedback-box info";
+                    revealAnswers(container);
+                    btn.disabled = true;
+                    btn.textContent = "Completed";
+                }
+            }
+        }
+
+        function revealAnswers(container) {
+            container.querySelectorAll('input.std-input, input.frac-input').forEach(input => {
+                if (input.closest('.mixed-input-group') || input.closest('.fraction-input-group')) return;
+                const ans = input.getAttribute('data-answer');
+                if (!input.parentNode.querySelector('.correction-text')) {
+                    const span = document.createElement('span'); span.className = 'correction-text'; span.innerText = ans; input.parentNode.appendChild(span);
+                }
+            });
+            container.querySelectorAll('.mixed-input-group, .fraction-input-group').forEach(group => {
+                if (!group.querySelector('.correction-text')) {
+                    const ans = group.getAttribute('data-answer');
+                    const span = document.createElement('span'); span.className = 'correction-text'; span.innerText = `Val: ${ans}`; group.appendChild(span);
+                }
+            });
+            container.querySelectorAll('tr[data-type="grid-row"]').forEach(row => {
+                row.querySelectorAll('input[type="checkbox"]').forEach(box => {
+                    if (box.getAttribute('data-correct') === 'true' && !box.parentNode.querySelector('.grid-answer-indicator')) {
+                        const div = document.createElement('div'); div.className = 'grid-answer-indicator'; div.innerText = "(Correct)"; box.parentNode.appendChild(div);
+                    }
+                });
+            });
+        }
+
+        window.onload = function () {
+            selectModule(0);
+        };
+
+    </script>
+
+</body>
+
+</html>

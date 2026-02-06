@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Grade 5 Math Warmups</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/gr5.css">
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="home-btn">🏠 Home</a>
+    <button class="print-btn" onclick="printAllModule()">🖨️ Print Worksheet</button>
+
+    <h1>Grade 5 Math Warmups</h1>
+
+    <div class="module-nav">
+        <button class="btn-module" onclick="selectModule(0)">Add/Sub Equiv Fractions</button>
+        <button class="btn-module" onclick="selectModule(1)">Mult/Div Fractions I</button>
+        <button class="btn-module" onclick="selectModule(2)">Review: Fractions & Ops</button>
+        <button class="btn-module" onclick="selectModule(3)">Mult/Div Fractions II</button>
+        <button class="btn-module" onclick="selectModule(4)">Volume Concepts</button>
+        <button class="btn-module" onclick="selectModule(5)">Place Value Systems</button>
+    </div>
+
+    <div class="nav-container" id="navContainer"></div>
+
+    <div id="content-area"></div>
+    
+    <div class="footer-controls" id="footer-controls" style="display:none;">
+        <div id="feedback-box" class="feedback-box"></div>
+        <button class="check-btn" onclick="checkAnswers()">Check Answers</button>
+    </div>
+</div>
+
+<div id="print-area"></div>
+
+<script src="data/gr5/mod1.js"></script>
+<script src="data/gr5/mod2.js"></script>
+<script src="data/gr5/rev1.js"></script>
+
+<script>
+    // COMBINE MODULES
+    // Note: These variables (module1, module2) must be defined in the external files
+    const appData = {
+        modules: [
+            typeof module1 !== 'undefined' ? module1 : { id: "m1", name: "Module 1 (Missing)", weeks: [] },
+            typeof module2 !== 'undefined' ? module2 : { id: "m2", name: "Module 2 (Missing)", weeks: [] },
+            typeof reviewModule !== 'undefined' ? reviewModule : { id: "rev", name: "Review (Missing)", weeks: [] },
+            { id: "mod-3", name: "Multiply and Divide Fractions II", weeks: [] },
+            { id: "mod-4", name: "Volume Concepts", weeks: [] },
+            { id: "mod-5", name: "Place Value Systems", weeks: [] },
+            { id: "mod-6", name: "Numerical Expressions", weeks: [] }
+        ]
+    };
+
+    const dayMap = { "Mon": "Monday", "Tue": "Tuesday", "Wed": "Wednesday", "Thu": "Thursday", "Fri": "Friday" };
+
+    // --- VISUAL GENERATORS (Grey for Print) ---
+    function renderVisualModel(whole, num, den, color = "#ccc") {
+        const size = 80; const padding = 10;
+        const width = (whole * (size + padding)) + (den > 0 ? size + padding : 0);
+        const totalWidth = Math.max(width * 1.2, 120); 
+        let svg = `<svg width="${totalWidth}" height="${size+4}" style="overflow:visible">`;
+        for(let i=0; i<whole; i++) { let x = i * (size + padding); svg += `<rect x="${x}" y="0" width="${size}" height="${size}" fill="${color}" stroke="black" stroke-width="2" />`; }
+        if(den > 0) {
+            let xStart = whole * (size + padding);
+            svg += `<rect x="${xStart}" y="0" width="${size}" height="${size}" fill="none" stroke="black" stroke-width="2" />`;
+            let sliceWidth = size / den;
+            for(let j=0; j<num; j++) svg += `<rect x="${xStart + (j*sliceWidth)}" y="0" width="${sliceWidth}" height="${size}" fill="${color}" stroke="none" />`;
+            for(let k=1; k<den; k++) svg += `<line x1="${xStart + (k*sliceWidth)}" y1="0" x2="${xStart + (k*sliceWidth)}" y2="${size}" stroke="black" stroke-width="1" />`;
+            svg += `<rect x="${xStart}" y="0" width="${size}" height="${size}" fill="none" stroke="black" stroke-width="2" />`;
+        }
+        svg += '</svg>'; return svg;
+    }
+    
+    function renderRepeatedVisual(count, num, den, color = "#ccc") {
+        const size = 60; const padding = 15;
+        const width = count * (size + padding);
+        let svg = `<svg width="${width}" height="${size+4}" style="overflow:visible">`;
+        for(let i=0; i<count; i++) {
+            let x = i * (size + padding);
+            svg += `<rect x="${x}" y="0" width="${size}" height="${size}" fill="none" stroke="black" stroke-width="2" />`;
+            let sliceWidth = size / den;
+            for(let j=0; j<num; j++) svg += `<rect x="${x + (j*sliceWidth)}" y="0" width="${sliceWidth}" height="${size}" fill="${color}" stroke="none" />`;
+            for(let k=1; k<den; k++) svg += `<line x1="${x + (k*sliceWidth)}" y1="0" x2="${x + (k*sliceWidth)}" y2="${size}" stroke="black" stroke-width="1" />`;
+            svg += `<rect x="${x}" y="0" width="${size}" height="${size}" fill="none" stroke="black" stroke-width="2" />`;
+        }
+        svg += '</svg>'; return svg;
+    }
+
+    function renderPieModel(whole, num, den, color="#ccc") {
+        const r = 35; const d = r * 2; const padding = 10; const center = r + 2;
+        const width = (whole * (d + padding)) + (den > 0 ? d + padding : 0);
+        let svg = `<svg width="${Math.max(width * 1.1, 100)}" height="${d+4}" style="overflow:visible">`;
+        function getCoords(percent) { return [Math.cos(2*Math.PI*percent), Math.sin(2*Math.PI*percent)]; }
+        for(let i=0; i<whole; i++) {
+            let cx = center + (i * (d + padding));
+            svg += `<circle cx="${cx}" cy="${center}" r="${r}" fill="${color}" stroke="black" stroke-width="2" />`;
+            if(den > 1) { for(let k=0; k<den; k++) { const [x, y] = getCoords(k/den); svg += `<line x1="${cx}" y1="${center}" x2="${cx + x*r}" y2="${center + y*r}" stroke="black" stroke-width="1" />`; } }
+        }
+        if(den > 0) {
+            let cx = center + (whole * (d + padding));
+            svg += `<circle cx="${cx}" cy="${center}" r="${r}" fill="none" stroke="black" stroke-width="2" />`;
+            for(let j=0; j<num; j++) {
+                const [x1, y1] = getCoords(j/den); const [x2, y2] = getCoords((j+1)/den);
+                svg += `<path d="M ${cx} ${center} L ${cx + x1*r} ${center + y1*r} A ${r} ${r} 0 0 1 ${cx + x2*r} ${center + y2*r} Z" fill="${color}" stroke="none" />`;
+            }
+            for(let k=0; k<den; k++) { const [x, y] = getCoords(k/den); svg += `<line x1="${cx}" y1="${center}" x2="${cx + x*r}" y2="${center + y*r}" stroke="black" stroke-width="1" />`; }
+            svg += `<circle cx="${cx}" cy="${center}" r="${r}" fill="none" stroke="black" stroke-width="2" />`;
+        }
+        svg += '</svg>'; return svg;
+    }
+    
+    function renderRepeatedPie(count, num, den, color="#ccc") {
+        const r = 35; const d = r * 2; const padding = 15; const center = r + 2;
+        const width = count * (d + padding);
+        let svg = `<svg width="${width}" height="${d+4}" style="overflow:visible">`;
+        function getCoords(percent) { return [Math.cos(2*Math.PI*percent), Math.sin(2*Math.PI*percent)]; }
+        for(let i=0; i<count; i++) {
+            let cx = center + (i * (d + padding));
+            svg += `<circle cx="${cx}" cy="${center}" r="${r}" fill="none" stroke="black" stroke-width="2" />`;
+            for(let j=0; j<num; j++) {
+                const [x1, y1] = getCoords(j/den); const [x2, y2] = getCoords((j+1)/den);
+                svg += `<path d="M ${cx} ${center} L ${cx + x1*r} ${center + y1*r} A ${r} ${r} 0 0 1 ${cx + x2*r} ${center + y2*r} Z" fill="${color}" stroke="none" />`;
+            }
+            for(let k=0; k<den; k++) { const [x, y] = getCoords(k/den); svg += `<line x1="${cx}" y1="${center}" x2="${cx + x*r}" y2="${center + y*r}" stroke="black" stroke-width="1" />`; }
+            svg += `<circle cx="${cx}" cy="${center}" r="${r}" fill="none" stroke="black" stroke-width="2" />`;
+        }
+        svg += '</svg>'; return svg;
+    }
+    
+    function renderNumberLine(min, max, step, points = []) {
+        const w = 600; const h = 100; const margin = 40; const yLine = 50; const usefulWidth = w - (margin * 2);
+        let svg = `<svg viewBox="0 0 ${w} ${h}" width="100%" style="border: 2px solid #eee; border-radius: 10px; background: white; margin-bottom: 20px;">`;
+        svg += `<line x1="${margin}" y1="${yLine}" x2="${w - margin}" y2="${yLine}" stroke="black" stroke-width="3" />`;
+        svg += `<polygon points="${margin},${yLine-5} ${margin-10},${yLine} ${margin},${yLine+5}" fill="black" />`;
+        svg += `<polygon points="${w-margin},${yLine-5} ${w-margin+10},${yLine} ${w-margin},${yLine+5}" fill="black" />`;
+        const totalSteps = (max - min) / step; const stepPx = usefulWidth / totalSteps;
+        for (let i = 0; i <= totalSteps; i++) {
+            let x = margin + (i * stepPx);
+            svg += `<line x1="${x}" y1="${yLine - 8}" x2="${x}" y2="${yLine + 8}" stroke="black" stroke-width="2" />`;
+            let val = min + (i * step);
+            if (Number.isInteger(val)) svg += `<text x="${x}" y="${yLine + 30}" text-anchor="middle" font-size="18" font-family="Fredoka" font-weight="bold">${val}</text>`;
+        }
+        points.forEach(p => {
+            let ratio = (p.val - min) / (max - min); let cx = margin + (ratio * usefulWidth);
+            svg += `<circle cx="${cx}" cy="${yLine}" r="7" fill="#e67e22" stroke="black" stroke-width="1" />`;
+            svg += `<text x="${cx}" y="${yLine - 20}" text-anchor="middle" font-size="20" font-weight="bold" fill="#d35400">${p.label}</text>`;
+        });
+        svg += `</svg>`; return svg;
+    }
+
+    // --- RENDER LOGIC ---
+
+    function renderFraction(n, d) { return `<div class="fraction-wrap"><span class="frac-top">${n}</span><span class="frac-bottom">${d}</span></div>`; }
+    function renderSegment(seg) {
+        if (seg.type === 'text') return `<div class="mixed-text-container">${seg.val}</div>`;
+        if (seg.type === 'break') return `<div style="width:100%; height: 5px;"></div>`; 
+        if (seg.type === 'fraction') return renderFraction(seg.n, seg.d);
+        if (seg.type === 'mixed') return `<div class="whole-part">${seg.w}</div>` + renderFraction(seg.n, seg.d);
+        if (seg.type === 'fraction_group') return `<div class="fraction-input-group" data-answer="${seg.ans}"><input type="number" class="frac-input" placeholder="n"><div class="frac-line"></div><input type="number" class="frac-input" placeholder="d"></div>`;
+        if (seg.type === 'mixed_group') return `<div class="mixed-input-group" data-answer="${seg.ans}"><input type="number" class="mixed-whole-input" placeholder="#"><div class="mixed-frac-container"><input type="number" class="frac-input" placeholder="n"><div class="frac-line"></div><input type="number" class="frac-input" placeholder="d"></div></div>`;
+        if (seg.type === 'whole_number') return `<div class="whole-input-group" data-answer="${seg.ans}"><input type="number" class="whole-input" placeholder="#"></div>`;
+        
+        // VISUAL RENDER CALLS
+        if (seg.type === 'visual') return renderVisualModel(seg.whole, seg.num, seg.den, "#e67e22");
+        if (seg.type === 'visual-repeat') return renderRepeatedVisual(seg.count, seg.num, seg.den, "#e67e22");
+        if (seg.type === 'pie') return renderPieModel(seg.whole, seg.num, seg.den, "#e67e22");
+        if (seg.type === 'pie-repeat') return renderRepeatedPie(seg.count, seg.num, seg.den, "#e67e22");
+        return '';
+    }
+
+    function renderSection(section, index) {
+        let html = `<div class="question-card">`;
+        html += `<div class="instructions"><span style="margin-right:5px; font-weight:bold;">${index + 1}.</span>`;
+        if (Array.isArray(section.instruction)) { section.instruction.forEach(seg => html += renderSegment(seg)); } else { html += `<span>${section.instruction}</span>`; }
+        if (section.instructionMath) { section.instructionMath.forEach(seg => html += renderSegment(seg)); }
+        html += `</div>`;
+
+        if (section.type === 'mixed_row' || section.type === 'visual_problem' || section.type === 'number_line') {
+            if (section.type === 'visual_problem') {
+                html += `<div class="visual-container">`;
+                section.models.forEach(m => html += `<div class="visual-item"><div class="visual-label">${m.label}</div>${renderVisualModel(m.whole, m.num, m.den, m.color)}</div>`);
+                html += `</div>`;
+            } else if (section.type === 'number_line') {
+                html += `<div class="visual-container" style="border:none; background:none;">${renderNumberLine(section.min, section.max, section.step, section.points)}</div>`;
+            }
+            section.problems.forEach(prob => {
+                html += `<div class="math-row" style="justify-content:center;">`;
+                prob.segments.forEach(seg => html += renderSegment(seg));
+                html += `</div>`;
+            });
+        }
+        else if (section.type === 'multiple_choice') {
+            html += `<div class="mc-container">`;
+            const inputType = section.select_all ? 'checkbox' : 'radio';
+            
+            section.options.forEach((opt, idx) => {
+                const warningAttr = opt.warning ? `data-warning="${opt.warning}"` : '';
+                html += `<label class="mc-option" data-correct="${opt.correct}" ${warningAttr}>
+                    <input type="${inputType}" name="mc_q_${index}" value="${idx}">
+                    <div class="mc-content">`;
+                    opt.content.forEach(seg => html += renderSegment(seg));
+                html += `</div></label>`;
+            });
+            html += `<div class="correction-text" style="display:none;"></div></div>`;
+        }
+        html += `</div>`;
+        return html;
+    }
+
+    function renderDay() {
+        const module = appData.modules[currentModuleIndex];
+        currentAttempts = 0;
+        if (!module.weeks || module.weeks.length === 0) {
+            document.getElementById('content-area').innerHTML = `<div class="tbd-message">🚧 Content for <strong>${module.name}</strong> is coming soon! 🚧</div>`;
+            document.getElementById('navContainer').innerHTML = ''; document.getElementById('footer-controls').style.display = 'none'; return;
+        }
+        const week = module.weeks[currentWeekIndex]; const day = week.days[currentDayIndex]; const dayFullName = dayMap[day.name] || day.name;
+        let navHtml = '';
+        module.weeks.forEach((w, wIdx) => {
+            navHtml += `<div class="week-label">Week ${w.weekNum}</div><div class="week-row">`;
+            w.days.forEach((d, dIdx) => {
+                const active = (wIdx === currentWeekIndex && dIdx === currentDayIndex) ? 'active' : '';
+                navHtml += `<button class="nav-btn ${active}" onclick="selectDay(${wIdx}, ${dIdx})">${d.name}</button>`;
+            });
+            navHtml += `</div>`;
+        });
+        document.getElementById('navContainer').innerHTML = navHtml;
+        let contentHtml = `<div class="day-content"><h3 class="screen-header">Week ${week.weekNum}: ${dayFullName}</h3>`;
+        day.sections.forEach((sec, idx) => { contentHtml += renderSection(sec, idx); });
+        contentHtml += `</div>`;
+        document.getElementById('content-area').innerHTML = contentHtml;
+        document.getElementById('footer-controls').style.display = 'flex';
+        document.getElementById('feedback-box').style.display = 'none';
+        
+        // Reset Inputs
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(i => {
+            i.disabled = false;
+            if(i.type === 'text' || i.type === 'number') {
+                i.parentElement.classList.remove('correct-bg', 'incorrect-bg');
+            } else {
+                i.checked = false;
+                i.parentElement.style.border = "2px solid #ffeaa7";
+                i.parentElement.classList.remove('correct-bg', 'incorrect-bg');
+            }
+        });
+        document.querySelectorAll('.correction-text').forEach(f => f.style.display = 'none');
+    }
+
+    function selectModule(idx) { currentModuleIndex = idx; currentWeekIndex = 0; currentDayIndex = 0; renderDay(); updateBtns(idx); }
+    function selectDay(wIdx, dIdx) { currentWeekIndex = wIdx; currentDayIndex = dIdx; renderDay(); }
+    function updateBtns(idx) { document.querySelectorAll('.btn-module').forEach((b, i) => { if(i===idx) b.classList.add('active'); else b.classList.remove('active'); }); }
+
+    function checkAnswers() {
+        currentAttempts++; let correctCount = 0; let totalCount = 0;
+        
+        // Frac Groups
+        document.querySelectorAll('.fraction-input-group').forEach(group => {
+            if(group.closest('.mixed-input-group')) return;
+            totalCount++;
+            const inputs = group.querySelectorAll('input'); const n = parseFloat(inputs[0].value); const d = parseFloat(inputs[1].value);
+            const target = parseFloat(group.getAttribute('data-answer'));
+            let isCorrect = (!isNaN(n) && !isNaN(d) && d!==0 && Math.abs((n/d)-target) < 0.001);
+            if(isCorrect) { group.classList.add('correct-bg'); group.classList.remove('incorrect-bg'); correctCount++; }
+            else { group.classList.add('incorrect-bg'); group.classList.remove('correct-bg'); }
+        });
+        // Mixed Groups
+        document.querySelectorAll('.mixed-input-group').forEach(group => {
+            totalCount++;
+            const w = parseFloat(group.querySelector('.mixed-whole-input').value)||0;
+            const n = parseFloat(group.querySelector('.frac-input:nth-of-type(1)').value)||0;
+            const d = parseFloat(group.querySelector('.frac-input:nth-of-type(2)').value)||1;
+            const target = parseFloat(group.getAttribute('data-answer'));
+            if(Math.abs((w+(n/d))-target) < 0.001) { group.classList.add('correct-bg'); group.classList.remove('incorrect-bg'); correctCount++; }
+            else { group.classList.add('incorrect-bg'); group.classList.remove('correct-bg'); }
+        });
+        // Whole Number Groups
+        document.querySelectorAll('.whole-input-group').forEach(group => {
+            totalCount++;
+            const val = parseFloat(group.querySelector('.whole-input').value);
+            const target = parseFloat(group.getAttribute('data-answer'));
+            if(!isNaN(val) && Math.abs(val - target) < 0.001) { group.classList.add('correct-bg'); group.classList.remove('incorrect-bg'); correctCount++; }
+            else { group.classList.add('incorrect-bg'); group.classList.remove('correct-bg'); }
+        });
+        
+        // MC & Checkboxes
+        document.querySelectorAll('.mc-container').forEach(container => {
+            totalCount++; 
+            const options = container.querySelectorAll('.mc-option');
+            const isCheckbox = options[0].querySelector('input').type === 'checkbox';
+            
+            let isCorrectGroup = false;
+            
+            if (isCheckbox) {
+                // Strict grading for checkboxes: All correct options checked, no incorrect ones checked
+                let allCorrectChecked = true;
+                let noIncorrectChecked = true;
+                
+                options.forEach(opt => {
+                    const checked = opt.querySelector('input').checked;
+                    const correct = opt.getAttribute('data-correct') === 'true';
+                    if (correct && !checked) allCorrectChecked = false;
+                    if (!correct && checked) noIncorrectChecked = false;
+                });
+                isCorrectGroup = allCorrectChecked && noIncorrectChecked;
+            } else {
+                // Standard Radio Button logic
+                options.forEach(opt => {
+                    if(opt.querySelector('input').checked && opt.getAttribute('data-correct')==='true') isCorrectGroup = true;
+                });
+            }
+            
+            const feedback = container.querySelector('.correction-text');
+            feedback.style.display = "inline-block";
+            let warningMsg = "";
+            
+            options.forEach(opt => {
+                const checked = opt.querySelector('input').checked;
+                const isCorrect = opt.getAttribute('data-correct') === 'true';
+                const warning = opt.getAttribute('data-warning');
+                
+                opt.style.border = "2px solid #ffeaa7"; 
+                opt.classList.remove('correct-bg','incorrect-bg');
+                
+                if(checked) {
+                    if(isCorrect) opt.classList.add('correct-bg');
+                    else {
+                        opt.classList.add('incorrect-bg');
+                        if(warning) warningMsg = warning;
+                    }
+                }
+                
+                // Reveal logic (Show correct answers if correct or attempts > 2)
+                if(isCorrect && (isCorrectGroup || currentAttempts >= 2)) {
+                    opt.style.border = "2px solid #27ae60";
+                }
+            });
+
+            if(isCorrectGroup) {
+                correctCount++; feedback.innerHTML = "Correct!"; feedback.className = "correction-text correct-bg";
+                feedback.style.backgroundColor="#e8f5e9"; feedback.style.color="#2e7d32";
+            } else {
+                if(warningMsg) {
+                    feedback.innerHTML = warningMsg;
+                    feedback.style.backgroundColor = "#fff3e0"; feedback.style.color = "#e67e22";
+                } else if(currentAttempts < 2) {
+                    feedback.innerHTML = "Try Again";
+                    feedback.style.backgroundColor = "#fadbd8"; feedback.style.color = "#c0392b";
+                } else {
+                    feedback.innerHTML = "Solution Shown";
+                    feedback.style.backgroundColor = "#fff3e0"; feedback.style.color = "#e67e22";
+                }
+            }
+        });
+
+        const fbBox = document.getElementById('feedback-box'); fbBox.style.display = 'block';
+        if(correctCount === totalCount && totalCount > 0) { fbBox.className = 'feedback-box correct'; fbBox.innerHTML = "🌟 Amazing! You got everything correct! 🌟"; }
+        else { fbBox.className = 'feedback-box warning'; fbBox.innerHTML = `You got ${correctCount} out of ${totalCount} correct. ${currentAttempts < 2 ? 'Try again!' : 'Review the solutions.'}`; }
+    }
+
+    // --- UPDATED PRINT LOGIC ---
+    function printAllModule() {
+        const module = appData.modules[currentModuleIndex];
+        if (!module.weeks || module.weeks.length === 0) { alert("No content to print."); return; }
+        
+        let fullHtml = ``;
+        
+        module.weeks.forEach((week, wIdx) => {
+            // New Grid Container for EACH WEEK to handle page breaks properly
+            fullHtml += `<div class="print-week-wrap">`;
+            
+            // Header (Spans 2 columns)
+            fullHtml += `
+            <div class="print-week-header">
+                <div style="font-size: 24px; font-weight: bold;">Week ${week.weekNum}</div>
+                <div style="display: flex; gap: 50px; font-size: 18px;">
+                    <span>Name: __________________________</span>
+                    <span>Date: __________________</span>
+                </div>
+            </div>`;
+            
+            // Day Cards
+            week.days.forEach(day => {
+                const dayName = dayMap[day.name] || day.name;
+                fullHtml += `<div class="print-day-card">
+                    <div class="print-day-title">${dayName}</div>`;
+                
+                day.sections.forEach((sec, idx) => {
+                    fullHtml += renderSection(sec, idx);
+                });
+                
+                fullHtml += `</div>`;
+            });
+            
+            fullHtml += `</div>`; // Close Grid
+        });
+
+        document.getElementById('print-area').innerHTML = fullHtml;
+        window.print();
+    }
+
+    // Init
+    selectModule(0);
+</script>
+</body>
+</html>

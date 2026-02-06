@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Math FIAB Practice | Roosevelt Elementary</title>
+    <style>
+        :root {
+            --primary-green: #2E7D32; /* Rattlesnake Green */
+            --accent-gold: #FBC02D;   /* School Gold */
+            --light-bg: #F1F8E9;
+            --text-dark: #1B5E20;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: var(--text-dark);
+            background-image: radial-gradient(#dcedc8 15%, transparent 16%), radial-gradient(#dcedc8 15%, transparent 16%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+        }
+
+        header {
+            background-color: var(--primary-green);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-bottom: 5px solid var(--accent-gold);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            margin: 10px 0 0 0;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 2px solid var(--primary-green);
+        }
+
+        .mascot-area {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .grade-card {
+            background: white;
+            border: 2px solid var(--accent-gold);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grade-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.2);
+            background-color: #FFFDE7;
+        }
+
+        .grade-card h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .grade-card span {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Specific style for the extra pattern link to make it stand out */
+        .pattern-link {
+            border-style: dashed;
+            background-color: #f9fbe7;
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--primary-green);
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Daily Math FIAB Practice</h1>
+        <h2>Roosevelt Elementary School</h2>
+    </header>
+
+    <div class="container">
+        <div class="mascot-area">
+            🐍 ➗ 📐
+        </div>
+        
+        <p class="intro-text">
+            Welcome, Teachers! Let's <strong>slither</strong> into some problem solving.<br>
+            Select a grade level below to access the daily practice materials.
+        </p>
+
+        <nav class="btn-grid">
+            <a href="gr_3_fiab_practice.html" class="grade-card">
+                <span>3️⃣</span>
+                <h3>Grade 3 Practice</h3>
+            </a>
+
+            <a href="gr_4_fiab_practice.html" class="grade-card">
+                <span>4️⃣</span>
+                <h3>Grade 4 Practice</h3>
+            </a>
+
+            <a href="gr_4_fiab_patterns.html" class="grade-card pattern-link">
+                <span>🧩</span>
+                <h3>Grade 4 Patterns</h3>
+            </a>
+
+            <a href="gr_5_fiab_practice.html" class="grade-card">
+                <span>5️⃣</span>
+                <h3>Grade 5 Practice</h3>
+            </a>
+        </nav>
+    </div>
+
+    <footer>
+        &copy; Roosevelt Elementary Rattlesnakes | Team Reads-A-Lot
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 3 Math Warmups</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/gr3.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <a href="index.html" class="home-btn">🏠 Home</a>
+        <button class="print-btn" onclick="window.print()">🖨️ Print Worksheet</button>
+
+        <h1>Grade 3 Math Warmups</h1>
+
+        <div class="module-nav">
+            <button class="btn-module" onclick="selectModule(0)">Multiply & Divide Within 100</button>
+            <button class="btn-module" onclick="selectModule(1)">Mult/Div: Interpret & Solve</button>
+            <button class="btn-module" onclick="selectModule(2)">Properties of Mult/Div</button>
+        </div>
+
+        <div class="nav-container" id="navContainer"></div>
+
+        <div id="content-area">
+            <div id="placeholder" style="text-align: center; color: #888; margin-top: 50px; font-size: 20px;">
+                Select a module above to begin!
+            </div>
+        </div>
+
+        <div class="footer-controls" id="footer-controls" style="display:none;">
+            <div id="feedback-box" class="feedback-box"></div>
+            <button class="check-btn" onclick="checkAnswers()">Check Answers</button>
+        </div>
+
+        <button id="btnExtra" class="btn-extra hidden" onclick="startExtraPractice()">⚡ Bonus: Extra Practice</button>
+
+        <div id="extraPracticeContainer" class="hidden">
+            <h3 style="color: #8e44ad; border-bottom: 2px dashed #cdb4db;">Mixed Multiplication & Division Drills</h3>
+            <p style="margin-bottom: 20px;">Fill in the missing numbers!</p>
+            <div id="drillGrid" class="drill-grid"></div>
+            <button class="btn-extra" style="margin-top: 10px; background-color: #9b59b6;" onclick="checkDrills()">Check
+                My Work</button>
+            <div id="drillFeedback" class="feedback-box"></div>
+        </div>
+    </div>
+
+    <script src="data/gr3/mod1.js"></script>
+    <script src="data/gr3/mod2.js"></script>
+    <script src="data/gr3/mod3.js"></script>
+
+    <script>
+        // --- APP DATA (Same as before) ---
+        const appData = {
+            modules: [
+                typeof module1 !== 'undefined' ? module1 : { id: "m1", name: "Module 1 (Missing)", weeks: [] },
+                typeof module2 !== 'undefined' ? module2 : { id: "m2", name: "Module 2 (Missing)", weeks: [] },
+                typeof module3 !== 'undefined' ? module3 : { id: "m3", name: "Module 3 (Missing)", weeks: [] }
+            ]
+        };
+
+        // --- MAIN STATE & LOGIC ---
+        let currentModuleIndex = -1;
+        let currentDayId = '';
+        let attempts = {};
+
+        function selectModule(index) {
+            currentModuleIndex = index;
+            document.querySelectorAll('.btn-module').forEach((btn, idx) => btn.classList.toggle('active', idx === index));
+
+            const module = appData.modules[index];
+            const navContainer = document.getElementById('navContainer');
+            const contentArea = document.getElementById('content-area');
+
+            // Reset View
+            navContainer.innerHTML = '';
+            contentArea.innerHTML = '<div id="placeholder" style="text-align:center;color:#888;margin-top:50px;font-size:20px;">Select a day above to view the problems.</div>';
+            document.getElementById('footer-controls').style.display = 'none';
+
+            // Toggle Extra Practice
+            const extraBtn = document.getElementById('btnExtra');
+            const extraCont = document.getElementById('extraPracticeContainer');
+            if (module.weeks) { extraBtn.classList.remove('hidden'); }
+            else { extraBtn.classList.add('hidden'); extraCont.classList.add('hidden'); }
+
+            if (!module.weeks) {
+                contentArea.innerHTML = `<div class="tbd-message">Coming Soon: ${module.name} content is TBD! 🚧</div>`;
+                return;
+            }
+
+            module.weeks.forEach(week => {
+                const label = document.createElement('div');
+                label.className = 'week-label';
+                if (week.weekNum > 1) label.style.marginTop = '15px';
+                label.textContent = `Week ${week.weekNum}`;
+                navContainer.appendChild(label);
+
+                const row = document.createElement('div');
+                row.className = 'week-row';
+
+                week.days.forEach(day => {
+                    const btn = document.createElement('button');
+                    btn.className = 'nav-btn'; btn.textContent = day.name;
+                    btn.onclick = () => showDay(day.id, btn);
+                    row.appendChild(btn);
+
+                    // --- PRINT HEADER INSERTION (New logic) ---
+                    if (day.name === 'Mon') {
+                        const printHeader = document.createElement('div');
+                        printHeader.className = 'print-header';
+                        printHeader.innerHTML = `<span>Name: _______________________________</span><span>Date: ____________________</span>`;
+                        contentArea.appendChild(printHeader);
+                    }
+
+                    const dayDiv = document.createElement('div');
+                    dayDiv.id = day.id; dayDiv.className = 'day-content hidden';
+                    dayDiv.innerHTML = `<h3>${day.title}<span class="print-mod-label">M${index + 1}</span></h3>`;
+
+                    day.sections.forEach(sec => {
+                        const card = document.createElement('div'); card.className = 'question-card';
+                        const iText = sec.instruction.split(':');
+                        const iHtml = iText.length > 1 ? `<strong>${formatText(iText[0] + ':')}</strong>${formatText(iText.slice(1).join(':'))}` : formatText(sec.instruction);
+                        card.innerHTML = `<p class="instructions">${iHtml}</p>`;
+
+                        if (sec.type === 'grid') card.appendChild(createGrid(sec.rows));
+                        else if (sec.type === 'input') sec.problems.forEach(p => card.appendChild(createProblem(p)));
+                        else if (sec.type === 'double') card.appendChild(createDouble(sec));
+                        else if (sec.type === 'mc') card.appendChild(createMC(sec));
+                        dayDiv.appendChild(card);
+                    });
+                    contentArea.appendChild(dayDiv);
+
+                    // --- INSERT SPACER IF DAY IS FRIDAY ---
+                    if (day.name === 'Fri') {
+                        const spacer = document.createElement('div');
+                        spacer.className = 'print-spacer';
+                        contentArea.appendChild(spacer);
+                    }
+                });
+                navContainer.appendChild(row);
+            });
+
+            // --- GENERATE TEACHER ANSWER KEY (New logic) ---
+            const answerKey = generateAnswerKey(module);
+            contentArea.appendChild(answerKey);
+        }
+
+        function generateAnswerKey(module) {
+            const div = document.createElement('div');
+            div.className = 'answer-key-page';
+            let html = `<h2>Teacher Answer Key: ${module.name}</h2><div class="ak-cols">`;
+
+            module.weeks.forEach(week => {
+                html += `<div class="ak-week"><h4>Week ${week.weekNum}</h4>`;
+                week.days.forEach(day => {
+                    html += `<div class="ak-day"><strong>${day.name}:</strong> `;
+                    let answers = [];
+                    day.sections.forEach(sec => {
+                        if (sec.type === 'input') sec.problems.forEach((p, i) => answers.push(p.answer));
+                        if (sec.type === 'double') answers.push(...sec.answers);
+                        if (sec.type === 'mc') sec.options.forEach(o => { if (o.correct) answers.push(`(MC: ${o.text})`); });
+                        if (sec.type === 'grid') {
+                            let bools = sec.rows.map(r => r.correct ? 'T' : 'F').join(', ');
+                            answers.push(`[${bools}]`);
+                        }
+                    });
+                    html += answers.join(' &nbsp;|&nbsp; ');
+                    html += `</div>`;
+                });
+                html += `</div>`;
+            });
+            html += `</div>`;
+            div.innerHTML = html;
+            return div;
+        }
+
+        function showDay(dayId, btn) {
+            currentDayId = dayId;
+            document.getElementById('placeholder').style.display = 'none';
+            document.querySelectorAll('.day-content').forEach(d => d.classList.add('hidden'));
+            document.getElementById(dayId).classList.remove('hidden');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('footer-controls').style.display = 'flex';
+
+            if (!attempts[dayId]) attempts[dayId] = 0;
+            resetUI(dayId);
+        }
+
+        // --- DOM BUILDERS ---
+        function formatText(t) { return t ? t.replace(/□|\[box\]/g, '<span class="unknown-square"></span>') : t; }
+
+        function createProblem(p) {
+            const div = document.createElement('div'); div.className = 'math-problem';
+            const input = `<input type="text" class="input-box" data-answer="${p.answer}">`;
+            div.innerHTML = p.text.includes('[box]') ? p.text.replace('[box]', input).replace(/□/g, '<span class="unknown-square"></span>') : formatText(p.text) + ' ' + input;
+            return div;
+        }
+
+        function createGrid(rows) {
+            let h = `<table class="caaspp-grid"><tr><th style="width:50%">Statement / Equation</th><th>True</th><th>False</th></tr>`;
+            rows.forEach(r => {
+                const tBox = `<label class="checkbox-container"><input type="checkbox" data-correct="${r.correct}"><span class="checkmark"></span></label>`;
+                const fBox = `<label class="checkbox-container"><input type="checkbox" data-correct="${!r.correct}"><span class="checkmark"></span></label>`;
+                h += `<tr data-type="grid-row"><td>${formatText(r.text)}</td><td>${tBox}</td><td>${fBox}</td></tr>`;
+            });
+            return createElementFromHTML(h + '</table>');
+        }
+
+        function createDouble(sec) {
+            return createElementFromHTML(`<div class="double-input-container"><div class="double-input-prompt">${formatText(sec.prompt)}</div><p style="margin-top:15px;color:#666">Enter one number in each box:</p><div class="box-row"><input class="input-box" data-answer="${sec.answers[0]}"><input class="input-box" data-answer="${sec.answers[1]}"></div></div>`);
+        }
+
+        function createMC(sec) {
+            const div = document.createElement('div'); div.setAttribute('data-type', 'mc-container');
+            const grp = 'mc_' + Math.random().toString(36).substr(2, 9);
+            sec.options.forEach(opt => {
+                const row = document.createElement('div'); row.className = 'mc-option';
+                row.innerHTML = `<input type="radio" name="${grp}" data-correct="${opt.correct}"><span>${formatText(opt.text)}</span>`;
+                row.onclick = () => row.querySelector('input').checked = true;
+                div.appendChild(row);
+            });
+            return div;
+        }
+
+        function createElementFromHTML(htmlString) {
+            const div = document.createElement('div'); div.innerHTML = htmlString.trim();
+            return div.firstChild;
+        }
+
+        // --- CHECKING LOGIC ---
+        function resetUI(dayId) {
+            const fb = document.getElementById('feedback-box');
+            const btn = document.querySelector('.check-btn');
+            if (attempts[dayId] >= 2) {
+                fb.className = "feedback-box info"; fb.textContent = "Review your answers above.";
+                btn.disabled = true; btn.textContent = "Completed";
+                revealAnswers(document.getElementById(dayId));
+            } else {
+                fb.style.display = 'none'; btn.disabled = false; btn.textContent = "Check Answers";
+            }
+        }
+
+        function checkAnswers() {
+            const c = document.getElementById(currentDayId);
+            let allGood = true;
+
+            // Inputs
+            c.querySelectorAll('input[type="text"]').forEach(i => {
+                if (i.value.trim() === i.dataset.answer) { i.className = 'input-box correct'; }
+                else { i.className = 'input-box incorrect'; allGood = false; }
+            });
+
+            // Grids
+            c.querySelectorAll('tr[data-type="grid-row"]').forEach(row => {
+                row.querySelectorAll('.checkbox-container').forEach(l => l.classList.remove('correct-check', 'incorrect-check'));
+
+                const [tWrap, fWrap] = row.querySelectorAll('.checkbox-container');
+                const [tIn, fIn] = row.querySelectorAll('input');
+                const isCorrect = (tIn.dataset.correct === 'true' && tIn.checked && !fIn.checked) || (tIn.dataset.correct === 'false' && !tIn.checked && fIn.checked);
+
+                if (tIn.checked) {
+                    if (tIn.dataset.correct === 'true') tWrap.classList.add('correct-check');
+                    else tWrap.classList.add('incorrect-check');
+                }
+                if (fIn.checked) {
+                    if (fIn.dataset.correct === 'true') fWrap.classList.add('correct-check');
+                    else fWrap.classList.add('incorrect-check');
+                }
+                if (!isCorrect) allGood = false;
+            });
+
+            // MC
+            c.querySelectorAll('div[data-type="mc-container"]').forEach(mc => {
+                let mcHit = false;
+                mc.querySelectorAll('.mc-option').forEach(opt => {
+                    opt.className = 'mc-option';
+                    const r = opt.querySelector('input');
+                    if (r.checked) {
+                        if (r.dataset.correct === 'true') { opt.classList.add('mc-correct'); mcHit = true; }
+                        else opt.classList.add('mc-incorrect');
+                    }
+                });
+                if (!mcHit) allGood = false;
+            });
+
+            const fb = document.getElementById('feedback-box');
+            const btn = document.querySelector('.check-btn');
+
+            if (allGood) {
+                fb.className = "feedback-box correct"; fb.textContent = "🎉 PERFECT! Great job!";
+                btn.disabled = true; btn.textContent = "Completed"; attempts[currentDayId] = 2;
+            } else {
+                attempts[currentDayId]++;
+                if (attempts[currentDayId] < 2) { fb.className = "feedback-box warning"; fb.textContent = "🤔 Not quite. Try again! (Attempt 1 of 2)"; }
+                else { fb.className = "feedback-box info"; fb.textContent = "❌ Nice try! Here are the correct answers."; revealAnswers(c); btn.disabled = true; btn.textContent = "Completed"; }
+            }
+        }
+
+        function revealAnswers(c) {
+            c.querySelectorAll('input[type="text"]').forEach(i => {
+                if (!i.parentNode.querySelector('.correction-text')) i.parentNode.insertAdjacentHTML('beforeend', `<span class="correction-text">Ans: ${i.dataset.answer}</span>`);
+            });
+
+            c.querySelectorAll('input[type="checkbox"][data-correct="true"]').forEach(box => {
+                const label = box.closest('.checkbox-container');
+                if (!label.parentNode.querySelector('.grid-answer-indicator')) {
+                    label.parentNode.insertAdjacentHTML('beforeend', `<div class="grid-answer-indicator" style="color:#27ae60; font-weight:bold; font-size:14px; margin-top:5px;">(Correct)</div>`);
+                }
+            });
+
+            c.querySelectorAll('input[type="radio"][data-correct="true"]').forEach(r => r.closest('.mc-option').classList.add('mc-correct'));
+        }
+
+        // --- EXTRA PRACTICE ---
+        let currentDrills = [];
+        function startExtraPractice() {
+            const c = document.getElementById('extraPracticeContainer'), g = document.getElementById('drillGrid'), fb = document.getElementById('drillFeedback');
+            c.classList.remove('hidden'); fb.style.display = 'none'; c.scrollIntoView({ behavior: 'smooth' });
+            g.innerHTML = ''; currentDrills = [];
+
+            for (let i = 0; i < 15; i++) {
+                let n1 = Math.ceil(Math.random() * 10), n2 = Math.ceil(Math.random() * 10), isMult = Math.random() > .5;
+                let val = isMult ? n1 * n2 : n1, eq = isMult ? `${n1} &times; ${n2} = ${val}` : `${n1 * n2} &divide; ${n2} = ${n1}`;
+                let parts = isMult ? [n1, n2, val] : [n1 * n2, n2, n1];
+                let missing = Math.floor(Math.random() * 3);
+
+                let htmlParts = [isMult ? n1 : n1 * n2, isMult ? '&times;' : '&divide;', isMult ? n2 : n2, '=', isMult ? val : n1];
+                let hIdx = missing === 0 ? 0 : missing === 1 ? 2 : 4;
+                let ans = parts[missing];
+
+                htmlParts[hIdx] = `<input type="number" id="d-${i}" class="drill-input">`;
+                currentDrills.push({ id: `d-${i}`, ans: ans });
+                g.innerHTML += `<div class="drill-card">${htmlParts.join(' ')}</div>`;
+            }
+        }
+
+        function checkDrills() {
+            let score = 0;
+            currentDrills.forEach(d => {
+                const el = document.getElementById(d.id), p = el.parentElement;
+                if (parseInt(el.value) === d.ans) { score++; p.style.border = "2px solid #27ae60"; p.style.background = "#e8f5e9"; }
+                else { p.style.border = "2px solid #e74c3c"; p.style.background = "#fadbd8"; }
+            });
+            const fb = document.getElementById('drillFeedback');
+            fb.style.display = 'block';
+            fb.className = score === 15 ? "feedback-box correct" : "feedback-box warning";
+            fb.textContent = score === 15 ? "🌟 PERFECT! 15/15! 🌟" : `You got ${score} out of 15 correct.`;
+        }
+
+        window.onload = () => selectModule(0);
+
+    </script>
+</body>
+
+</html>
