@@ -1,149 +1,25 @@
-const module3 = {
+const mod3Data = {
     id: "mod-3",
     name: "Properties of Mult/Div",
     weeks: [
         {
             weekNum: 1,
             days: [
-                {
-                    id: "m3-w1-mon", name: "Mon", title: "Week 1: Monday",
-                    sections: [
-                        {
-                            type: "mc",
-                            instruction: "Equation with same unknown as 42 &divide; 7 = □ ?",
-                            options: [
-                                { text: "□ = 7 &times; 42", correct: false },
-                                { text: "7 &times; □ = 42", correct: true },
-                                { text: "42 &times; 7 = □", correct: false }
-                            ]
-                        },
-                        { type: "input", instruction: "Fluency Practice", problems: [{ text: "1. &nbsp; [box] &times; 4 = 24", answer: "6" }, { text: "2. &nbsp; 20 &divide; [box] = 4", answer: "5" }] }
-                    ]
-                },
-                {
-                    id: "m3-w1-tue", name: "Tue", title: "Week 1: Tuesday",
-                    sections: [
-                        {
-                            type: "mc",
-                            instruction: "Which expression is equal to 4 &times; (2 &times; 5)?",
-                            options: [
-                                { text: "(4 &times; 2) &times; 5", correct: true },
-                                { text: "4 + (2 &times; 5)", correct: false },
-                                { text: "(4 &times; 2) + 5", correct: false }
-                            ]
-                        },
-                        { type: "input", instruction: "Fluency Practice", problems: [{ text: "1. &nbsp; [box] &times; 7 = 49", answer: "7" }, { text: "2. &nbsp; 14 &divide; [box] = 7", answer: "2" }] }
-                    ]
-                },
-                {
-                    id: "m3-w1-wed", name: "Wed", title: "Week 1: Wednesday",
-                    sections: [
-                        {
-                            type: "grid",
-                            instruction: "Equal to 3 &times; 2 &times; 4 (which is 24)?",
-                            rows: [
-                                { text: "6 &times; 4", correct: true },
-                                { text: "3 &times; 6", correct: false },
-                                { text: "12 &times; 2", correct: true }
-                            ]
-                        },
-                        { type: "input", instruction: "Fluency Practice", problems: [{ text: "1. &nbsp; 9 &times; [box] = 27", answer: "3" }, { text: "2. &nbsp; 24 &divide; [box] = 8", answer: "3" }] }
-                    ]
-                },
-                {
-                    id: "m3-w1-thu", name: "Thu", title: "Week 1: Thursday",
-                    sections: [
-                        { type: "input", instruction: "Decomposing Numbers", problems: [{ text: "1. &nbsp; 6 &times; [box] = 48", answer: "8" }, { text: "2. &nbsp; 6 &times; ([box] + 3) = 48", answer: "5" }] },
-                        { type: "input", instruction: "Fluency Practice", problems: [{ text: "3. &nbsp; [box] &times; 5 = 40", answer: "8" }, { text: "4. &nbsp; 36 &divide; [box] = 6", answer: "6" }] }
-                    ]
-                },
-                {
-                    id: "m3-w1-fri", name: "Fri", title: "Week 1: Friday",
-                    sections: [
-                        { type: "input", instruction: "Solve.", problems: [{ text: "1. &nbsp; 7 &times; [box] = 56", answer: "8" }, { text: "2. &nbsp; 56 &divide; 8 = [box]", answer: "7" }] },
-                        {
-                            type: "mc",
-                            instruction: "Same unknown value as 32 &divide; 8 = □ ?",
-                            options: [
-                                { text: "8 &times; □ = 32", correct: true },
-                                { text: "□ &times; 32 = 8", correct: false },
-                                { text: "8 &divide; 32 = □", correct: false }
-                            ]
-                        }
-                    ]
-                }
+                { id: "m3-w1-mon", name: "Mon", title: "Week 1: Monday", sections: [ { type: "mc", instruction: "Equation with same unknown as 42 &divide; 7 = □ ?", options: [ { text: "□ = 7 &times; 42", correct: false }, { text: "7 &times; □ = 42", correct: true }, { text: "42 &times; 7 = □", correct: false } ] }, { type: "input", instruction: "Fluency Practice", problems: [{ text: "1. &nbsp; [box] &times; 4 = 24", answer: "6" }, { text: "2. &nbsp; 20 &divide; [box] = 4", answer: "5" }] } ] },
+                { id: "m3-w1-tue", name: "Tue", title: "Week 1: Tuesday", sections: [ { type: "mc", instruction: "Which expression is equal to 4 &times; (2 &times; 5)?", options: [ { text: "(4 &times; 2) &times; 5", correct: true }, { text: "4 + (2 &times; 5)", correct: false }, { text: "(4 &times; 2) + 5", correct: false } ] }, { type: "input", instruction: "Fluency Practice", problems: [{ text: "1. &nbsp; [box] &times; 7 = 49", answer: "7" }, { text: "2. &nbsp; 14 &divide; [box] = 7", answer: "2" }] } ] },
+                { id: "m3-w1-wed", name: "Wed", title: "Week 1: Wednesday", sections: [ { type: "grid", instruction: "Equal to 3 &times; 2 &times; 4 (which is 24)?", rows: [ { text: "6 &times; 4", correct: true }, { text: "3 &times; 6", correct: false }, { text: "12 &times; 2", correct: true } ] }, { type: "input", instruction: "Fluency Practice", problems: [{ text: "1. &nbsp; 9 &times; [box] = 27", answer: "3" }, { text: "2. &nbsp; 24 &divide; [box] = 8", answer: "3" }] } ] },
+                { id: "m3-w1-thu", name: "Thu", title: "Week 1: Thursday", sections: [ { type: "input", instruction: "Decomposing Numbers", problems: [{ text: "1. &nbsp; 6 &times; [box] = 48", answer: "8" }, { text: "2. &nbsp; 6 &times; ([box] + 3) = 48", answer: "5" }] }, { type: "input", instruction: "Fluency Practice", problems: [{ text: "3. &nbsp; [box] &times; 5 = 40", answer: "8" }, { text: "4. &nbsp; 36 &divide; [box] = 6", answer: "6" }] } ] },
+                { id: "m3-w1-fri", name: "Fri", title: "Week 1: Friday", sections: [ { type: "input", instruction: "Solve.", problems: [{ text: "1. &nbsp; 7 &times; [box] = 56", answer: "8" }, { text: "2. &nbsp; 56 &divide; 8 = [box]", answer: "7" }] }, { type: "mc", instruction: "Same unknown value as 32 &divide; 8 = □ ?", options: [ { text: "8 &times; □ = 32", correct: true }, { text: "□ &times; 32 = 8", correct: false }, { text: "8 &divide; 32 = □", correct: false } ] } ] }
             ]
         },
         {
             weekNum: 2,
             days: [
-                {
-                    id: "m3-w2-mon", name: "Mon", title: "Week 2: Monday",
-                    sections: [
-                        {
-                            type: "grid",
-                            instruction: "Divide 30 students equally.",
-                            rows: [
-                                { text: "3 groups of 10", correct: true },
-                                { text: "4 groups of 7", correct: false },
-                                { text: "5 groups of 6", correct: true }
-                            ]
-                        },
-                        { type: "input", instruction: "Fluency Practice", problems: [{ text: "1. &nbsp; 5 &times; [box] = 45", answer: "9" }, { text: "2. &nbsp; 15 &divide; [box] = 5", answer: "3" }] }
-                    ]
-                },
-                {
-                    id: "m3-w2-tue", name: "Tue", title: "Week 2: Tuesday",
-                    sections: [
-                        {
-                            type: "grid",
-                            instruction: "Equal to 2 &times; 5 &times; 3?",
-                            rows: [
-                                { text: "10 &times; 3", correct: true },
-                                { text: "2 &times; 15", correct: true },
-                                { text: "6 &times; 5", correct: true }
-                            ]
-                        },
-                        { type: "input", instruction: "Fluency Practice", problems: [{ text: "1. &nbsp; [box] &times; 6 = 36", answer: "6" }, { text: "2. &nbsp; 49 &divide; [box] = 7", answer: "7" }] }
-                    ]
-                },
-                {
-                    id: "m3-w2-wed", name: "Wed", title: "Week 2: Wednesday",
-                    sections: [
-                        {
-                            type: "mc",
-                            instruction: "Same unknown as 63 &divide; 9 = □ ?",
-                            options: [
-                                { text: "9 &times; □ = 63", correct: true },
-                                { text: "□ &times; 63 = 9", correct: false },
-                                { text: "9 &divide; 63 = □", correct: false }
-                            ]
-                        },
-                        { type: "input", instruction: "Fluency Practice", problems: [{ text: "1. &nbsp; 3 &times; [box] = 24", answer: "8" }, { text: "2. &nbsp; 24 &divide; [box] = 6", answer: "4" }] }
-                    ]
-                },
-                {
-                    id: "m3-w2-thu", name: "Thu", title: "Week 2: Thursday",
-                    sections: [
-                        { type: "input", instruction: "Break it down.", problems: [{ text: "1. &nbsp; 7 &times; 6 = 7 &times; (4 + [box])", answer: "2" }, { text: "2. &nbsp; 8 &times; 5 = 8 &times; (3 + [box])", answer: "2" }] },
-                        { type: "input", instruction: "Fluency Practice", problems: [{ text: "3. &nbsp; 9 &times; [box] = 81", answer: "9" }, { text: "4. &nbsp; 81 &divide; [box] = 9", answer: "9" }] }
-                    ]
-                },
-                {
-                    id: "m3-w2-fri", name: "Fri", title: "Week 2: Friday",
-                    sections: [
-                        { type: "input", instruction: "Break it down.", problems: [{ text: "1. &nbsp; 5 &times; 7 = 5 &times; (5 + [box])", answer: "2" }] },
-                        {
-                            type: "mc",
-                            instruction: "Equal to 3 &times; (4 &times; 2)?",
-                            options: [
-                                { text: "(3 &times; 4) &times; 2", correct: true },
-                                { text: "3 + (4 &times; 2)", correct: false },
-                                { text: "(3 &times; 4) + 2", correct: false }
-                            ]
-                        }
-                    ]
-                }
+                { id: "m3-w2-mon", name: "Mon", title: "Week 2: Monday", sections: [ { type: "grid", instruction: "Divide 30 students equally.", rows: [ { text: "3 groups of 10", correct: true }, { text: "4 groups of 7", correct: false }, { text: "5 groups of 6", correct: true } ] }, { type: "input", instruction: "Fluency Practice", problems: [{ text: "1. &nbsp; 5 &times; [box] = 45", answer: "9" }, { text: "2. &nbsp; 15 &divide; [box] = 5", answer: "3" }] } ] },
+                { id: "m3-w2-tue", name: "Tue", title: "Week 2: Tuesday", sections: [ { type: "grid", instruction: "Equal to 2 &times; 5 &times; 3?", rows: [ { text: "10 &times; 3", correct: true }, { text: "2 &times; 15", correct: true }, { text: "6 &times; 5", correct: true } ] }, { type: "input", instruction: "Fluency Practice", problems: [{ text: "1. &nbsp; [box] &times; 6 = 36", answer: "6" }, { text: "2. &nbsp; 49 &divide; [box] = 7", answer: "7" }] } ] },
+                { id: "m3-w2-wed", name: "Wed", title: "Week 2: Wednesday", sections: [ { type: "mc", instruction: "Same unknown as 63 &divide; 9 = □ ?", options: [ { text: "9 &times; □ = 63", correct: true }, { text: "□ &times; 63 = 9", correct: false }, { text: "9 &divide; 63 = □", correct: false } ] }, { type: "input", instruction: "Fluency Practice", problems: [{ text: "1. &nbsp; 3 &times; [box] = 24", answer: "8" }, { text: "2. &nbsp; 24 &divide; [box] = 6", answer: "4" }] } ] },
+                { id: "m3-w2-thu", name: "Thu", title: "Week 2: Thursday", sections: [ { type: "input", instruction: "Break it down.", problems: [{ text: "1. &nbsp; 7 &times; 6 = 7 &times; (4 + [box])", answer: "2" }, { text: "2. &nbsp; 8 &times; 5 = 8 &times; (3 + [box])", answer: "2" }] }, { type: "input", instruction: "Fluency Practice", problems: [{ text: "3. &nbsp; 9 &times; [box] = 81", answer: "9" }, { text: "4. &nbsp; 81 &divide; [box] = 9", answer: "9" }] } ] },
+                { id: "m3-w2-fri", name: "Fri", title: "Week 2: Friday", sections: [ { type: "input", instruction: "Break it down.", problems: [{ text: "1. &nbsp; 5 &times; 7 = 5 &times; (5 + [box])", answer: "2" }] }, { type: "mc", instruction: "Equal to 3 &times; (4 &times; 2)?", options: [ { text: "(3 &times; 4) &times; 2", correct: true }, { text: "3 + (4 &times; 2)", correct: false }, { text: "(3 &times; 4) + 2", correct: false } ] } ] }
             ]
         }
     ]
