@@ -7,319 +7,7 @@
     <title>Grade 4 Math Warmups</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/gr4.css">
-    <style>
-        /* --- Styles for Matrix Grid --- */
-        table.match-grid {
-            border-collapse: collapse;
-            margin: 20px auto;
-            width: 100%;
-            table-layout: fixed;
-        }
-
-        table.match-grid th,
-        table.match-grid td {
-            border: 1px solid #333;
-            padding: 8px; 
-            text-align: center;
-            vertical-align: middle;
-            word-wrap: break-word;
-        }
-
-        table.match-grid th:first-child,
-        table.match-grid td:first-child {
-            width: 30%; 
-            background-color: #fafafa;
-        }
-        
-        table.match-grid th {
-            background-color: #f0f0f0;
-            color: black;
-        }
-
-        table.match-grid th.corner-cell {
-            background-color: white;
-            border: none;
-        }
-
-        table.match-grid .fraction-wrap {
-            transform: scale(0.9);
-            margin: 0 auto;
-        }
-
-        /* --- Standard Grid Enhancements --- */
-        table.caaspp-grid td:first-child .mixed-text-container {
-            justify-content: flex-start; /* Keep expressions left-aligned and tightly grouped */
-        }
-
-        /* Pie Chart Styles */
-        .pie-chart-container {
-            display: inline-block;
-            vertical-align: middle;
-        }
-        
-        /* Rect Model Styles */
-        .rect-model-container {
-            display: block;
-            margin: 10px auto;
-            text-align: center;
-        }
-
-        /* Mixed Text Container */
-        .mixed-text-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 5px;
-            font-size: 18px;
-        }
-
-        /* Checkboxes */
-        input[type="checkbox"] {
-            transform: scale(1.5);
-            accent-color: #2ecc71;
-            cursor: pointer;
-        }
-
-        /* Validation Colors */
-        td.cell-correct {
-            background-color: #d4edda !important;
-        }
-
-        td.cell-incorrect {
-            background-color: #f8d7da !important;
-        }
-        
-        .grid-answer-indicator {
-            font-size: 12px;
-            color: #27ae60;
-            font-weight: bold;
-            margin-top: 4px;
-        }
-
-        /* --- Multiple Choice Styles --- */
-        .mc-container {
-            text-align: left;
-            display: inline-block;
-            margin-top: 10px;
-        }
-        .mc-label {
-            display: block;
-            margin: 10px 0;
-            cursor: pointer;
-            font-size: 18px;
-            padding: 5px;
-            border-radius: 5px;
-            transition: background 0.2s;
-        }
-        .mc-label:hover {
-            background-color: #f0f8ff;
-        }
-        .mc-label input[type="radio"] {
-            transform: scale(1.4);
-            margin-right: 12px;
-            cursor: pointer;
-        }
-        .mc-correct-text {
-            color: #27ae60;
-            font-weight: bold;
-            background-color: #e8f8f5;
-        }
-        .mc-incorrect-text {
-            color: #e74c3c;
-            text-decoration: line-through;
-        }
-
-        /* --- PRINT STYLES --- */
-        @media print {
-            @page {
-                size: letter landscape;
-                margin: 0.5in;
-            }
-
-            * { box-sizing: border-box; }
-
-            body {
-                background: none;
-                margin: 0;
-                padding: 0;
-                font-size: 14pt; /* Scaled up from 12pt */
-                width: 100%;
-            }
-
-            .container {
-                width: 100%;
-                max-width: none;
-                border: none;
-                box-shadow: none;
-                padding: 0;
-                margin: 0;
-            }
-
-            /* Hide UI Elements */
-            .home-btn, .print-btn, .module-nav, .nav-container, .footer-controls, #btnExtra, .check-btn {
-                display: none !important;
-            }
-
-            /* --- PACKET LAYOUT --- */
-            
-            #content-area {
-                column-count: 2;
-                column-gap: 0.5in;
-                column-fill: auto;
-                width: 100%;
-                display: block;
-            }
-
-            /* Base Day Wrapper - NO DEFAULT BREAKS */
-            .day-content {
-                display: block !important; 
-                break-inside: auto; 
-                margin-bottom: 0;
-                padding-bottom: 20px;
-                border-bottom: none;
-                width: 100%;
-                break-before: auto;
-                page-break-before: auto;
-                -webkit-column-break-before: auto;
-            }
-
-            /* Prescriptive Print Break Classes */
-            .print-page-break {
-                break-before: page !important;
-                page-break-before: always !important; /* Fallback */
-            }
-
-            .print-col-break {
-                break-before: column !important;
-                -webkit-column-break-before: always !important; /* Safari fallback */
-            }
-
-            .print-page-break-header {
-                break-before: page !important;
-                page-break-before: always !important; /* Fallback */
-                column-span: all;
-            }
-
-            /* Question Card */
-            .question-card {
-                break-inside: avoid;
-                page-break-inside: avoid;
-                -webkit-column-break-inside: avoid;
-                display: block;
-                width: 100%;
-                margin-bottom: 18px; /* Increased margin */
-                padding: 12px 15px;  /* Increased padding */
-                border: 1px solid #ccc;
-                box-shadow: none;
-                background: #fff;
-            }
-
-            h3 {
-                margin-top: 0;
-                margin-bottom: 12px;
-                font-size: 16pt; /* Scaled up */
-                border-bottom: 2px solid #000;
-                text-align: center;
-                break-after: avoid;
-            }
-
-            .print-header {
-                column-span: all;
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 15px;
-                border-bottom: 2px solid #000;
-                padding-bottom: 5px;
-                font-weight: bold;
-            }
-            
-            .print-spacer { display: none; }
-
-            /* --- CONTENT SIZING --- */
-
-            .mixed-text-container { font-size: 13pt; gap: 6px; } /* Scaled up */
-            .instructions { font-size: 13pt; margin-bottom: 8px; margin-top: 0; } /* Scaled up */
-            .mc-label { font-size: 13pt; margin: 12px 0; } /* Scaled up */
-
-            /* Number Line Optimization (Mod 1/2) */
-            .number-line-container svg {
-                width: 100%;
-                height: auto;
-                max-height: 85px; 
-            }
-
-            /* --- TABLE BORDER ENFORCEMENT FOR PRINT --- */
-            table.match-grid, table.caaspp-grid {
-                border-collapse: collapse !important;
-                border: 2px solid #000 !important; /* Thicker outer border prevents browser drop-outs */
-            }
-            
-            table.match-grid th, table.match-grid td,
-            table.caaspp-grid th, table.caaspp-grid td {
-                border: 1px solid #000 !important; /* Force internal borders */
-            }
-
-            /* Matrix Table Sizing (Mod 3/4) */
-            table.match-grid {
-                font-size: 12pt; /* Scaled up */
-                margin: 10px auto;
-            }
-            table.match-grid th, table.match-grid td { 
-                padding: 12px 4px; /* Relaxed vertical spacing */
-            }
-            table.match-grid th:first-child, table.match-grid td:first-child { width: 15% !important; }
-            table.match-grid th:not(:first-child), table.match-grid td:not(:first-child) { width: 21.25% !important; }
-            
-            /* Standard Grid Sizing (Mod 1/2/4) */
-            table.caaspp-grid {
-                table-layout: fixed; /* Force constraint */
-                width: 100%;
-                font-size: 12pt; /* Scaled up */
-                margin-bottom: 10px;
-                word-wrap: break-word;
-            }
-            table.caaspp-grid th, table.caaspp-grid td {
-                padding: 10px 8px; /* Relaxed vertical spacing */
-                text-align: center;
-            }
-            /* Make the expression column wider, checkboxes narrower */
-            table.caaspp-grid th:first-child, table.caaspp-grid td:first-child {
-                text-align: left;
-                padding-left: 8px;
-                width: 60%;
-            }
-            table.caaspp-grid th:not(:first-child), table.caaspp-grid td:not(:first-child) {
-                width: 20%;
-            }
-
-            /* Scaling helpers */
-            table.match-grid .fraction-wrap, table.caaspp-grid .fraction-wrap {
-                transform: scale(1.05); /* Scaled up fractions in tables */
-                transform-origin: center;
-                margin: 0 auto;
-            }
-
-            table.caaspp-grid td:first-child .fraction-wrap {
-                margin: 0; /* Keep left-aligned fractions from centering their container */
-            }
-
-            table.match-grid input[type="checkbox"], table.caaspp-grid input[type="checkbox"] {
-                transform: scale(1.5); /* Larger checkboxes */
-                margin: 0;
-            }
-
-            .pie-chart-container svg { width: 50px; height: 50px; } /* Scaled up */
-            
-            /* Clean up input boxes */
-            .frac-input, .std-input, .mixed-whole-input {
-                border: 1px solid #000;
-                color: transparent !important;
-                box-shadow: none;
-                min-width: 25px;
-            }
-        }
-    </style>
+    <style>table.match-grid{border-collapse:collapse;margin:20px auto;width:100%;table-layout:fixed}table.match-grid td,table.match-grid th{border:1px solid #333;padding:8px;text-align:center;vertical-align:middle;word-wrap:break-word}table.match-grid td:first-child,table.match-grid th:first-child{width:30%;background-color:#fafafa}table.match-grid th{background-color:#f0f0f0;color:#000}table.match-grid th.corner-cell{background-color:#fff;border:none}table.match-grid .fraction-wrap{transform:scale(.9);margin:0 auto}table.caaspp-grid td:first-child .mixed-text-container{justify-content:flex-start}.pie-chart-container{display:inline-block;vertical-align:middle}.rect-model-container{display:block;margin:10px auto;text-align:center}.mixed-text-container{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:5px;font-size:18px}input[type=checkbox]{transform:scale(1.5);accent-color:#2ecc71;cursor:pointer}.unknown-box{display:inline-block;width:18px;height:18px;border:2px solid #333;vertical-align:-3px;margin:0 3px;background-color:#fff}td.cell-correct{background-color:#d4edda!important}td.cell-incorrect{background-color:#f8d7da!important}.grid-answer-indicator{font-size:12px;color:#27ae60;font-weight:700;margin-top:4px}.mc-container{text-align:left;display:inline-block;margin-top:10px}.mc-label{display:block;margin:10px 0;cursor:pointer;font-size:18px;padding:5px;border-radius:5px;transition:background .2s}.mc-label:hover{background-color:#f0f8ff}.mc-label input[type=radio]{transform:scale(1.4);margin-right:12px;cursor:pointer}.mc-correct-text{color:#27ae60;font-weight:700;background-color:#e8f8f5}.mc-incorrect-text{color:#e74c3c;text-decoration:line-through}#answer-key-section{display:none}@media print{@page{size:letter landscape;margin:.5in}*{box-sizing:border-box}body{background:0 0;margin:0;padding:0;font-size:14pt;width:100%}.container{width:100%;max-width:none;border:none;box-shadow:none;padding:0;margin:0}#btnExtra,.check-btn,.footer-controls,.home-btn,.module-nav,.nav-container,.print-btn{display:none!important}#content-area{column-count:2;column-gap:.5in;column-fill:auto;width:100%;display:block}.day-content{display:block!important;break-inside:auto;margin-bottom:0;padding-bottom:20px;border-bottom:none;width:100%;break-before:auto;page-break-before:auto;-webkit-column-break-before:auto}.print-page-break{break-before:page!important;page-break-before:always!important}.print-col-break{break-before:column!important;-webkit-column-break-before:always!important}.print-page-break-header{break-before:page!important;page-break-before:always!important;column-span:all}.question-card{break-inside:avoid;page-break-inside:avoid;-webkit-column-break-inside:avoid;display:block;width:100%;margin-bottom:18px;padding:12px 15px;border:1px solid #ccc;box-shadow:none;background:#fff}h3{margin-top:0;margin-bottom:12px;font-size:16pt;border-bottom:2px solid #000;text-align:center;break-after:avoid}.print-header{column-span:all;display:flex;justify-content:space-between;margin-bottom:15px;border-bottom:2px solid #000;padding-bottom:5px;font-weight:700}.print-spacer{display:none}#answer-key-section{display:block!important;break-before:page!important;page-break-before:always!important;column-count:3;column-gap:.4in;font-size:11pt;font-family:sans-serif}.ak-title{column-span:all;text-align:center;border-bottom:2px solid #000;margin-bottom:15px;font-size:14pt;padding-bottom:5px}.ak-day-block{break-inside:avoid;margin-bottom:15px}.ak-day-title{font-weight:700;text-decoration:underline;margin-bottom:4px}.ak-list{margin:0;padding-left:22px}.ak-list li{margin-bottom:4px;line-height:1.3}.mixed-text-container{font-size:13pt;gap:6px}.instructions{font-size:13pt;margin-bottom:8px;margin-top:0}.mc-label{font-size:13pt;margin:12px 0}.number-line-container svg{width:100%;height:auto;max-height:85px}table.caaspp-grid,table.match-grid{border-collapse:collapse!important;border:2px solid #000!important}table.caaspp-grid td,table.caaspp-grid th,table.match-grid td,table.match-grid th{border:1px solid #000!important}table.match-grid{font-size:12pt;margin:10px auto}table.match-grid td,table.match-grid th{padding:12px 4px}table.match-grid td:first-child,table.match-grid th:first-child{width:15%!important}table.match-grid td:not(:first-child),table.match-grid th:not(:first-child){width:21.25%!important}table.caaspp-grid{table-layout:fixed;width:100%;font-size:12pt;margin-bottom:10px;word-wrap:break-word}table.caaspp-grid td,table.caaspp-grid th{padding:10px 8px;text-align:center}table.caaspp-grid td:first-child,table.caaspp-grid th:first-child{text-align:left;padding-left:8px;width:60%}table.caaspp-grid td:not(:first-child),table.caaspp-grid th:not(:first-child){width:20%}table.caaspp-grid .fraction-wrap,table.match-grid .fraction-wrap{transform:scale(1.05);transform-origin:center;margin:0 auto}table.caaspp-grid td:first-child .fraction-wrap{margin:0}table.caaspp-grid input[type=checkbox],table.match-grid input[type=checkbox]{transform:scale(1.5);margin:0}.unknown-box{border:2px solid #000!important}.pie-chart-container svg{width:50px;height:50px}.frac-input,.mixed-whole-input,.std-input{border:1px solid #000;color:transparent!important;box-shadow:none;min-width:25px}}</style>
 </head>
 
 <body>
@@ -335,7 +23,9 @@
             <button class="btn-module" onclick="selectModule(1)">Fractions & Decimals</button>
             <button class="btn-module" onclick="selectModule(2)">Equivalence & Ordering</button>
             <button class="btn-module" onclick="selectModule(3)">Place Value & Multidigit</button>
-            <button class="btn-module" onclick="selectModule(4)">Review (All Modules)</button>
+            <button class="btn-module" onclick="selectModule(4)">Review (Modules 1-4)</button>
+            <button class="btn-module" onclick="selectModule(5)">Four Operations</button>
+            <button class="btn-module" onclick="selectModule(6)">Multidigit Arithmetic</button>
         </div>
 
         <div class="nav-container" id="navContainer"></div>
@@ -354,6 +44,8 @@
             <button class="btn-extra" style="margin-top: 10px; background-color: #9b59b6;" onclick="checkDrills()">Check My Work</button>
             <div id="drillFeedback" class="feedback-box"></div>
         </div>
+
+        <div id="answer-key-section"></div>
     </div>
 
     <script src="data/gr4/mod1.js"></script>
@@ -361,9 +53,244 @@
     <script src="data/gr4/mod3.js"></script>
     <script src="data/gr4/mod4.js"></script>
     <script src="data/gr4/mod5.js"></script>
+    <script src="data/gr4/mod6.js"></script>
     <script src="data/gr4/bonus.js"></script>
 
     <script>
+        // Helper function for rendering perfectly aligned stacked math problems
+        function stackedHTML(top, bottom, operator) {
+            // Using Droid Sans Mono and Courier New to ensure open, unslashed zeros in monospace
+            return `<table style="display: inline-table; border-collapse: collapse; font-size: 22px; margin-right: 15px; font-family: 'Droid Sans Mono', 'Courier New', monospace; font-variant-numeric: tabular-nums;">
+                <tr>
+                    <td style="border: none; padding: 0 15px 5px 5px;"></td>
+                    <td style="border: none; text-align: right; padding: 0 5px 5px 0;">${top}</td>
+                </tr>
+                <tr>
+                    <td style="border-bottom: 2px solid black; padding: 0 15px 5px 5px;">${operator}</td>
+                    <td style="border-bottom: 2px solid black; text-align: right; padding: 0 5px 5px 0;">${bottom}</td>
+                </tr>
+            </table>`;
+        }
+
+        // --- MODULE 7 DATA (ORIGINAL CONTENT) ---
+        const module7 = {
+            id: "mod-7", 
+            name: "Multidigit Arithmetic: Place Value and Operations", 
+            weeks: [
+                {
+                    weekNum: 1,
+                    days: [
+                        {
+                            id: "m7-w1-mon", name: "Mon", title: "Week 1: Monday",
+                            sections: [
+                                {
+                                    instruction: "Enter the sum.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: stackedHTML("38,452", "25,694", "+") }, { type: 'input', ans: "64146" }] }]
+                                },
+                                {
+                                    instruction: "Select the equation that has the same unknown number as 834 &divide; 6 = <span class='unknown-box'></span>.", type: "multiple_choice",
+                                    options: [
+                                        { text: "834 &times; 6 = <span class='unknown-box'></span>", correct: false },
+                                        { text: "834 &times; <span class='unknown-box'></span> = 6", correct: false },
+                                        { text: "6 &times; <span class='unknown-box'></span> = 834", correct: true },
+                                        { text: "<span class='unknown-box'></span> &times; 834 = 6", correct: false }
+                                    ]
+                                },
+                                {
+                                    instruction: "Review: Solve the word problem.", type: "word_problem",
+                                    textSegments: [{ type: 'text', val: "A dog weighs 15 pounds. A bear weighs 60 pounds. How many times heavier is the bear than the dog?" }],
+                                    problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '4' }, { type: 'text', val: ' times heavier' }] }]
+                                }
+                            ]
+                        },
+                        { 
+                            id: "m7-w1-tue", name: "Tue", title: "Week 1: Tuesday", 
+                            sections: [
+                                {
+                                    instruction: "Enter the difference.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: stackedHTML("8,452", "3,175", "-") }, { type: 'input', ans: "5277" }] }]
+                                },
+                                {
+                                    instruction: "Which expression is equal to 234 &times; 7?", type: "multiple_choice",
+                                    options: [
+                                        { text: "(200 + 30 + 4) + 7", correct: false },
+                                        { text: "(200 &times; 30 &times; 4) &times; 7", correct: false },
+                                        { text: "(200 &times; 7) + (30 &times; 7) + (4 &times; 7)", correct: true },
+                                        { text: "(200 &times; 7) &times; (30 &times; 7) &times; (4 &times; 7)", correct: false }
+                                    ]
+                                },
+                                {
+                                    instruction: "Review: Determine whether the comparison is true or false.", type: "grid", col1: "True", col2: "False",
+                                    rows: [{ segments: [{ type: 'text', val: '0.40 = 0.04' }], correct: false }]
+                                }
+                            ] 
+                        },
+                        { 
+                            id: "m7-w1-wed", name: "Wed", title: "Week 1: Wednesday", 
+                            sections: [
+                                {
+                                    instruction: "Enter the product.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: stackedHTML("4,285", "4", "&times;") }, { type: 'input', ans: "17140" }] }]
+                                },
+                                {
+                                    instruction: "Enter the unknown number that makes the equation true.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: "63 &times; 48 = (60 + 3) &times; ( &nbsp;" }, { type: 'input', ans: "40" }, { type: 'text', val: "&nbsp; + 8 )" }] }]
+                                },
+                                {
+                                    instruction: "Review: Find the equivalent fraction.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'fraction', n: 1, d: 4 }, { type: 'text', val: ' = ' }, { type: 'fraction', n: 'box', ansN: '3', d: 12 }] }]
+                                }
+                            ] 
+                        },
+                        {
+                            id: "m7-w1-thu", name: "Thu", title: "Week 1: Thursday",
+                            sections: [
+                                {
+                                    instruction: "Enter the difference.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: stackedHTML("60,000", "24,318", "-") }, { type: 'input', ans: "35682" }] }]
+                                },
+                                {
+                                    instruction: "Select the equation that has the same unknown number as 525 &divide; 5 = <span class='unknown-box'></span>.", type: "multiple_choice",
+                                    options: [
+                                        { text: "<span class='unknown-box'></span> &times; 5 = 525", correct: true },
+                                        { text: "525 &times; 5 = <span class='unknown-box'></span>", correct: false },
+                                        { text: "525 &times; <span class='unknown-box'></span> = 5", correct: false }
+                                    ]
+                                },
+                                { 
+                                    instruction: "Review: Round the number to the requested place value.", type: "mixed_row", 
+                                    problems: [{ segments: [{ type: 'text', val: "Round 73,815 to the nearest thousand: &nbsp;" }, { type: 'input', ans: "74000" }] }]
+                                }
+                            ]
+                        },
+                        { 
+                            id: "m7-w1-fri", name: "Fri", title: "Week 1: Friday", 
+                            sections: [
+                                {
+                                    instruction: "Enter the sum.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: stackedHTML("57,841", "19,032", "+") }, { type: 'input', ans: "76873" }] }]
+                                },
+                                {
+                                    instruction: "Enter the product.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: stackedHTML("357", "8", "&times;") }, { type: 'input', ans: "2856" }] }]
+                                },
+                                {
+                                    instruction: "Which expression is equal to 453 &times; 6?", type: "multiple_choice",
+                                    options: [
+                                        { text: "(400 &times; 6) + (50 &times; 6) + (3 &times; 6)", correct: true },
+                                        { text: "(400 + 50 + 3) + 6", correct: false },
+                                        { text: "(400 &times; 6) &times; (50 &times; 6) &times; (3 &times; 6)", correct: false }
+                                    ]
+                                }
+                            ] 
+                        }
+                    ]
+                },
+                {
+                    weekNum: 2,
+                    days: [
+                        {
+                            id: "m7-w2-mon", name: "Mon", title: "Week 2: Monday",
+                            sections: [
+                                {
+                                    instruction: "Enter the quotient in the first response box. If there is a remainder, enter it in the second response box.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: '92 &divide; 7 = &nbsp;&nbsp; Quotient: ' }, { type: 'input', ans: '13' }, { type: 'text', val: '&nbsp;&nbsp; Remainder: ' }, { type: 'input', ans: '1' }] }]
+                                },
+                                {
+                                    instruction: "Which strategy for multiplying 34 and 15 should result in the correct product?", type: "multiple_choice",
+                                    options: [
+                                        { text: "(30 &times; 10) + (4 &times; 5)", correct: false },
+                                        { text: "300 + 150 + 40 + 20", correct: true },
+                                        { text: "300 + 20", correct: false }
+                                    ]
+                                },
+                                {
+                                    instruction: "Review: Add the fractions.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'fraction', n: '4', d: '10' }, { type: 'text', val: ' + ' }, { type: 'fraction', n: '3', d: '10' }, { type: 'text', val: ' = ' }, { type: 'fraction', n: 'box', ansN: '7', d: 10 }] }]
+                                }
+                            ]
+                        },
+                        { 
+                            id: "m7-w2-tue", name: "Tue", title: "Week 2: Tuesday", 
+                            sections: [
+                                {
+                                    instruction: "Enter the quotient in the first response box. If there is a remainder, enter it in the second response box.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: '2453 &divide; 6 = &nbsp;&nbsp; Quotient: ' }, { type: 'input', ans: '408' }, { type: 'text', val: '&nbsp;&nbsp; Remainder: ' }, { type: 'input', ans: '5' }] }]
+                                },
+                                {
+                                    instruction: "Enter the unknown number that makes the equation true.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: "72 &times; 16 = (70 + 2) &times; (10 + &nbsp;" }, { type: 'input', ans: "6" }, { type: 'text', val: "&nbsp; )" }] }]
+                                },
+                                {
+                                    instruction: "Review: Solve the word problem.", type: "word_problem",
+                                    textSegments: [{ type: 'text', val: 'A library has 120 books to organize equally onto 5 shelves. How many books will be placed on each shelf?' }],
+                                    problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '24' }, { type: 'text', val: ' books' }] }]
+                                }
+                            ]
+                        },
+                        { 
+                            id: "m7-w2-wed", name: "Wed", title: "Week 2: Wednesday", 
+                            sections: [
+                                {
+                                    instruction: "Enter the product.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: stackedHTML("6,084", "5", "&times;") }, { type: 'input', ans: "30420" }] }]
+                                },
+                                {
+                                    instruction: "Enter the quotient in the first response box. If there is a remainder, enter it in the second response box.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: '3817 &divide; 4 = &nbsp;&nbsp; Quotient: ' }, { type: 'input', ans: '954' }, { type: 'text', val: '&nbsp;&nbsp; Remainder: ' }, { type: 'input', ans: '1' }] }]
+                                },
+                                {
+                                    instruction: "Review: Enter the symbol (<, >, or =) to make the comparison true.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: "5 thousands + 8 tens &nbsp; " }, { type: 'input', ans: "=" }, { type: 'text', val: "&nbsp; 5,080" }] }]
+                                }
+                            ] 
+                        },
+                        {
+                            id: "m7-w2-thu", name: "Thu", title: "Week 2: Thursday",
+                            sections: [
+                                {
+                                    instruction: "Select the equation that has the same unknown number as <span class='unknown-box'></span> &divide; 6 = 205.", type: "multiple_choice",
+                                    options: [
+                                        { text: "205 &times; <span class='unknown-box'></span> = 6", correct: false },
+                                        { text: "205 &times; 6 = <span class='unknown-box'></span>", correct: true },
+                                        { text: "<span class='unknown-box'></span> &times; 6 = 205", correct: false }
+                                    ]
+                                },
+                                {
+                                    instruction: "Enter the quotient in the first response box. If there is a remainder, enter it in the second box.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: '835 &divide; 7 = &nbsp;&nbsp; Quotient: ' }, { type: 'input', ans: '119' }, { type: 'text', val: '&nbsp;&nbsp; Remainder: ' }, { type: 'input', ans: '2' }] }]
+                                },
+                                { 
+                                    instruction: "Review: What is the value of point Q?", type: "number_line", start: 0, end: 1, step: 0.1, target: 0.8, label: "Q", ans: "0.8" 
+                                }
+                            ]
+                        },
+                        { 
+                            id: "m7-w2-fri", name: "Fri", title: "Week 2: Friday", 
+                            sections: [
+                                {
+                                    instruction: "Enter the difference.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: stackedHTML("20,406", "8,527", "-") }, { type: 'input', ans: "11879" }] }]
+                                },
+                                {
+                                    instruction: "Enter the quotient in the first response box. If there is a remainder, enter it in the second box.", type: "mixed_row",
+                                    problems: [{ segments: [{ type: 'text', val: '4062 &divide; 5 = &nbsp;&nbsp; Quotient: ' }, { type: 'input', ans: '812' }, { type: 'text', val: '&nbsp;&nbsp; Remainder: ' }, { type: 'input', ans: '2' }] }]
+                                },
+                                {
+                                    instruction: "Which strategy for multiplying 52 and 18 should result in the correct product?", type: "multiple_choice",
+                                    options: [
+                                        { text: "(50 &times; 10) + (2 &times; 8)", correct: false },
+                                        { text: "500 + 400 + 20 + 16", correct: true },
+                                        { text: "50 + 2 + 10 + 8", correct: false }
+                                    ]
+                                }
+                            ] 
+                        }
+                    ]
+                }
+            ]
+        };
+
         const appData = {
             modules: [
                 typeof module1 !== 'undefined' ? module1 : { id: "m1", name: "Module 1", weeks: [] },
@@ -371,10 +298,13 @@
                 typeof module3 !== 'undefined' ? module3 : { id: "m3", name: "Module 3", weeks: [] },
                 typeof module4 !== 'undefined' ? module4 : { id: "m4", name: "Module 4", weeks: [] },
                 typeof module5 !== 'undefined' ? module5 : { id: "m5", name: "Module 5", weeks: [] },
+                typeof module6 !== 'undefined' ? module6 : { id: "m6", name: "Module 6", weeks: [] },
+                module7
             ]
         };
 
         // --- DOM BUILDERS ---
+
         function createMultipleChoice(section, qIndex) {
             const div = document.createElement('div');
             div.className = 'mc-container';
@@ -579,6 +509,97 @@
             return table;
         }
 
+        // --- ANSWER KEY GENERATOR ---
+        function generateAnswerKey(module) {
+            const akContainer = document.getElementById('answer-key-section');
+            if (!akContainer) return;
+            akContainer.innerHTML = ''; 
+            
+            const title = document.createElement('h2');
+            title.className = 'ak-title';
+            title.innerText = "Answer Key: " + module.name;
+            akContainer.appendChild(title);
+
+            module.weeks.forEach(week => {
+                week.days.forEach(day => {
+                    const dayBlock = document.createElement('div');
+                    dayBlock.className = 'ak-day-block';
+                    
+                    const dayTitle = document.createElement('div');
+                    dayTitle.className = 'ak-day-title';
+                    dayTitle.innerText = day.title;
+                    dayBlock.appendChild(dayTitle);
+                    
+                    const list = document.createElement('ol');
+                    list.className = 'ak-list';
+                    
+                    day.sections.forEach(section => {
+                        let answers = [];
+                        
+                        if (section.type === 'mixed_row' || section.type === 'word_problem' || section.type === 'rect_model_equiv') {
+                            const probs = section.problems || [section];
+                            probs.forEach(p => {
+                                if (p.segments) {
+                                    let segAnswers = [];
+                                    p.segments.forEach(seg => {
+                                        if (seg.ans) {
+                                            let a = String(seg.ans).replace(/\|/g, ' or ');
+                                            const decimalToFrac = {"0.75":"3/4", "0.3333":"1/3", "0.4":"2/5", "0.6":"3/5", "0.25":"1/4", "0.5":"1/2", "0.625":"5/8", "0.8":"4/5", "1.2":"1 2/10"};
+                                            if(decimalToFrac[a]) a = decimalToFrac[a];
+                                            segAnswers.push(a);
+                                        }
+                                    });
+                                    if(segAnswers.length > 0) answers.push(segAnswers.join(', '));
+                                } else if (p.ans) {
+                                    let a = String(p.ans);
+                                    const decimalToFrac = {"0.75":"3/4", "0.3333":"1/3", "0.4":"2/5", "0.6":"3/5", "0.25":"1/4", "0.5":"1/2", "0.625":"5/8", "0.8":"4/5"};
+                                    if(decimalToFrac[a]) a = decimalToFrac[a];
+                                    answers.push(a);
+                                }
+                            });
+                        } else if (section.type === 'grid') {
+                            let gridAns = [];
+                            section.rows.forEach(r => {
+                                gridAns.push(r.correct ? (section.col1 || 'True') : (section.col2 || 'False'));
+                            });
+                            answers.push(gridAns.join(', '));
+                        } else if (section.type === 'matrix_match') {
+                            let matchAns = [];
+                            section.rows.forEach(r => {
+                                r.matches.forEach((m, idx) => {
+                                    if (m) {
+                                        let col = section.colHeaders[idx];
+                                        let cVal = col.type === 'fraction' || col.type === 'pie' ? `${col.n}/${col.d}` : col.val;
+                                        let rVal = r.label.type === 'fraction' ? `${r.label.n}/${r.label.d}` : r.label.val;
+                                        matchAns.push(`${rVal} → ${cVal}`);
+                                    }
+                                });
+                            });
+                            answers.push(matchAns.join(', '));
+                        } else if (section.type === 'multiple_choice') {
+                            let correctOpt = section.options.find(o => o.correct);
+                            if (correctOpt) {
+                                let temp = document.createElement('div');
+                                temp.innerHTML = correctOpt.text;
+                                answers.push(temp.textContent || temp.innerText);
+                            }
+                        } else if (section.type === 'number_line') {
+                            answers.push(section.ans);
+                        }
+                        
+                        if (answers.length > 0) {
+                            const li = document.createElement('li');
+                            li.innerHTML = answers.join('; ');
+                            list.appendChild(li);
+                        }
+                    });
+                    
+                    dayBlock.appendChild(list);
+                    akContainer.appendChild(dayBlock);
+                });
+            });
+        }
+
         // --- CORE LOGIC ---
         let currentModuleIndex = -1;
         let currentDayId = '';
@@ -597,6 +618,10 @@
                 contentArea.innerHTML = `<div class="tbd-message">Coming Soon: ${module.name} content is under development! 🚧</div>`;
                 document.getElementById('btnExtra').classList.add('hidden');
                 document.getElementById('extraPracticeContainer').classList.add('hidden');
+                
+                // Clear answer key if empty module
+                const akContainer = document.getElementById('answer-key-section');
+                if (akContainer) akContainer.innerHTML = '';
             } else {
                 document.getElementById('btnExtra').classList.remove('hidden');
                 document.getElementById('extraPracticeContainer').classList.add('hidden');
@@ -691,6 +716,9 @@
                     navContainer.appendChild(row);
                 });
                 const placeholder = document.createElement('div'); placeholder.id = 'placeholder'; placeholder.style.textAlign = 'center'; placeholder.style.color = '#888'; placeholder.style.marginTop = '50px'; placeholder.style.fontSize = '20px'; placeholder.textContent = "Select a day above to view the problems."; contentArea.appendChild(placeholder);
+                
+                // Generate the Answer Key automatically whenever a module is loaded
+                generateAnswerKey(module);
             }
         }
 

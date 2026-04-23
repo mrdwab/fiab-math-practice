@@ -30,11 +30,43 @@
         /* Questions */
         .question-card{background:#f4f9fc;padding:25px;margin-bottom:25px;border-radius:20px;text-align:left;border-left:8px solid #ffab00;box-shadow:0 4px 10px rgba(0,0,0,.05);break-inside:avoid}
         .instructions{font-size:18px;color:#444;margin-bottom:20px;font-style:italic}
-        .math-problem { display: block; font-size: 20px; margin-bottom: 20px; color: #444; line-height: 1.6; }
+        
+        /* --- SUB-CARD FOR INDIVIDUAL MATH PROBLEMS --- */
+        .math-problem { 
+            display: block; 
+            font-size: 20px; 
+            margin-bottom: 20px; 
+            color: #444; 
+            line-height: 1.6; 
+            background: #ffffff; 
+            border: 2px solid #d4e6f7; 
+            border-radius: 15px; 
+            padding: 20px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .math-problem:last-child { margin-bottom: 0; }
+        
         .input-box{ display: inline-block; vertical-align: middle; padding:8px; font-size:20px; width:80px; border:3px solid #ffab00; border-radius:12px; background:#fffcf2; text-align:center; outline:none; margin-left: 5px; }
         .input-box.correct{border-color:#2e7d32;background:#e8f5e9;color:#2e7d32} .input-box.incorrect{border-color:#c62828;background:#ffebee}
         .unknown-square{display:inline-block;width:24px;height:24px;border:3px solid #555;border-radius:4px;vertical-align:-5px;margin:0 4px;background:#fff}
         
+        /* --- FRACTION STYLING --- */
+        .inline-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 5px; font-size: 0.9em; }
+        .inline-frac .num, .inline-frac .den { display: flex; align-items: center; justify-content: center; height: 38px; width: 100%; padding: 0 4px; }
+        .inline-frac .num { border-bottom: 2px solid #444; }
+        .inline-frac .input-box { width: 45px; height: 30px; font-size: 18px; text-align: center; margin: 0; padding: 2px; } 
+        
+        .frac-box-container { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 8px; }
+        .frac-input { width: 50px; height: 38px; text-align: center; font-size: 22px; border: 3px solid #ffab00; border-radius: 8px; outline:none; background:#fffcf2; margin: 0; }
+        .frac-line { width: 100%; height: 3px; background-color: #333; margin: 4px 0; border-radius: 2px; }
+        .frac-box-container.correct .frac-input { border-color: #2e7d32; background: #e8f5e9; color: #2e7d32; }
+        .frac-box-container.incorrect .frac-input { border-color: #c62828; background: #ffebee; color: #c62828; }
+
+        /* --- NEW: PATTERN TABLE STYLING --- */
+        table.pattern-table { border-collapse: collapse; margin: 10px auto; background: #fff; border: 3px solid #333; }
+        table.pattern-table td { border: 2px solid #ccc; width: 65px; height: 65px; text-align: center; font-size: 24px; font-weight: bold; color: #444; }
+        table.pattern-table .input-box { width: 45px; height: 35px; font-size: 20px; padding: 2px; margin: 0; display: inline-block; }
+
         /* Grid / Checkbox Styles */
         table.caaspp-grid{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:15px;overflow:hidden;border:2px solid #d4e6f7;margin-bottom:20px}
         table.caaspp-grid th{background:#d4e6f7;padding:15px;color:#2c7be5;font-weight:700;border-bottom:2px solid #fff}
@@ -69,7 +101,7 @@
         .feedback-box.warning{display:block;background:#fff3e0;color:#ef6c00;border:2px solid #ffcc80}
         .feedback-box.info{display:block;background:#e3f2fd;color:#1565c0;border:2px solid #90caf9}
         .hidden{display:none} .print-mod-label{display:none}
-        .correction-text{color:#27ae60;font-weight:700;font-size:18px;background:#e8f5e9;padding:5px 10px;border-radius:10px;border:2px solid #a5d6a7;margin-left:10px}
+        .correction-text{color:#27ae60;font-weight:700;font-size:18px;background:#e8f5e9;padding:5px 10px;border-radius:10px;border:2px solid #a5d6a7; display: inline-block; margin: 4px; line-height: 1.2; white-space: nowrap;}
         
         /* Extra Practice Styles */
         #extraPracticeContainer{margin-top:30px;background:#fcf4fc;padding:25px;border-radius:20px;border:4px dashed #cdb4db}
@@ -79,113 +111,180 @@
 
         /* --- PRINT STYLES --- */
         @media print {
-            @page {
-                size: landscape;
-                margin: 0.3in;
-            }
-            body {
-                background: none;
-                color: #000;
-                padding: 0;
-                margin: 0;
-                zoom: 0.95;
-            }
-
-            /* Hide UI Elements */
+            @page { size: landscape; margin: 0.3in; }
+            body { background: none; color: #000; padding: 0; margin: 0; zoom: 0.95; }
             .container { box-shadow: none; border: none; width: 100%; max-width: 100%; margin: 0; padding: 0; }
             .module-nav, .nav-container, .footer-controls, .print-btn, .home-btn, 
-            #placeholder, .btn-extra, #extraPracticeContainer, .tbd-message, h1 {
-                display: none !important;
-            }
-
-            /* 2-Column Grid Layout */
-            #content-area {
-                display: grid !important;
-                grid-template-columns: 1fr 1fr;
-                grid-gap: 30px;
-                width: 100%;
-            }
-
-            /* Header: Spans Full Width */
-            .print-header {
-                grid-column: 1 / -1;
-                display: flex !important;
-                justify-content: center;
-                gap: 50px;
-                width: 100%;
-                font-size: 20px;
-                font-weight: 600;
-                margin-top: 10px;
-                margin-bottom: 5px;
-                padding-bottom: 10px;
-                border-bottom: 2px solid #000;
-                white-space: nowrap;
-            }
-
-            /* Individual Day Styling */
-            .day-content {
-                display: block !important;
-                border: 2px solid #444;
-                border-radius: 15px;
-                padding: 20px;
-                height: fit-content;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
+            #placeholder, .btn-extra, #extraPracticeContainer, .tbd-message, h1 { display: none !important; }
+            #content-area { display: grid !important; grid-template-columns: 1fr 1fr; grid-gap: 30px; width: 100%; }
+            .print-header { grid-column: 1 / -1; display: flex !important; justify-content: center; gap: 50px; width: 100%; font-size: 20px; font-weight: 600; margin-top: 10px; margin-bottom: 5px; padding-bottom: 10px; border-bottom: 2px solid #000; white-space: nowrap; }
             
-            /* EXPLICIT BREAKS */
-            .print-break {
-                break-after: page;
-                page-break-after: always;
-            }
-
-            /* Spacer Logic */
-            .print-spacer {
-                display: block !important; 
-                border: none;
-                height: 10px; 
-            }
-
-            /* Answer Key Page */
-            .answer-key-page {
-                display: block !important;
-                grid-column: 1 / -1;
-                break-before: page;
-                page-break-before: always;
-                text-align: left;
-                padding: 20px;
-                border: 2px solid #000;
-                border-radius: 15px;
-            }
+            .day-content { display: block !important; border: 2px solid #444; border-radius: 15px; padding: 15px; height: fit-content; break-inside: avoid; page-break-inside: avoid; }
+            .print-break { break-after: page; page-break-after: always; }
+            .print-spacer { display: block !important; border: none; height: 10px; }
+            .answer-key-page { display: block !important; grid-column: 1 / -1; break-before: page; page-break-before: always; text-align: left; padding: 20px; border: 2px solid #000; border-radius: 15px; }
             .ak-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
             .ak-week h4 { border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 10px; font-size: 20px; }
             .ak-day { margin-bottom: 15px; font-size: 14px; line-height: 1.4; border-bottom: 1px dashed #ccc; padding-bottom: 5px;}
             .ak-day strong { display: block; color: #444; margin-bottom: 2px; }
-
-            /* Internal Print Styling */
-            h3 { color: #000; border-bottom: 1px solid #000; margin-top: 0; font-size: 20px; }
+            h3 { color: #000; border-bottom: 1px solid #000; margin-top: 0; font-size: 20px; margin-bottom: 10px; }
             .print-mod-label { display: inline-block !important; float: right; font-size: 14px; color: #555; }
-            .question-card { border: 1px solid #ccc; box-shadow: none; background: #fff; border-left: 5px solid #ccc; border-radius: 10px; margin-bottom: 15px; padding: 15px; }
             
-            .math-problem { display: block; margin-bottom: 15px; } 
-
-            /* Inputs */
-            table.caaspp-grid { border: 1px solid #000; }
+            .question-card { border: 1px solid #ccc; box-shadow: none; background: #fff; border-left: 5px solid #ccc; border-radius: 10px; margin-bottom: 10px !important; padding: 10px 15px !important; }
+            .instructions { margin-bottom: 8px !important; }
+            
+            .math-problem { 
+                display: block; 
+                margin-bottom: 15px !important; 
+                border: 2px solid #ccc; 
+                padding: 15px !important; 
+                border-radius: 10px;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            } 
+            
+            /* SQUISH SVGS FOR PRINT (Number Lines & Fractions) */
+            .math-problem > div[style*="text-align: center"] { margin-bottom: 5px !important; }
+            .math-problem svg.fraction-bar-svg, .math-problem svg.number-line-svg { max-height: 60px !important; width: auto !important; margin: 2px auto !important; }
+            /* Pattern lines get a 20% boost in allowed height to ensure inputs fit nicely */
+            .math-problem svg.pattern-line-svg { max-height: 75px !important; width: 100% !important; margin: 2px auto !important; }
+            
+            /* Tighter Grid Tables for Print */
+            table.caaspp-grid { border: 1px solid #000; margin-bottom: 10px !important; }
             table.caaspp-grid th { background: #eee; color: #000; border-bottom: 1px solid #000; }
-            table.caaspp-grid td { border-bottom: 1px solid #ccc; }
-            .input-box { border: 2px solid #000; background: #fff; color: transparent; text-shadow: 0 0 0 #000; display: inline-block; vertical-align: middle; }
-            .checkbox-container input { position: static; opacity: 1; height: 16px; width: 16px; } .checkmark { display: none; }
+            table.caaspp-grid td { border-bottom: 1px solid #ccc; padding: 4px 8px !important; }
+            table.caaspp-grid td:first-child { padding-left: 10px !important; }
+            
+            /* Tighter & Scaled Down Pattern Tables (Approx 85% visually) */
+            .pattern-table-container { margin: 5px 0 !important; }
+            table.pattern-table td { width: 42px !important; height: 42px !important; font-size: 18px !important; padding: 2px !important; }
+            table.pattern-table .input-box { width: 35px !important; height: 26px !important; font-size: 16px !important; }
+            
+            /* --- FORCE BLANK INPUTS FOR PRINTING --- */
+            /* Erase user text so worksheet prints blank */
+            .input-box, .frac-input, .drill-input { 
+                border: 2px solid #000 !important; 
+                background: #fff !important; 
+                color: transparent !important; 
+                text-shadow: none !important; 
+                -webkit-text-fill-color: transparent !important; 
+                display: inline-block; 
+                vertical-align: middle; 
+            }
+            
+            /* Erase radio buttons and checkboxes so they print blank */
+            input[type="radio"], input[type="checkbox"] { 
+                -webkit-appearance: none; 
+                -moz-appearance: none; 
+                appearance: none; 
+                border: 1px solid #000; 
+                background: #fff; 
+            }
+            input[type="radio"] { width: 14px; height: 14px; border-radius: 50%; }
+            input[type="checkbox"] { width: 14px; height: 14px; border-radius: 2px; }
+            
+            .checkbox-container input { position: static; opacity: 1; margin: 0; } .checkmark { display: none; }
+            .checkbox-container { padding-left: 0 !important; margin-bottom: 0 !important; } 
+            
             .correction-text, .grid-answer-indicator { display: none !important; }
-            .double-input-container { border: 2px dashed #000; }
-            .mc-option { border: 1px solid #ccc; display: flex; align-items: center; }
+            .double-input-container { border: 2px dashed #000; padding: 15px !important; }
+            
+            .mc-option { border: 1px solid #ccc; display: flex; align-items: center; padding: 4px 8px !important; margin-bottom: 6px !important; }
+            .mc-option svg { width: 150px !important; max-height: 35px !important; margin: 0 !important; }
         }
     </style>
+
+    <script>
+        // --- GLOBAL SVG & HTML GENERATORS ---
+        function drawNumberLine(divisions, pointAt) {
+            let svg = `<svg class="number-line-svg" width="400" height="100" viewBox="0 0 400 100" style="margin: 10px 0;">`;
+            svg += `<line x1="40" y1="50" x2="360" y2="50" stroke="#333" stroke-width="3" />`; 
+            svg += `<polygon points="40,50 50,45 50,55" fill="#333" />`; 
+            svg += `<polygon points="360,50 350,45 350,55" fill="#333" />`; 
+            
+            let startX = 60, endX = 340, width = endX - startX;
+            for (let i = 0; i <= divisions; i++) {
+                let x = startX + (width / divisions) * i;
+                svg += `<line x1="${x}" y1="40" x2="${x}" y2="60" stroke="#333" stroke-width="3" />`;
+                if (i === 0) svg += `<text x="${x}" y="80" font-size="20" font-weight="bold" fill="#333" text-anchor="middle">0</text>`;
+                if (i === divisions) svg += `<text x="${x}" y="80" font-size="20" font-weight="bold" fill="#333" text-anchor="middle">1</text>`;
+                
+                if (i === pointAt) {
+                    svg += `<circle cx="${x}" cy="50" r="7" fill="#c62828" />`;
+                    svg += `<text x="${x}" y="30" font-size="22" font-weight="bold" fill="#c62828" text-anchor="middle">A</text>`;
+                }
+            }
+            svg += `</svg>`;
+            return svg;
+        }
+
+        function drawFractionBar(divisions, shadedCount) {
+            let svg = `<svg class="fraction-bar-svg" width="300" height="60" viewBox="0 0 300 60" style="margin: 5px 0;">`;
+            let boxWidth = 298 / divisions;
+            for (let i = 0; i < divisions; i++) {
+                let fill = i < shadedCount ? "#81ecec" : "#fff";
+                svg += `<rect x="${1 + (i * boxWidth)}" y="10" width="${boxWidth}" height="40" fill="${fill}" stroke="#333" stroke-width="2" />`;
+            }
+            svg += `</svg>`;
+            return svg;
+        }
+
+        // Mod 7 Pattern Number Line
+        function drawPatternLine(values, answers) {
+            let svg = `<svg class="pattern-line-svg" width="100%" height="150" viewBox="0 0 600 150" style="margin: 10px 0; max-width: 100%; overflow: visible;">`;
+            svg += `<line x1="30" y1="100" x2="570" y2="100" stroke="#333" stroke-width="3" />`; 
+            svg += `<polygon points="30,100 45,92 45,108" fill="#333" />`; 
+            svg += `<polygon points="570,100 555,92 555,108" fill="#333" />`; 
+            
+            let n = values.length;
+            let startX = 60, endX = 540, gap = (endX - startX) / (n - 1);
+            let ansIdx = 0;
+            
+            for (let i = 0; i < n; i++) {
+                let x = startX + i * gap;
+                svg += `<line x1="${x}" y1="90" x2="${x}" y2="110" stroke="#333" stroke-width="3" />`;
+                if (values[i] !== null) {
+                    svg += `<text x="${x}" y="75" font-size="28" font-weight="bold" fill="#333" text-anchor="middle">${values[i]}</text>`;
+                } else {
+                    let ans = answers[ansIdx++];
+                    svg += `<foreignObject x="${x - 60}" y="0" width="120" height="150">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex; flex-direction:column; align-items:center; padding-top: 40px; height: 100%;">
+                            <input type="text" class="input-box" data-answer="${ans}" style="width:50px; height:40px; font-size:22px; padding:2px; margin:0;">
+                        </div>
+                    </foreignObject>`;
+                }
+            }
+            svg += `</svg>`;
+            return svg;
+        }
+
+        // Mod 7 Pattern Tables
+        function drawPatternTable(grid) {
+            let html = `<table class="pattern-table">`;
+            grid.forEach(row => {
+                html += `<tr>`;
+                row.forEach(cell => {
+                    if (cell.startsWith("ans:")) {
+                        let ans = cell.split(":")[1];
+                        html += `<td><input type="text" class="input-box" data-answer="${ans}"></td>`;
+                    } else {
+                        html += `<td>${cell}</td>`;
+                    }
+                });
+                html += `</tr>`;
+            });
+            html += `</table>`;
+            return html;
+        }
+    </script>
 
     <script src="data/gr3/mod1.js"></script>
     <script src="data/gr3/mod2.js"></script>
     <script src="data/gr3/mod3.js"></script>
     <script src="data/gr3/mod4.js"></script>
-    </head>
+    <script src="data/gr3/mod5.js"></script>
+    <script src="data/gr3/mod6.js"></script>
+</head>
 <body>
 
 <div class="container">
@@ -200,6 +299,8 @@
         <button class="btn-module" onclick="selectModule(2)">Properties of Mult/Div</button>
         <button class="btn-module" onclick="selectModule(3)">Number & Ops in Base Ten</button>
         <button class="btn-module" onclick="selectModule(4)" style="background:#0984e3; box-shadow:0 5px 0 #0764ab;">Two-Week Review</button>
+        <button class="btn-module" onclick="selectModule(5)">Number & Ops: Fractions</button>
+        <button class="btn-module" onclick="selectModule(6)">Four Ops: Patterns & Logic</button>
     </div>
 
     <div class="nav-container" id="navContainer"></div>
@@ -228,46 +329,57 @@
 
 <script>
 
-    // --- MODULE 5 DATA (Kept inline until finalized) ---
-    const mod5Data = {
-        id: "mod-5",
-        name: "Two-Week Review",
+    // --- NEW: MODULE 7 DATA (Kept Inline Until Finalized) ---
+    const mod7Data = {
+        id: "mod-7",
+        name: "Four Operations: Interpret, Represent, Solve",
         weeks: [
             {
                 weekNum: 1,
                 days: [
                     {
-                        id: "m5-w1-mon", name: "Mon", title: "Week 1: Monday",
+                        id: "m7-w1-mon", name: "Mon", title: "Week 1: Monday",
                         sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [{ text: "1. &nbsp; What is 73 rounded to the nearest ten?", answer: "70" }, { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 8 &times; 7 = [box]", answer: "56" }] },
-                            { type: "mc", instruction: "3. &nbsp; Which expression is equal to 5 &times; (2 &times; 4)?", options: [ { text: "(5 &times; 2) &times; 4", correct: true }, { text: "5 + (2 &times; 4)", correct: false }, { text: "(5 &times; 2) + 4", correct: false } ] }
+                            { type: "input", instruction: "Solve the problems below.", problems: [ 
+                                { patternLine: { values: [12, 15, null, 21, 24, null], answers: [18, 27] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" },
+                                { text: "2. &nbsp; Mia collected 245 seashells. Her brother collected 187 seashells. How many seashells did they collect in total?", answer: "432" }
+                            ] }
                         ]
                     },
                     {
-                        id: "m5-w1-tue", name: "Tue", title: "Week 1: Tuesday",
+                        id: "m7-w1-tue", name: "Tue", title: "Week 1: Tuesday",
                         sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ { text: "1. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 30 &times; 4 = [box]", answer: "120" }, { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 6 &times; 7 = 6 &times; (5 + [box])", answer: "2" }, { text: "3. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 8 &times; ([box] + 2) = 48", answer: "4" } ] }
+                            { type: "input", instruction: "Solve the problems below.", problems: [ 
+                                { patternLine: { values: [13, 18, 23, null, 33, null, 43], answers: [28, 38] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" },
+                                { text: "2. &nbsp; A book has 95 pages. Sam has read 48 pages. How many pages does he have left to read?", answer: "47" }
+                            ] }
                         ]
                     },
                     {
-                        id: "m5-w1-wed", name: "Wed", title: "Week 1: Wednesday",
+                        id: "m7-w1-wed", name: "Wed", title: "Week 1: Wednesday",
                         sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ { text: "1. &nbsp; There are 32 apples shared equally in 4 baskets. How many apples are in each basket?", answer: "8" }, { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 420 - 80 = 400 - [box]", answer: "60" } ] },
-                            { type: "mc", instruction: "3. &nbsp; Which expression is equal to 3 &times; (6 &times; 2)?", options: [ { text: "(3 &times; 6) &times; 2", correct: true }, { text: "3 + (6 &times; 2)", correct: false }, { text: "(3 &times; 6) + 2", correct: false } ] }
+                            { type: "input", instruction: "Solve the problems below.", problems: [ 
+                                { table: [ ["10", "14", "18", "22"], ["14", "ans:18", "22", "26"], ["18", "22", "ans:26", "30"], ["22", "26", "30", "ans:34"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern in the table?", answer: "" },
+                                { patternLine: { values: [7, 11, null, 19, null, 27], answers: [15, 23] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                            ] }
                         ]
                     },
                     {
-                        id: "m5-w1-thu", name: "Thu", title: "Week 1: Thursday",
+                        id: "m7-w1-thu", name: "Thu", title: "Week 1: Thursday",
                         sections: [
-                            { type: "grid", instruction: "Decide whether each equation is true or false.", rows: [ { text: "9 &times; 4 = 36", correct: true }, { text: "18 &divide; 3 = 6", correct: true }, { text: "4 &times; 6 = 20", correct: false } ] },
-                            { type: "input", instruction: "Solve the problems below.", problems: [ { text: "1. &nbsp; What is 582 rounded to the nearest hundred?", answer: "600" }, { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 9 &times; 8 = 9 &times; (5 + [box])", answer: "3" } ] }
+                            { type: "input", instruction: "Solve the problems below.", problems: [ 
+                                { table: [ ["12", "15", "18", "21"], ["16", "ans:20", "24", "28"], ["20", "25", "ans:30", "35"], ["24", "30", "36", "ans:42"] ], text: "1. &nbsp; Part of a multiplication table is shown. What three numbers correctly complete the pattern in the table?", answer: "" },
+                                { text: "2. &nbsp; A toy store had 412 teddy bears. They sold 158 of them. How many teddy bears are left?", answer: "254" }
+                            ] }
                         ]
                     },
                     {
-                        id: "m5-w1-fri", name: "Fri", title: "Week 1: Friday",
+                        id: "m7-w1-fri", name: "Fri", title: "Week 1: Friday",
                         sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ { text: "1. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 5 &times; [box] = 35", answer: "7" }, { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 5 &times; ([box] + 4) = 35", answer: "3" } ] },
-                            { type: "mc", instruction: "3. &nbsp; Which expression is equal to 8 &times; (2 &times; 3)?", options: [ { text: "(8 &times; 2) &times; 3", correct: true }, { text: "8 + (2 &times; 3)", correct: false }, { text: "(8 &times; 2) + 3", correct: false } ] }
+                            { type: "input", instruction: "Solve the problems below.", problems: [ 
+                                { patternLine: { values: [null, 24, 30, 36, 42], answers: [18] }, text: "1. &nbsp; What unknown number completes the pattern on the number line? Enter it in the box.", answer: "" },
+                                { text: "2. &nbsp; A farmer has 4 baskets of eggs. There are 6 eggs in each basket. He packs all the eggs into cartons that hold 8 eggs each. How many cartons does he use?", answer: "3" }
+                            ] }
                         ]
                     }
                 ]
@@ -276,36 +388,49 @@
                 weekNum: 2,
                 days: [
                     {
-                        id: "m5-w2-mon", name: "Mon", title: "Week 2: Monday",
+                        id: "m7-w2-mon", name: "Mon", title: "Week 2: Monday",
                         sections: [
-                            { type: "input", instruction: "Enter the unknown number.", problems: [ { text: "1. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 4 &times; 9 = 4 &times; (5 + [box])", answer: "4" } ] },
-                            { type: "mc", instruction: "2. &nbsp; Which expression is equal to 2 &times; (5 &times; 5)?", options: [ { text: "(2 &times; 5) &times; 5", correct: true }, { text: "2 + (5 &times; 5)", correct: false }, { text: "(2 &times; 5) + 5", correct: false } ] }
+                            { type: "input", instruction: "Solve the problems below.", problems: [ 
+                                { text: "1. &nbsp; Lisa buys 5 packs of stickers. Each pack has 8 stickers. She gives 10 stickers to her friend. How many stickers does Lisa have left?", answer: "30" },
+                                { patternLine: { values: [20, 35, 50, null, 80, null], answers: [65, 95] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                            ] }
                         ]
                     },
                     {
-                        id: "m5-w2-tue", name: "Tue", title: "Week 2: Tuesday",
+                        id: "m7-w2-tue", name: "Tue", title: "Week 2: Tuesday",
                         sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ { text: "1. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 9 &times; [box] = 54", answer: "6" }, { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 9 &times; ([box] + 3) = 54", answer: "3" }, { text: "3. &nbsp; When rounding to the nearest hundred, what is the greatest whole number that rounds to 300?", answer: "349" } ] }
+                            { type: "input", instruction: "Solve the problems below.", problems: [ 
+                                { table: [ ["35", "ans:40", "45", "50"], ["42", "48", "ans:54", "60"], ["49", "56", "63", "ans:70"], ["56", "64", "72", "80"] ], text: "1. &nbsp; Part of a multiplication table is shown. What three numbers correctly complete the pattern in the table?", answer: "" },
+                                { text: "2. &nbsp; A classroom has 6 tables. Each table has 4 chairs. If 21 students sit in the chairs, how many chairs are empty?", answer: "3" }
+                            ] }
                         ]
                     },
                     {
-                        id: "m5-w2-wed", name: "Wed", title: "Week 2: Wednesday",
+                        id: "m7-w2-wed", name: "Wed", title: "Week 2: Wednesday",
                         sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ { text: "1. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 532 - 96 = 532 - 100 + [box]", answer: "4" }, { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 7 &times; 9 = 7 &times; (5 + [box])", answer: "4" }, { text: "3. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 56 &divide; 8 = [box]", answer: "7" } ] }
+                            { type: "input", instruction: "Solve the problems below.", problems: [ 
+                                { text: "1. &nbsp; The students in Mrs. Smith's class lined up in 4 equal rows. The class has more than 10 students but fewer than 25 students. If there was 1 fewer student, they could line up in 3 equal rows. How many students are in the class?", answer: "16" },
+                                { text: "2. &nbsp; A factory made 384 red cars and 267 blue cars. How many cars did the factory make in total?", answer: "651" }
+                            ] }
                         ]
                     },
                     {
-                        id: "m5-w2-thu", name: "Thu", title: "Week 2: Thursday",
+                        id: "m7-w2-thu", name: "Thu", title: "Week 2: Thursday",
                         sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ { text: "1. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 6 &times; [box] = 36", answer: "6" }, { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 6 &times; ([box] + 4) = 36", answer: "2" } ] },
-                            { type: "mc", instruction: "3. &nbsp; Which expression is equal to 4 &times; (3 &times; 4)?", options: [ { text: "(4 &times; 3) &times; 4", correct: true }, { text: "4 + (3 &times; 4)", correct: false }, { text: "(4 &times; 3) + 4", correct: false } ] }
+                            { type: "input", instruction: "Solve the problems below.", problems: [ 
+                                { text: "1. &nbsp; A chef is baking cookies on trays. He places them in 5 equal rows. He baked more than 20 but fewer than 40 cookies. If he baked 1 more cookie, he could place them in 6 equal rows. How many cookies did he bake?", answer: "35" },
+                                { patternLine: { values: [null, 22, 30, 38, null], answers: [14, 46] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                            ] }
                         ]
                     },
                     {
-                        id: "m5-w2-fri", name: "Fri", title: "Week 2: Friday",
+                        id: "m7-w2-fri", name: "Fri", title: "Week 2: Friday",
                         sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ { text: "1. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 8 &times; 7 = 8 &times; (5 + [box])", answer: "2" }, { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 4 &times; [box] = 32", answer: "8" }, { text: "3. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 4 &times; ([box] + 5) = 32", answer: "3" } ] },
-                            { type: "mc", instruction: "4. &nbsp; Which expression is equal to 7 &times; (3 &times; 2)?", options: [ { text: "(7 &times; 3) &times; 2", correct: true }, { text: "7 + (3 &times; 2)", correct: false }, { text: "(7 &times; 3) + 2", correct: false } ] }
+                            { type: "input", instruction: "Solve the problems below.", problems: [ 
+                                { table: [ ["21", "26", "31", "36"], ["26", "ans:31", "36", "41"], ["31", "36", "ans:41", "46"], ["36", "41", "46", "ans:51"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern?", answer: "" },
+                                { text: "2. &nbsp; Tom has 3 boxes of markers. Each box has 10 markers. He shares them equally among 5 friends. How many markers does each friend get?", answer: "6" },
+                                { patternLine: { values: [18, 30, null, 54, null], answers: [42, 66] }, text: "3. &nbsp; What unknown numbers complete the pattern on the number line?", answer: "" }
+                            ] }
                         ]
                     }
                 ]
@@ -320,16 +445,15 @@
     let attempts = {}; 
 
     function selectModule(index) {
-        // Reconstruct the appData object using the loaded external files.
-        // We do this here inside the function to ensure the external scripts 
-        // have fully loaded and populated their variables into the window object.
         const appData = {
             modules: [
                 typeof mod1Data !== 'undefined' ? mod1Data : {name: "Module 1", weeks: false}, 
                 typeof mod2Data !== 'undefined' ? mod2Data : {name: "Module 2", weeks: false}, 
                 typeof mod3Data !== 'undefined' ? mod3Data : {name: "Module 3", weeks: false}, 
                 typeof mod4Data !== 'undefined' ? mod4Data : {name: "Module 4", weeks: false},
-                mod5Data // Append inline Module 5
+                typeof mod5Data !== 'undefined' ? mod5Data : {name: "Two-Week Review", weeks: false},
+                typeof mod6Data !== 'undefined' ? mod6Data : {name: "Number & Ops: Fractions", weeks: false},
+                mod7Data // Inline for testing
             ]
         };
 
@@ -349,7 +473,7 @@
         
         // Reset View
         navContainer.innerHTML = '';
-        contentArea.innerHTML = ''; // Clear placeholder out entirely
+        contentArea.innerHTML = ''; 
         document.getElementById('footer-controls').style.display = 'none';
         
         // Toggle Extra Practice
@@ -391,7 +515,6 @@
                 dayDiv.id = day.id; dayDiv.className = 'day-content hidden';
                 dayDiv.innerHTML = `<h3>${day.title}<span class="print-mod-label">M${index+1}</span></h3>`;
                 
-                // --- ADD EXPLICIT BREAK FOR TUESDAY & THURSDAY ---
                 if (day.name === 'Tue' || day.name === 'Thu') {
                     dayDiv.classList.add('print-break');
                 }
@@ -403,14 +526,13 @@
                     card.innerHTML = `<p class="instructions">${iHtml}</p>`;
                     
                     if (sec.type === 'grid') card.appendChild(createGrid(sec.rows));
-                    else if (sec.type === 'input') sec.problems.forEach(p => card.appendChild(createProblem(p)));
+                    else if (sec.type === 'input' || sec.type === 'fraction-input') sec.problems.forEach(p => card.appendChild(createProblem(p, sec.type)));
                     else if (sec.type === 'double') card.appendChild(createDouble(sec));
                     else if (sec.type === 'mc') card.appendChild(createMC(sec));
                     dayDiv.appendChild(card);
                 });
                 contentArea.appendChild(dayDiv);
 
-                // --- INSERT SPACER IF DAY IS FRIDAY ---
                 if (day.name === 'Fri') {
                     const spacer = document.createElement('div');
                     spacer.className = 'print-spacer print-break'; 
@@ -435,9 +557,17 @@
                 html += `<div class="ak-day"><strong>${day.name}:</strong> `;
                 let answers = [];
                 day.sections.forEach(sec => {
-                    if (sec.type === 'input') sec.problems.forEach((p, i) => answers.push(p.answer));
+                    if (sec.type === 'input' || sec.type === 'fraction-input') {
+                        sec.problems.forEach(p => {
+                            if (p.answer) answers.push(p.answer);
+                            if (p.patternLine) answers.push(...p.patternLine.answers);
+                            if (p.table) {
+                                p.table.forEach(r => r.forEach(c => { if(c.startsWith("ans:")) answers.push(c.split(":")[1]); }));
+                            }
+                        });
+                    }
                     if (sec.type === 'double') answers.push(...sec.answers);
-                    if (sec.type === 'mc') sec.options.forEach(o => { if(o.correct) answers.push(`(MC: ${o.text})`); });
+                    if (sec.type === 'mc') sec.options.forEach(o => { if(o.correct) answers.push(o.text ? `(MC: ${o.text})` : `(MC: Diagram)`); });
                     if (sec.type === 'grid') {
                         let bools = sec.rows.map(r => r.correct ? 'T' : 'F').join(', ');
                         answers.push(`[${bools}]`);
@@ -455,7 +585,6 @@
 
     function showDay(dayId, btn) {
         currentDayId = dayId;
-        // Check if placeholder exists before trying to style it
         const ph = document.getElementById('placeholder');
         if (ph) ph.style.display = 'none';
         
@@ -470,12 +599,43 @@
     }
 
     // --- DOM BUILDERS ---
-    function formatText(t) { return t ? t.replace(/□|\[box\]/g, '<span class="unknown-square"></span>') : t; }
+    function formatText(t) { 
+        if (!t) return t;
+        t = t.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '<span class="inline-frac"><span class="num">$1</span><span class="den">$2</span></span>');
+        return t.replace(/□|\[box\]/g, '<span class="unknown-square"></span>'); 
+    }
 
-    function createProblem(p) {
+    function createProblem(p, type) {
         const div = document.createElement('div'); div.className = 'math-problem';
-        const input = `<input type="text" class="input-box" data-answer="${p.answer}">`;
-        div.innerHTML = p.text.includes('[box]') ? p.text.replace('[box]', input).replace(/□/g, '<span class="unknown-square"></span>') : formatText(p.text) + ' ' + input;
+        let inner = "";
+
+        if (p.svg) inner += `<div style="text-align: center; width: 100%; margin-bottom: 15px;">${p.svg}</div>`;
+        if (p.table) inner += `<div class="pattern-table-container" style="display:flex; justify-content:center; width:100%; margin: 15px 0;">${drawPatternTable(p.table)}</div>`;
+        if (p.patternLine) inner += `<div style="text-align: center; width: 100%; margin-bottom: 15px;">${drawPatternLine(p.patternLine.values, p.patternLine.answers)}</div>`;
+
+        let rawText = p.text;
+        if (type === "fraction-input" && rawText.includes('[frac-box]')) {
+            const fHtml = `<div class="frac-box-container" data-answer="${p.answer}">
+                <input type="number" class="frac-input num-in">
+                <div class="frac-line"></div>
+                <input type="number" class="frac-input den-in">
+            </div>`;
+            let textWithFracBox = rawText.replace('[frac-box]', fHtml);
+            inner += formatText(textWithFracBox);
+        } else {
+            const input = `<input type="text" class="input-box" data-answer="${p.answer}">`;
+            let formatted = formatText(rawText);
+            
+            if (rawText.includes('[box]')) {
+                inner += formatted.replace('<span class="unknown-square"></span>', input);
+            } else if (p.answer) { 
+                inner += formatted + ' ' + input;
+            } else {
+                inner += formatted; 
+            }
+        }
+
+        div.innerHTML = inner;
         return div;
     }
 
@@ -498,7 +658,8 @@
         const grp = 'mc_' + Math.random().toString(36).substr(2,9);
         sec.options.forEach(opt => {
             const row = document.createElement('div'); row.className = 'mc-option';
-            row.innerHTML = `<input type="radio" name="${grp}" data-correct="${opt.correct}"><span>${formatText(opt.text)}</span>`;
+            const content = opt.svg ? `<div style="margin-left:10px;">${opt.svg}</div>` : `<span>${formatText(opt.text)}</span>`;
+            row.innerHTML = `<input type="radio" name="${grp}" data-correct="${opt.correct}">${content}`;
             row.onclick = () => row.querySelector('input').checked = true;
             div.appendChild(row);
         });
@@ -508,6 +669,14 @@
     function createElementFromHTML(htmlString) {
         const div = document.createElement('div'); div.innerHTML = htmlString.trim();
         return div.firstChild; 
+    }
+
+    function parseFrac(str) {
+        if (str.includes('/')) {
+            let pts = str.split('/');
+            return parseFloat(pts[0]) / parseFloat(pts[1]);
+        }
+        return parseFloat(str);
     }
 
     // --- CHECKING LOGIC ---
@@ -527,13 +696,45 @@
         const c = document.getElementById(currentDayId);
         let allGood = true;
 
-        // Inputs
-        c.querySelectorAll('input[type="text"]').forEach(i => {
-            if(i.value.trim()===i.dataset.answer){ i.className='input-box correct'; }
+        c.querySelectorAll('input[type="text"].input-box').forEach(i => {
+            let val = i.value.trim();
+            let ans = i.dataset.answer;
+            let isCorrect = false;
+
+            if (val === "") {
+                isCorrect = false;
+            } else if (ans.startsWith('>')) {
+                isCorrect = parseInt(val) > parseInt(ans.substring(1));
+            } else if (ans.startsWith('<')) {
+                isCorrect = parseInt(val) < parseInt(ans.substring(1));
+            } else {
+                isCorrect = (val === ans);
+            }
+
+            if(isCorrect){ i.className='input-box correct'; }
             else{ i.className='input-box incorrect'; allGood=false; }
         });
 
-        // Grids
+        c.querySelectorAll('.frac-box-container').forEach(fi => {
+            let num = fi.querySelector('.num-in').value.trim();
+            let den = fi.querySelector('.den-in').value.trim();
+            let ansStr = fi.dataset.answer;
+            let isCorrect = false;
+
+            if (num !== "" && den !== "" && parseFloat(den) !== 0) {
+                let userVal = parseFloat(num) / parseFloat(den);
+                let targetVal = parseFrac(ansStr);
+                if (Math.abs(userVal - targetVal) < 0.0001) isCorrect = true;
+            }
+
+            if (isCorrect) {
+                fi.classList.add('correct'); fi.classList.remove('incorrect');
+            } else {
+                fi.classList.add('incorrect'); fi.classList.remove('correct');
+                allGood = false;
+            }
+        });
+
         c.querySelectorAll('tr[data-type="grid-row"]').forEach(row => {
             row.querySelectorAll('.checkbox-container').forEach(l => l.classList.remove('correct-check', 'incorrect-check'));
             
@@ -552,7 +753,6 @@
             if(!isCorrect) allGood=false;
         });
 
-        // MC
         c.querySelectorAll('div[data-type="mc-container"]').forEach(mc => {
             let mcHit = false;
             mc.querySelectorAll('.mc-option').forEach(opt => {
@@ -580,10 +780,21 @@
     }
 
     function revealAnswers(c) {
-        c.querySelectorAll('input[type="text"]').forEach(i => {
-            if(!i.parentNode.querySelector('.correction-text')) i.parentNode.insertAdjacentHTML('beforeend', `<span class="correction-text">Ans: ${i.dataset.answer}</span>`);
+        c.querySelectorAll('input[type="text"].input-box').forEach(i => {
+            if(!i.parentNode.querySelector('.correction-text')) {
+                let ansText = i.dataset.answer;
+                if (ansText.startsWith('>')) ansText = `Any number > ${ansText.substring(1)}`;
+                if (ansText.startsWith('<')) ansText = `Any number < ${ansText.substring(1)}`;
+                i.parentNode.insertAdjacentHTML('beforeend', `<span class="correction-text">Ans: ${ansText}</span>`);
+            }
         });
         
+        c.querySelectorAll('.frac-box-container').forEach(fi => {
+            if(!fi.parentNode.querySelector('.correction-text')) {
+                fi.parentNode.insertAdjacentHTML('beforeend', `<span class="correction-text">Ans: ${fi.dataset.answer} (or equivalent)</span>`);
+            }
+        });
+
         c.querySelectorAll('input[type="checkbox"][data-correct="true"]').forEach(box => {
             const label = box.closest('.checkbox-container');
             if(!label.parentNode.querySelector('.grid-answer-indicator')) {
