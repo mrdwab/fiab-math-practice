@@ -54,8 +54,8 @@
         .unknown-square{display:inline-block;width:24px;height:24px;border:3px solid #555;border-radius:4px;vertical-align:-5px;margin:0 4px;background:#fff}
         
         /* --- FRACTION STYLING --- */
-        .inline-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 5px; font-size: 0.9em; }
-        .inline-frac .num, .inline-frac .den { display: flex; align-items: center; justify-content: center; height: 38px; width: 100%; padding: 0 4px; }
+        .inline-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 5px; font-size: 0.9em; line-height: 1; }
+        .inline-frac .num, .inline-frac .den { display: flex; align-items: center; justify-content: center; width: 100%; padding: 1px 4px; }
         .inline-frac .num { border-bottom: 2px solid #444; }
         .inline-frac .input-box { width: 45px; height: 30px; font-size: 18px; text-align: center; margin: 0; padding: 2px; } 
         
@@ -64,6 +64,11 @@
         .frac-line { width: 100%; height: 3px; background-color: #333; margin: 4px 0; border-radius: 2px; }
         .frac-box-container.correct .frac-input { border-color: #2e7d32; background: #e8f5e9; color: #2e7d32; }
         .frac-box-container.incorrect .frac-input { border-color: #c62828; background: #ffebee; color: #c62828; }
+
+        /* --- DATA TABLES --- */
+        table.data-table { border-collapse: collapse; margin: 10px auto; background: #fff; border: 2px solid #333; font-size: 18px; width: 90%; }
+        table.data-table th { background: #d4e6f7; padding: 10px 20px; border: 1px solid #333; color: #333; }
+        table.data-table td { padding: 8px 20px; border: 1px solid #ccc; text-align: center; }
 
         /* --- PATTERN TABLE STYLING --- */
         table.pattern-table { border-collapse: collapse; margin: 10px auto; background: #fff; border: 3px solid #333; }
@@ -91,6 +96,11 @@
         .mc-option{ display: flex; align-items: center; gap: 15px; font-size: 20px; margin-bottom: 15px; color: #444; padding:10px; border-radius:10px; cursor:pointer; transition:background .2s } 
         .mc-option:hover{background:#e6f2ff}
         .mc-correct{background:#e8f5e9!important;border:2px solid #2e7d32} .mc-incorrect{background:#ffebee!important;border:2px solid #c62828}
+        
+        .mc-horizontal-tables { display: flex; flex-direction: row; justify-content: space-between; gap: 15px; }
+        .mc-horizontal-tables .mc-option { flex-direction: column; flex: 1; align-items: center; padding: 15px; text-align: center; }
+        .mc-horizontal-tables .mc-option input { margin-bottom: 10px; margin-right: 0; }
+        
         .double-input-container{background:#fff;padding:25px;border-radius:15px;border:3px dashed #cdb4db;text-align:center} .box-row{display:flex;justify-content:center;gap:30px;margin-top:15px}
 
         /* Controls */
@@ -120,15 +130,12 @@
             .module-nav, .nav-container, .footer-controls, .print-btn, .home-btn, 
             #placeholder, .btn-extra, #extraPracticeContainer, .tbd-message, h1 { display: none !important; }
             
-            /* Tightened grid gap to save horizontal space */
             #content-area { display: grid !important; grid-template-columns: 1fr 1fr; grid-gap: 20px; width: 100%; }
             
-            /* Border-bottom removed to prevent heavy line appearance */
             .print-header { font-family: 'Roboto', sans-serif; grid-column: 1 / -1; display: flex !important; justify-content: space-between; gap: 20px; width: 100%; font-size: 16px; font-weight: 600; margin-top: 5px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: none; white-space: nowrap; }
             
             .day-content { display: block !important; border: none !important; padding: 0 !important; margin-bottom: 15px !important; break-inside: avoid; page-break-inside: avoid; }
             
-            /* Tightened question card padding to save vertical space */
             .question-card { border: 1px solid #ccc !important; box-shadow: none !important; background: #fff !important; margin-bottom: 12px !important; padding: 10px 12px !important; border-radius: 10px !important; break-inside: avoid; page-break-inside: avoid; }
             
             .helper-hub-card { display: block !important; border: 2px dashed #666 !important; background: #f9f9f9 !important; border-radius: 15px; padding: 15px !important; margin-top: 0 !important; break-inside: avoid; page-break-inside: avoid; box-shadow: none; align-self: start; }
@@ -139,13 +146,11 @@
             .helper-hub-card svg rect[fill="#e3f2fd"], .helper-hub-card svg rect[fill="#fff9c4"], .helper-hub-card svg rect[fill="#c8e6c9"] { fill: #fff !important; stroke: #333 !important; }
             .helper-hub-card svg rect[fill="#81ecec"] { fill: #ddd !important; }
             
-            /* Tightened math problem spacing */
             .math-problem { display: block; margin-bottom: 8px !important; border: none !important; padding: 0 !important; font-size: 16px !important; break-inside: avoid; page-break-inside: avoid; line-height: 1.3 !important; } 
             
             .print-break { break-after: page; page-break-after: always; }
             .print-spacer { display: block !important; border: none; height: 10px; }
             
-            /* Removed border from the whole page to stop bleeding */
             .answer-key-page { display: block !important; grid-column: 1 / -1; break-before: page; page-break-before: always; text-align: left; padding: 10px 0; border: none; }
             .answer-key-page h2 { font-size: 22px; margin-top: 0; margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 5px; } 
             
@@ -154,7 +159,6 @@
             .ak-day { margin-bottom: 10px; font-size: 12px; line-height: 1.3; border-bottom: 1px dashed #ccc; padding-bottom: 5px;}
             .ak-day strong { display: block; color: #444; margin-bottom: 2px; }
             
-            /* Tighter headers */
             h3 { color: #000; border-bottom: 1px solid #000; margin-top: 0; font-size: 18px; margin-bottom: 6px; padding-bottom: 4px !important; }
             .instructions { font-size: 15px !important; margin-bottom: 6px !important; }
             .q-num { font-size: 16px !important; }
@@ -164,15 +168,23 @@
             .math-problem svg.fraction-bar-svg, .math-problem svg.number-line-svg { max-height: 70px !important; width: auto !important; margin: 2px auto !important; }
             .math-problem svg.pattern-line-svg { max-height: 80px !important; width: 100% !important; margin: 2px auto !important; }
             
-            /* SVG max height bumped down from 160 to 140 to prevent page overflow */
             .grid-area-svg, .polygon-svg, .ruler-svg { max-height: 140px !important; margin: 2px auto !important; }
+            
+            /* --- NEW PRINT STYLES FOR GRAPHS & TABLES --- */
+            table.data-table { border: 2px solid #000 !important; width: 95%; margin: 5px auto !important; }
+            table.data-table th { background: #e0e0e0 !important; color: #000 !important; border: 1px solid #000 !important; font-size: 14px !important; padding: 4px !important; -webkit-print-color-adjust: exact; }
+            table.data-table td { border: 1px solid #000 !important; color: #000 !important; font-size: 14px !important; padding: 4px !important; }
+            
+            .mc-horizontal-tables { display: flex; flex-direction: row; justify-content: space-between; gap: 5px; }
+            .mc-horizontal-tables .mc-option { flex-direction: column; width: 32%; padding: 4px !important; margin: 0 !important; align-items: center; border: 1px solid #ccc; text-align: center; }
+            .mc-horizontal-tables .mc-option input { margin-bottom: 5px; margin-right: 0; }
+            .mc-horizontal-tables .mc-option table.data-table { font-size: 12px !important; margin: 2px auto !important; width: 100%; }
+            .mc-horizontal-tables .mc-option table.data-table th, .mc-horizontal-tables .mc-option table.data-table td { padding: 2px !important; }
             
             svg { filter: grayscale(100%); }
             line[stroke="#ccc"] { stroke: #666 !important; } 
-            rect[fill="#81ecec"] { fill: #aaa !important; stroke: #000 !important; stroke-width: 1.5px !important; } 
+            rect[fill="#81ecec"], rect[fill="#a1c4fd"], rect[fill="#6c5ce7"], rect[fill="#f1c40f"], rect[fill="#e74c3c"], rect[fill="#d4e6f7"] { fill: #ddd !important; stroke: #000 !important; stroke-width: 1.5px !important; } 
             polygon { fill: #e0e0e0 !important; stroke: #000 !important; stroke-width: 2px !important; }
-            .ruler-svg rect[fill="#e3f2fd"] { fill: #ddd !important; stroke: #000 !important; stroke-width: 2px !important; }
-            .ruler-svg rect[fill="#fbd26a"] { fill: #fff !important; stroke: #000 !important; stroke-width: 2px !important; }
             
             table.caaspp-grid { border: 1px solid #000; margin-bottom: 6px !important; font-size: 14px !important;}
             table.caaspp-grid th { background: #eee; color: #000; border-bottom: 1px solid #000; padding: 4px !important; }
@@ -217,13 +229,149 @@
             .double-input-container { border: 2px dashed #000; padding: 10px !important; margin-bottom: 5px !important;}
             
             .mc-option { border: 1px solid #ccc; display: flex; align-items: center; padding: 4px 6px !important; margin-bottom: 4px !important; font-size: 16px !important;}
-            .mc-option svg { max-width: 150px !important; max-height: 40px !important; margin: 0 !important; }
         }
     </style>
 
     <script>
         // --- GLOBAL SVG & HTML GENERATORS ---
         
+        function drawBarGraph(title, yLabel, xLabel, labels, data, maxVal, step) {
+            const w = 350, h = 250;
+            const originX = 60, originY = 200;
+            const graphW = 270, graphH = 150;
+            
+            let svg = `<svg class="bar-graph-svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="margin: 10px auto; display: block; background: #fff; border: 1px solid #eee; border-radius: 8px;">`;
+            
+            // Titles
+            svg += `<text x="${w/2}" y="25" font-size="16" font-weight="bold" fill="#333" text-anchor="middle">${title}</text>`;
+            svg += `<text x="15" y="${originY - graphH/2}" font-size="14" font-weight="bold" fill="#555" text-anchor="middle" transform="rotate(-90 15,${originY - graphH/2})">${yLabel}</text>`;
+            svg += `<text x="${originX + graphW/2}" y="${h - 10}" font-size="14" font-weight="bold" fill="#555" text-anchor="middle">${xLabel}</text>`;
+
+            // Grid and Y-axis labels
+            let numSteps = maxVal / step;
+            for (let i = 0; i <= numSteps; i++) {
+                let y = originY - (i / numSteps) * graphH;
+                svg += `<line x1="${originX}" y1="${y}" x2="${originX + graphW}" y2="${y}" stroke="#ddd" stroke-width="1" />`;
+                svg += `<text x="${originX - 10}" y="${y + 5}" font-size="12" fill="#333" text-anchor="end">${i * step}</text>`;
+            }
+
+            // Axes lines
+            svg += `<line x1="${originX}" y1="${originY - graphH}" x2="${originX}" y2="${originY}" stroke="#333" stroke-width="2" />`;
+            svg += `<line x1="${originX}" y1="${originY}" x2="${originX + graphW}" y2="${originY}" stroke="#333" stroke-width="2" />`;
+
+            // Bars
+            const barW = (graphW / labels.length) * 0.6;
+            const spacing = (graphW / labels.length);
+            const colors = ['#a1c4fd', '#6c5ce7', '#f1c40f', '#e74c3c', '#27ae60'];
+
+            labels.forEach((label, i) => {
+                let barH = (data[i] / maxVal) * graphH;
+                let x = originX + (i * spacing) + (spacing - barW) / 2;
+                let y = originY - barH;
+                let color = colors[i % colors.length];
+                
+                svg += `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" fill="${color}" stroke="#333" stroke-width="1.5" />`;
+                svg += `<text x="${x + barW/2}" y="${originY + 18}" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">${label}</text>`;
+            });
+
+            svg += `</svg>`;
+            return svg;
+        }
+
+        function drawPictureGraph(title, categoryLabel, labels, data, iconKeyText, iconVal) {
+            const w = 400, rowH = 40;
+            const tableBottom = 75 + (labels.length * rowH);
+            const h = tableBottom + 45; // Increased padding to prevent key overlap
+            
+            let svg = `<svg class="picture-graph-svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="margin: 10px auto; display: block; background: #fff; border: 2px solid #ccc; border-radius: 8px;">`;
+            
+            svg += `<rect x="0" y="0" width="${w}" height="${h}" fill="#fcfcfc" rx="8" />`;
+            svg += `<text x="${w/2}" y="30" font-size="18" font-weight="bold" fill="#333" text-anchor="middle">${title}</text>`;
+            
+            // Header Row
+            svg += `<rect x="10" y="45" width="100" height="30" fill="#d4e6f7" stroke="#333" stroke-width="1" />`;
+            svg += `<rect x="110" y="45" width="280" height="30" fill="#d4e6f7" stroke="#333" stroke-width="1" />`;
+            svg += `<text x="60" y="65" font-size="14" font-weight="bold" fill="#333" text-anchor="middle">${categoryLabel}</text>`;
+            svg += `<text x="250" y="65" font-size="14" font-weight="bold" fill="#333" text-anchor="middle">Number</text>`;
+
+            labels.forEach((label, i) => {
+                let yPos = 75 + (i * rowH);
+                svg += `<rect x="10" y="${yPos}" width="100" height="${rowH}" fill="#fff" stroke="#333" stroke-width="1" />`;
+                svg += `<rect x="110" y="${yPos}" width="280" height="${rowH}" fill="#fff" stroke="#333" stroke-width="1" />`;
+                svg += `<text x="60" y="${yPos + 25}" font-size="14" font-weight="bold" fill="#333" text-anchor="middle">${label}</text>`;
+                
+                let val = data[i];
+                let fullIcons = Math.floor(val / iconVal);
+                let hasHalf = (val % iconVal) !== 0;
+                
+                for(let j=0; j<fullIcons; j++) {
+                    svg += `<circle cx="${135 + (j * 30)}" cy="${yPos + 20}" r="10" fill="#f1c40f" stroke="#333" stroke-width="2" />`;
+                }
+                if (hasHalf) {
+                    svg += `<path d="M ${135 + (fullIcons * 30)} ${yPos + 10} A 10 10 0 0 0 ${135 + (fullIcons * 30)} ${yPos + 30} Z" fill="#f1c40f" stroke="#333" stroke-width="2" />`;
+                }
+            });
+
+            // Key
+            svg += `<text x="${w/2}" y="${h - 15}" font-size="14" font-weight="bold" fill="#555" text-anchor="middle">Key: <tspan fill="#f1c40f" stroke="#333">⬤</tspan> = ${iconKeyText}</text>`;
+            svg += `</svg>`;
+            return svg;
+        }
+
+        function drawLinePlot(title, xLabel, ticks, data) {
+            const w = 450, h = 240; 
+            const originX = 40, originY = 160;
+            const lineW = 370;
+            
+            let svg = `<svg class="line-plot-svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="margin: 10px auto; display: block; background: #fff; border: 1px solid #eee; border-radius: 8px;">`;
+            
+            svg += `<text x="${w/2}" y="25" font-size="16" font-weight="bold" fill="#333" text-anchor="middle">${title}</text>`;
+            
+            // Base line & arrows
+            svg += `<line x1="${originX}" y1="${originY}" x2="${originX + lineW}" y2="${originY}" stroke="#333" stroke-width="3" />`;
+            svg += `<polygon points="${originX},${originY} ${originX+10},${originY-6} ${originX+10},${originY+6}" fill="#333" />`;
+            svg += `<polygon points="${originX+lineW},${originY} ${originX+lineW-10},${originY-6} ${originX+lineW-10},${originY+6}" fill="#333" />`;
+
+            const spacing = lineW / (ticks.length + 1);
+            
+            ticks.forEach((tickLabel, i) => {
+                let x = originX + spacing * (i + 1);
+                svg += `<line x1="${x}" y1="${originY - 5}" x2="${x}" y2="${originY + 10}" stroke="#333" stroke-width="2" />`;
+                
+                // Handling fractions elegantly in SVG with TIGHTER spacing
+                if (tickLabel.includes('/')) {
+                    let parts = tickLabel.split(' ');
+                    let yOffset = originY + 22;
+                    if(parts.length > 1) { // mixed number
+                        svg += `<text x="${x - 14}" y="${yOffset + 5}" font-size="16" font-weight="bold" fill="#333" text-anchor="middle">${parts[0]}</text>`;
+                        let frac = parts[1].split('/');
+                        svg += `<text x="${x + 5}" y="${yOffset - 2}" font-size="11" font-weight="bold" fill="#333" text-anchor="middle">${frac[0]}</text>`;
+                        svg += `<line x1="${x - 2}" y1="${yOffset + 1}" x2="${x + 12}" y2="${yOffset + 1}" stroke="#333" stroke-width="1.5" />`;
+                        svg += `<text x="${x + 5}" y="${yOffset + 11}" font-size="11" font-weight="bold" fill="#333" text-anchor="middle">${frac[1]}</text>`;
+                    } else { // pure fraction
+                        let frac = parts[0].split('/');
+                        svg += `<text x="${x}" y="${yOffset - 2}" font-size="11" font-weight="bold" fill="#333" text-anchor="middle">${frac[0]}</text>`;
+                        svg += `<line x1="${x - 6}" y1="${yOffset + 1}" x2="${x + 6}" y2="${yOffset + 1}" stroke="#333" stroke-width="1.5" />`;
+                        svg += `<text x="${x}" y="${yOffset + 11}" font-size="11" font-weight="bold" fill="#333" text-anchor="middle">${frac[1]}</text>`;
+                    }
+                } else {
+                    svg += `<text x="${x}" y="${originY + 28}" font-size="16" font-weight="bold" fill="#333" text-anchor="middle">${tickLabel}</text>`;
+                }
+
+                // Draw X's
+                let count = data[i] || 0;
+                for(let j=0; j<count; j++) {
+                    let xY = originY - 15 - (j * 20);
+                    svg += `<line x1="${x - 6}" y1="${xY - 6}" x2="${x + 6}" y2="${xY + 6}" stroke="#2c7be5" stroke-width="3" stroke-linecap="round" />`;
+                    svg += `<line x1="${x + 6}" y1="${xY - 6}" x2="${x - 6}" y2="${xY + 6}" stroke="#2c7be5" stroke-width="3" stroke-linecap="round" />`;
+                }
+            });
+
+            svg += `<text x="${w/2}" y="${h - 10}" font-size="14" font-weight="bold" fill="#555" text-anchor="middle">${xLabel}</text>`;
+            svg += `</svg>`;
+            return svg;
+        }
+
         function drawNumberLine(divisions, pointAt) {
             let svg = `<svg class="number-line-svg" width="400" height="100" viewBox="0 0 400 100" style="margin: 10px 0;">`;
             svg += `<line x1="40" y1="50" x2="360" y2="50" stroke="#333" stroke-width="3" />`; 
@@ -382,6 +530,7 @@
     <script src="data/gr3/mod6.js"></script>
     <script src="data/gr3/mod7.js"></script>
     <script src="data/gr3/mod8.js"></script>
+    <script src="data/gr3/mod9.js"></script>
 </head>
 <body>
 
@@ -400,6 +549,7 @@
         <button class="btn-module" onclick="selectModule(5)">Number & Ops: Fractions</button>
         <button class="btn-module" onclick="selectModule(6)">Four Ops: Patterns & Logic</button>
         <button class="btn-module" onclick="selectModule(7)">Linear Area & Measurement</button>
+        <button class="btn-module" onclick="selectModule(8)">Represent & Interpret Data</button>
     </div>
 
     <div class="nav-container" id="navContainer"></div>
@@ -443,7 +593,8 @@
                 typeof mod5Data !== 'undefined' ? mod5Data : {name: "Two-Week Review", weeks: false},
                 typeof mod6Data !== 'undefined' ? mod6Data : {name: "Number & Ops: Fractions", weeks: false},
                 typeof mod7Data !== 'undefined' ? mod7Data : {name: "Four Ops: Patterns & Logic", weeks: false},
-                typeof mod8Data !== 'undefined' ? mod8Data : {name: "Linear Area & Measurement", weeks: false} 
+                typeof mod8Data !== 'undefined' ? mod8Data : {name: "Linear Area & Measurement", weeks: false},
+                typeof mod9Data !== 'undefined' ? mod9Data : {name: "Represent & Interpret Data", weeks: false}
             ]
         };
 
@@ -535,7 +686,12 @@
                     
                     card.innerHTML = `<div style="display:flex; align-items:flex-start; margin-bottom: 20px;"><div class="instructions-wrapper" style="display:flex; align-items:flex-start; width: 100%;">${qNumHtml}<div class="instructions" style="margin-bottom:0; width: 100%;">${iHtml}</div></div></div>`;
                     
-                    if (sec.type === 'grid') card.appendChild(createGrid(sec.rows));
+                    if (sec.type === 'grid') {
+                        if (sec.problems) {
+                            sec.problems.forEach((p, idx) => card.appendChild(createProblem(p, 'grid', idx === 0 ? overrideProbText : null)));
+                        }
+                        card.appendChild(createGrid(sec.rows));
+                    }
                     else if (sec.type === 'input' || sec.type === 'fraction-input') {
                         sec.problems.forEach((p, idx) => {
                             card.appendChild(createProblem(p, sec.type, idx === 0 ? overrideProbText : null));
@@ -562,7 +718,6 @@
                 }
 
                 // Add print spacer ONLY if there's another week coming.
-                // This prevents the double page-break before the Answer Key!
                 if (day.name === 'Fri' && week.weekNum < module.weeks.length) {
                     const spacer = document.createElement('div');
                     spacer.className = 'print-spacer print-break'; 
@@ -597,7 +752,9 @@
                         });
                     }
                     if (sec.type === 'double') answers.push(...sec.answers);
-                    if (sec.type === 'mc') sec.options.forEach(o => { if(o.correct) answers.push(o.text ? `(MC: ${o.text})` : `(MC: Diagram)`); });
+                    if (sec.type === 'mc') sec.options.forEach(o => { 
+                        if(o.correct) answers.push(o.text ? `(MC: ${formatText(o.text)})` : `(MC: Diagram)`); 
+                    });
                     if (sec.type === 'grid') {
                         let bools = sec.rows.map(r => r.correct ? 'T' : 'F').join(', ');
                         answers.push(`[${bools}]`);
@@ -703,9 +860,22 @@
     function createMC(sec) {
         const div = document.createElement('div'); div.setAttribute('data-type', 'mc-container');
         const grp = 'mc_' + Math.random().toString(36).substr(2,9);
+        
+        let hasTable = sec.options.some(opt => opt.text && opt.text.includes('<table'));
+        if (hasTable) div.classList.add('mc-horizontal-tables');
+        
         sec.options.forEach(opt => {
             const row = document.createElement('div'); row.className = 'mc-option';
-            const content = opt.svg ? `<div style="margin-left:10px;">${opt.svg}</div>` : `<span>${formatText(opt.text)}</span>`;
+            
+            let content = "";
+            if (opt.svg) {
+                content = `<div style="margin-left:10px;">${opt.svg}</div>`;
+            } else if (hasTable) {
+                content = `<div style="width:100%; display:flex; justify-content:center;">${formatText(opt.text)}</div>`;
+            } else {
+                content = `<span>${formatText(opt.text)}</span>`;
+            }
+            
             row.innerHTML = `<input type="radio" name="${grp}" data-correct="${opt.correct}">${content}`;
             row.onclick = () => row.querySelector('input').checked = true;
             div.appendChild(row);
