@@ -1,10 +1,37 @@
-// --- NEW: MODULE 6 DATA (Fractions) - Kept Inline Until Ready to Move ---
+// --- MODULE 6 DATA (Fractions) ---
 const mod6Data = {
     id: "mod-6",
     name: "Number & Ops: Fractions",
     weeks: [
         {
             weekNum: 1,
+            helperHub: {
+                title: "★ Helper Hub: Reading Number Lines",
+                content: `
+                    <div style="font-size:15px; line-height: 1.3;">
+                        <p style="margin-top:0; margin-bottom:12px;">Fractions on a number line can be tricky! Follow these two steps to find any fraction.</p>
+                        
+                        <div style="display:flex; align-items:center; gap:15px; border:2px solid #ccc; padding:10px; border-radius:10px; background:#fff; margin-bottom:10px; break-inside: avoid;">
+                            <div style="flex:1;">
+                                <strong style="font-size:16px; color:#2c7be5;">Step 1: Find the Bottom Number (Denominator)</strong><br>
+                                Count the total number of "jumps" it takes to get from 0 to 1. That is your bottom number!
+                            </div>
+                        </div>
+
+                        <div style="display:flex; align-items:center; gap:15px; border:2px solid #ccc; padding:10px; border-radius:10px; background:#fff; margin-bottom:10px; break-inside: avoid;">
+                            <div style="flex:1;">
+                                <strong style="font-size:16px; color:#e74c3c;">Step 2: Find the Top Number (Numerator)</strong><br>
+                                Start at 0 and count how many jumps it takes to get to your point. That is your top number!
+                            </div>
+                        </div>
+                        
+                        <div style="text-align:center; background:#fff; border:2px dashed #ccc; border-radius:10px; padding:10px; break-inside: avoid;">
+                            ${drawNumberLine(4, 3).replace('margin: 10px 0;', 'margin: 5px 0; max-height:80px;')}
+                            <div style="color:#555; margin-top:5px;"><strong>4</strong> total jumps to 1. Point A is at the <strong>3rd</strong> jump. So A is at <strong style="color:#e74c3c;">3/4</strong>!</div>
+                        </div>
+                    </div>
+                `
+            },
             days: [
                 {
                     id: "m6-w1-mon", name: "Mon", title: "Week 1: Monday",
@@ -45,6 +72,32 @@ const mod6Data = {
         },
         {
             weekNum: 2,
+            helperHub: {
+                title: "★ Helper Hub: Fraction Comparison Tricks",
+                content: `
+                    <div style="font-size:15px; line-height: 1.3;">
+                        <p style="margin-top:0; margin-bottom:12px;">No visual model? No problem! Use these two tricks to compare fractions like a pro.</p>
+                        
+                        <div style="border:2px solid #ccc; padding:10px; border-radius:10px; background:#fff; margin-bottom:10px; break-inside: avoid;">
+                            <strong style="font-size:16px; color:#2c7be5;">Trick 1: Same Bottom Numbers (Denominators)</strong><br>
+                            If the bottom numbers are the same, the pieces are the exact same size. Just look at the top! <strong>More pieces = Bigger fraction.</strong>
+                            <div style="text-align:center; margin-top:8px;">
+                                <span class="inline-frac"><span class="num">5</span><span class="den">8</span></span> <strong style="font-size:20px; color:#e74c3c; vertical-align:middle; margin:0 10px;">&gt;</strong> <span class="inline-frac"><span class="num">3</span><span class="den">8</span></span>
+                                <span style="margin-left: 20px; color: #555; font-style: italic;">(5 slices is more than 3 slices!)</span>
+                            </div>
+                        </div>
+
+                        <div style="border:2px solid #ccc; padding:10px; border-radius:10px; background:#fff; break-inside: avoid;">
+                            <strong style="font-size:16px; color:#27ae60;">Trick 2: Same Top Numbers (Numerators)</strong><br>
+                            If the top numbers are the same, you have the same number of pieces. But watch out: <strong>A bigger bottom number means SMALLER pieces!</strong> (Imagine sharing a pizza with 8 people instead of 3).
+                            <div style="text-align:center; margin-top:8px;">
+                                <span class="inline-frac"><span class="num">1</span><span class="den">3</span></span> <strong style="font-size:20px; color:#e74c3c; vertical-align:middle; margin:0 10px;">&gt;</strong> <span class="inline-frac"><span class="num">1</span><span class="den">8</span></span>
+                                <span style="margin-left: 20px; color: #555; font-style: italic;">(1/3 slices are much bigger than 1/8 slices!)</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
             days: [
                 {
                     id: "m6-w2-mon", name: "Mon", title: "Week 2: Monday",

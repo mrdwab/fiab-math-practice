@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grade 3 Math Warmups</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Roboto:wght@400;600&display=swap" rel="stylesheet">
     <style>
         /* --- CORE STYLES --- */
         body{font-family:'Fredoka','Comic Sans MS',sans-serif;background:linear-gradient(120deg,#a1c4fd,#c2e9fb) fixed;padding:20px;text-align:center;color:#333;margin:0;-webkit-print-color-adjust:exact}
@@ -27,9 +27,12 @@
         .nav-btn{background:#f0f7ff;border:3px solid #b3d7ff;border-radius:15px;padding:10px 20px;cursor:pointer;min-width:80px;height:50px;font-weight:700;color:#555;transition:.2s}
         .nav-btn:hover{transform:translateY(-3px);border-color:#5c9ded} .nav-btn.active{background:#2c7be5;color:#fff;border-color:#1a5bb8;box-shadow:0 5px 15px rgba(44,123,229,.4)}
         
-        /* Questions */
+        /* Questions & Helper Hub */
         .question-card{background:#f4f9fc;padding:25px;margin-bottom:25px;border-radius:20px;text-align:left;border-left:8px solid #ffab00;box-shadow:0 4px 10px rgba(0,0,0,.05);break-inside:avoid}
-        .instructions{font-size:18px;color:#444;margin-bottom:20px;font-style:italic}
+        .instructions{font-size:18px;color:#444;margin-bottom:20px;font-style:italic; line-height: 1.4;}
+        
+        .helper-hub-card { background: #fffdf2; padding: 25px; margin-top: 25px; border-radius: 20px; border: 3px dashed #f1c40f; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,.05); break-inside: avoid; page-break-inside: avoid; }
+        .helper-hub-card h3 { border-bottom: 2px dashed #f39c12; color: #d35400; margin-top: 0; padding-bottom: 10px; }
         
         /* --- SUB-CARD FOR INDIVIDUAL MATH PROBLEMS --- */
         .math-problem { 
@@ -62,7 +65,7 @@
         .frac-box-container.correct .frac-input { border-color: #2e7d32; background: #e8f5e9; color: #2e7d32; }
         .frac-box-container.incorrect .frac-input { border-color: #c62828; background: #ffebee; color: #c62828; }
 
-        /* --- NEW: PATTERN TABLE STYLING --- */
+        /* --- PATTERN TABLE STYLING --- */
         table.pattern-table { border-collapse: collapse; margin: 10px auto; background: #fff; border: 3px solid #333; }
         table.pattern-table td { border: 2px solid #ccc; width: 65px; height: 65px; text-align: center; font-size: 24px; font-weight: bold; color: #444; }
         table.pattern-table .input-box { width: 45px; height: 35px; font-size: 20px; padding: 2px; margin: 0; display: inline-block; }
@@ -100,7 +103,7 @@
         .feedback-box.correct{display:block;background:#e8f5e9;color:#2e7d32;border:2px solid #a5d6a7}
         .feedback-box.warning{display:block;background:#fff3e0;color:#ef6c00;border:2px solid #ffcc80}
         .feedback-box.info{display:block;background:#e3f2fd;color:#1565c0;border:2px solid #90caf9}
-        .hidden{display:none} .print-mod-label{display:none}
+        .hidden{display:none} 
         .correction-text{color:#27ae60;font-weight:700;font-size:18px;background:#e8f5e9;padding:5px 10px;border-radius:10px;border:2px solid #a5d6a7; display: inline-block; margin: 4px; line-height: 1.2; white-space: nowrap;}
         
         /* Extra Practice Styles */
@@ -116,52 +119,69 @@
             .container { box-shadow: none; border: none; width: 100%; max-width: 100%; margin: 0; padding: 0; }
             .module-nav, .nav-container, .footer-controls, .print-btn, .home-btn, 
             #placeholder, .btn-extra, #extraPracticeContainer, .tbd-message, h1 { display: none !important; }
-            #content-area { display: grid !important; grid-template-columns: 1fr 1fr; grid-gap: 30px; width: 100%; }
-            .print-header { grid-column: 1 / -1; display: flex !important; justify-content: center; gap: 50px; width: 100%; font-size: 20px; font-weight: 600; margin-top: 10px; margin-bottom: 5px; padding-bottom: 10px; border-bottom: 2px solid #000; white-space: nowrap; }
             
-            .day-content { display: block !important; border: 2px solid #444; border-radius: 15px; padding: 15px; height: fit-content; break-inside: avoid; page-break-inside: avoid; }
+            /* Tightened grid gap to save horizontal space */
+            #content-area { display: grid !important; grid-template-columns: 1fr 1fr; grid-gap: 20px; width: 100%; }
+            
+            /* Border-bottom removed to prevent heavy line appearance */
+            .print-header { font-family: 'Roboto', sans-serif; grid-column: 1 / -1; display: flex !important; justify-content: space-between; gap: 20px; width: 100%; font-size: 16px; font-weight: 600; margin-top: 5px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: none; white-space: nowrap; }
+            
+            .day-content { display: block !important; border: none !important; padding: 0 !important; margin-bottom: 15px !important; break-inside: avoid; page-break-inside: avoid; }
+            
+            /* Tightened question card padding to save vertical space */
+            .question-card { border: 1px solid #ccc !important; box-shadow: none !important; background: #fff !important; margin-bottom: 12px !important; padding: 10px 12px !important; border-radius: 10px !important; break-inside: avoid; page-break-inside: avoid; }
+            
+            .helper-hub-card { display: block !important; border: 2px dashed #666 !important; background: #f9f9f9 !important; border-radius: 15px; padding: 15px !important; margin-top: 0 !important; break-inside: avoid; page-break-inside: avoid; box-shadow: none; align-self: start; }
+            .helper-hub-card * { color: #333 !important; }
+            .helper-hub-card h3 { font-size: 18px !important; color: #000 !important; border-bottom: 2px dashed #666 !important; margin-top: 0; padding-bottom: 8px; }
+            
+            .helper-hub-card svg *[stroke="#e74c3c"], .helper-hub-card svg *[stroke="#2c7be5"] { stroke: #666 !important; }
+            .helper-hub-card svg rect[fill="#e3f2fd"], .helper-hub-card svg rect[fill="#fff9c4"], .helper-hub-card svg rect[fill="#c8e6c9"] { fill: #fff !important; stroke: #333 !important; }
+            .helper-hub-card svg rect[fill="#81ecec"] { fill: #ddd !important; }
+            
+            /* Tightened math problem spacing */
+            .math-problem { display: block; margin-bottom: 8px !important; border: none !important; padding: 0 !important; font-size: 16px !important; break-inside: avoid; page-break-inside: avoid; line-height: 1.3 !important; } 
+            
             .print-break { break-after: page; page-break-after: always; }
             .print-spacer { display: block !important; border: none; height: 10px; }
-            .answer-key-page { display: block !important; grid-column: 1 / -1; break-before: page; page-break-before: always; text-align: left; padding: 20px; border: 2px solid #000; border-radius: 15px; }
+            
+            /* Removed border from the whole page to stop bleeding */
+            .answer-key-page { display: block !important; grid-column: 1 / -1; break-before: page; page-break-before: always; text-align: left; padding: 10px 0; border: none; }
+            .answer-key-page h2 { font-size: 22px; margin-top: 0; margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 5px; } 
+            
             .ak-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-            .ak-week h4 { border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 10px; font-size: 20px; }
-            .ak-day { margin-bottom: 15px; font-size: 14px; line-height: 1.4; border-bottom: 1px dashed #ccc; padding-bottom: 5px;}
+            .ak-week h4 { border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 10px; font-size: 18px; }
+            .ak-day { margin-bottom: 10px; font-size: 12px; line-height: 1.3; border-bottom: 1px dashed #ccc; padding-bottom: 5px;}
             .ak-day strong { display: block; color: #444; margin-bottom: 2px; }
-            h3 { color: #000; border-bottom: 1px solid #000; margin-top: 0; font-size: 20px; margin-bottom: 10px; }
-            .print-mod-label { display: inline-block !important; float: right; font-size: 14px; color: #555; }
             
-            .question-card { border: 1px solid #ccc; box-shadow: none; background: #fff; border-left: 5px solid #ccc; border-radius: 10px; margin-bottom: 10px !important; padding: 10px 15px !important; }
-            .instructions { margin-bottom: 8px !important; }
+            /* Tighter headers */
+            h3 { color: #000; border-bottom: 1px solid #000; margin-top: 0; font-size: 18px; margin-bottom: 6px; padding-bottom: 4px !important; }
+            .instructions { font-size: 15px !important; margin-bottom: 6px !important; }
+            .q-num { font-size: 16px !important; }
+            .q-num span { color: #000 !important; }
             
-            .math-problem { 
-                display: block; 
-                margin-bottom: 15px !important; 
-                border: 2px solid #ccc; 
-                padding: 15px !important; 
-                border-radius: 10px;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            } 
+            .math-problem > div[style*="text-align: center"] { margin-bottom: 2px !important; }
+            .math-problem svg.fraction-bar-svg, .math-problem svg.number-line-svg { max-height: 70px !important; width: auto !important; margin: 2px auto !important; }
+            .math-problem svg.pattern-line-svg { max-height: 80px !important; width: 100% !important; margin: 2px auto !important; }
             
-            /* SQUISH SVGS FOR PRINT (Number Lines & Fractions) */
-            .math-problem > div[style*="text-align: center"] { margin-bottom: 5px !important; }
-            .math-problem svg.fraction-bar-svg, .math-problem svg.number-line-svg { max-height: 60px !important; width: auto !important; margin: 2px auto !important; }
-            /* Pattern lines get a 20% boost in allowed height to ensure inputs fit nicely */
-            .math-problem svg.pattern-line-svg { max-height: 75px !important; width: 100% !important; margin: 2px auto !important; }
+            /* SVG max height bumped down from 160 to 140 to prevent page overflow */
+            .grid-area-svg, .polygon-svg, .ruler-svg { max-height: 140px !important; margin: 2px auto !important; }
             
-            /* Tighter Grid Tables for Print */
-            table.caaspp-grid { border: 1px solid #000; margin-bottom: 10px !important; }
-            table.caaspp-grid th { background: #eee; color: #000; border-bottom: 1px solid #000; }
-            table.caaspp-grid td { border-bottom: 1px solid #ccc; padding: 4px 8px !important; }
-            table.caaspp-grid td:first-child { padding-left: 10px !important; }
+            svg { filter: grayscale(100%); }
+            line[stroke="#ccc"] { stroke: #666 !important; } 
+            rect[fill="#81ecec"] { fill: #aaa !important; stroke: #000 !important; stroke-width: 1.5px !important; } 
+            polygon { fill: #e0e0e0 !important; stroke: #000 !important; stroke-width: 2px !important; }
+            .ruler-svg rect[fill="#e3f2fd"] { fill: #ddd !important; stroke: #000 !important; stroke-width: 2px !important; }
+            .ruler-svg rect[fill="#fbd26a"] { fill: #fff !important; stroke: #000 !important; stroke-width: 2px !important; }
             
-            /* Tighter & Scaled Down Pattern Tables (Approx 85% visually) */
-            .pattern-table-container { margin: 5px 0 !important; }
-            table.pattern-table td { width: 42px !important; height: 42px !important; font-size: 18px !important; padding: 2px !important; }
-            table.pattern-table .input-box { width: 35px !important; height: 26px !important; font-size: 16px !important; }
+            table.caaspp-grid { border: 1px solid #000; margin-bottom: 6px !important; font-size: 14px !important;}
+            table.caaspp-grid th { background: #eee; color: #000; border-bottom: 1px solid #000; padding: 4px !important; }
+            table.caaspp-grid td { border-bottom: 1px solid #ccc; padding: 4px !important; }
+            table.caaspp-grid td:first-child { padding-left: 6px !important; }
             
-            /* --- FORCE BLANK INPUTS FOR PRINTING --- */
-            /* Erase user text so worksheet prints blank */
+            .pattern-table-container { margin: 2px 0 !important; }
+            table.pattern-table td { width: 36px !important; height: 36px !important; font-size: 16px !important; padding: 2px !important; }
+            
             .input-box, .frac-input, .drill-input { 
                 border: 2px solid #000 !important; 
                 background: #fff !important; 
@@ -170,9 +190,16 @@
                 -webkit-text-fill-color: transparent !important; 
                 display: inline-block; 
                 vertical-align: middle; 
+                width: 40px !important; 
+                height: 24px !important; 
+                padding: 2px !important; 
+                font-size: 14px !important; 
+                margin: 0 4px !important;
             }
+            .frac-input { width: 30px !important; height: 24px !important; }
+            .inline-frac .input-box { width: 30px !important; height: 24px !important; }
+            table.pattern-table .input-box { width: 28px !important; height: 22px !important; font-size: 14px !important; }
             
-            /* Erase radio buttons and checkboxes so they print blank */
             input[type="radio"], input[type="checkbox"] { 
                 -webkit-appearance: none; 
                 -moz-appearance: none; 
@@ -187,28 +214,27 @@
             .checkbox-container { padding-left: 0 !important; margin-bottom: 0 !important; } 
             
             .correction-text, .grid-answer-indicator { display: none !important; }
-            .double-input-container { border: 2px dashed #000; padding: 15px !important; }
+            .double-input-container { border: 2px dashed #000; padding: 10px !important; margin-bottom: 5px !important;}
             
-            .mc-option { border: 1px solid #ccc; display: flex; align-items: center; padding: 4px 8px !important; margin-bottom: 6px !important; }
-            .mc-option svg { width: 150px !important; max-height: 35px !important; margin: 0 !important; }
+            .mc-option { border: 1px solid #ccc; display: flex; align-items: center; padding: 4px 6px !important; margin-bottom: 4px !important; font-size: 16px !important;}
+            .mc-option svg { max-width: 150px !important; max-height: 40px !important; margin: 0 !important; }
         }
     </style>
 
     <script>
         // --- GLOBAL SVG & HTML GENERATORS ---
+        
         function drawNumberLine(divisions, pointAt) {
             let svg = `<svg class="number-line-svg" width="400" height="100" viewBox="0 0 400 100" style="margin: 10px 0;">`;
             svg += `<line x1="40" y1="50" x2="360" y2="50" stroke="#333" stroke-width="3" />`; 
             svg += `<polygon points="40,50 50,45 50,55" fill="#333" />`; 
             svg += `<polygon points="360,50 350,45 350,55" fill="#333" />`; 
-            
             let startX = 60, endX = 340, width = endX - startX;
             for (let i = 0; i <= divisions; i++) {
                 let x = startX + (width / divisions) * i;
                 svg += `<line x1="${x}" y1="40" x2="${x}" y2="60" stroke="#333" stroke-width="3" />`;
                 if (i === 0) svg += `<text x="${x}" y="80" font-size="20" font-weight="bold" fill="#333" text-anchor="middle">0</text>`;
                 if (i === divisions) svg += `<text x="${x}" y="80" font-size="20" font-weight="bold" fill="#333" text-anchor="middle">1</text>`;
-                
                 if (i === pointAt) {
                     svg += `<circle cx="${x}" cy="50" r="7" fill="#c62828" />`;
                     svg += `<text x="${x}" y="30" font-size="22" font-weight="bold" fill="#c62828" text-anchor="middle">A</text>`;
@@ -229,17 +255,14 @@
             return svg;
         }
 
-        // Mod 7 Pattern Number Line
         function drawPatternLine(values, answers) {
             let svg = `<svg class="pattern-line-svg" width="100%" height="150" viewBox="0 0 600 150" style="margin: 10px 0; max-width: 100%; overflow: visible;">`;
             svg += `<line x1="30" y1="100" x2="570" y2="100" stroke="#333" stroke-width="3" />`; 
             svg += `<polygon points="30,100 45,92 45,108" fill="#333" />`; 
             svg += `<polygon points="570,100 555,92 555,108" fill="#333" />`; 
-            
             let n = values.length;
             let startX = 60, endX = 540, gap = (endX - startX) / (n - 1);
             let ansIdx = 0;
-            
             for (let i = 0; i < n; i++) {
                 let x = startX + i * gap;
                 svg += `<line x1="${x}" y1="90" x2="${x}" y2="110" stroke="#333" stroke-width="3" />`;
@@ -258,7 +281,6 @@
             return svg;
         }
 
-        // Mod 7 Pattern Tables
         function drawPatternTable(grid) {
             let html = `<table class="pattern-table">`;
             grid.forEach(row => {
@@ -276,6 +298,80 @@
             html += `</table>`;
             return html;
         }
+        
+        function rectCoords(startRow, startCol, rows, cols) {
+            let pts = [];
+            for(let r=0; r<rows; r++) {
+                for(let c=0; c<cols; c++) {
+                    pts.push([startRow+r, startCol+c]);
+                }
+            }
+            return pts;
+        }
+
+        function drawGridArea(gridW, gridH, shadedCoords) {
+            let cellSize = 25;
+            let totalW = gridW * cellSize + 2;
+            let totalH = gridH * cellSize + 2;
+            let svg = `<svg class="grid-area-svg" width="${totalW}" height="${totalH}" viewBox="0 0 ${totalW} ${totalH}" style="margin:10px auto;">`;
+            
+            shadedCoords.forEach(([r, c]) => {
+                let y = (r-1) * cellSize + 1;
+                let x = (c-1) * cellSize + 1;
+                svg += `<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="#81ecec" stroke="#333" stroke-width="1"/>`;
+            });
+            
+            for(let i=0; i<=gridW; i++) {
+                svg += `<line x1="${i*cellSize+1}" y1="1" x2="${i*cellSize+1}" y2="${gridH*cellSize+1}" stroke="#ccc" stroke-width="1"/>`;
+            }
+            for(let i=0; i<=gridH; i++) {
+                svg += `<line x1="1" y1="${i*cellSize+1}" x2="${gridW*cellSize+1}" y2="${i*cellSize+1}" stroke="#ccc" stroke-width="1"/>`;
+            }
+            
+            svg += `<rect x="1" y="1" width="${gridW*cellSize}" height="${gridH*cellSize}" fill="none" stroke="#333" stroke-width="2"/>`;
+            svg += `</svg>`;
+            return svg;
+        }
+
+        function drawPolygon(w, h, points, labels) {
+            let svg = `<svg class="polygon-svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="margin: 10px auto; max-width: 100%;">`;
+            let ptsStr = points.map(p => p.join(',')).join(' ');
+            svg += `<polygon points="${ptsStr}" fill="#e3f2fd" stroke="#1a5bb8" stroke-width="3" />`;
+            labels.forEach(l => {
+                svg += `<text x="${l.x}" y="${l.y}" font-size="16" font-weight="bold" fill="#333" text-anchor="middle" dominant-baseline="middle">${l.t}</text>`;
+            });
+            svg += `</svg>`;
+            return svg;
+        }
+
+        function drawRulerRectangle(wUnits, hUnits) {
+            let u = 35; 
+            let svgW = (wUnits + 2.5) * u;
+            let svgH = (hUnits + 2.5) * u;
+            let svg = `<svg class="ruler-svg" width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}" style="margin:10px auto; overflow:visible; max-width: 100%;">`;
+            
+            let originX = u * 1.5;
+            let originY = svgH - u * 1.5;
+
+            svg += `<rect x="${originX}" y="${originY - hUnits*u}" width="${wUnits*u}" height="${hUnits*u}" fill="#e3f2fd" stroke="#1a5bb8" stroke-width="3"/>`;
+            
+            svg += `<rect x="${originX}" y="${originY}" width="${(wUnits+1)*u}" height="30" fill="#fbd26a" stroke="#333" stroke-width="2"/>`;
+            for(let i=0; i<=wUnits+1; i++) {
+                let x = originX + i*u;
+                svg += `<line x1="${x}" y1="${originY}" x2="${x}" y2="${originY + 10}" stroke="#333" stroke-width="2"/>`;
+                svg += `<text x="${x}" y="${originY + 24}" font-size="14" font-weight="bold" fill="#333" text-anchor="middle">${i}</text>`;
+            }
+            
+            svg += `<rect x="${originX - 30}" y="${originY - (hUnits+1)*u}" width="30" height="${(hUnits+1)*u}" fill="#fbd26a" stroke="#333" stroke-width="2"/>`;
+            for(let i=0; i<=hUnits+1; i++) {
+                let y = originY - i*u;
+                svg += `<line x1="${originX-15}" y1="${y}" x2="${originX}" y2="${y}" stroke="#333" stroke-width="2"/>`;
+                svg += `<text x="${originX-18}" y="${y+5}" font-size="14" font-weight="bold" fill="#333" text-anchor="end">${i}</text>`;
+            }
+            
+            svg += `</svg>`;
+            return svg;
+        }
     </script>
 
     <script src="data/gr3/mod1.js"></script>
@@ -284,6 +380,8 @@
     <script src="data/gr3/mod4.js"></script>
     <script src="data/gr3/mod5.js"></script>
     <script src="data/gr3/mod6.js"></script>
+    <script src="data/gr3/mod7.js"></script>
+    <script src="data/gr3/mod8.js"></script>
 </head>
 <body>
 
@@ -298,9 +396,10 @@
         <button class="btn-module" onclick="selectModule(1)">Mult/Div: Interpret & Solve</button>
         <button class="btn-module" onclick="selectModule(2)">Properties of Mult/Div</button>
         <button class="btn-module" onclick="selectModule(3)">Number & Ops in Base Ten</button>
-        <button class="btn-module" onclick="selectModule(4)" style="background:#0984e3; box-shadow:0 5px 0 #0764ab;">Two-Week Review</button>
+        <button class="btn-module" onclick="selectModule(4)">Two-Week Review</button>
         <button class="btn-module" onclick="selectModule(5)">Number & Ops: Fractions</button>
         <button class="btn-module" onclick="selectModule(6)">Four Ops: Patterns & Logic</button>
+        <button class="btn-module" onclick="selectModule(7)">Linear Area & Measurement</button>
     </div>
 
     <div class="nav-container" id="navContainer"></div>
@@ -329,116 +428,6 @@
 
 <script>
 
-    // --- NEW: MODULE 7 DATA (Kept Inline Until Finalized) ---
-    const mod7Data = {
-        id: "mod-7",
-        name: "Four Operations: Interpret, Represent, Solve",
-        weeks: [
-            {
-                weekNum: 1,
-                days: [
-                    {
-                        id: "m7-w1-mon", name: "Mon", title: "Week 1: Monday",
-                        sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ 
-                                { patternLine: { values: [12, 15, null, 21, 24, null], answers: [18, 27] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" },
-                                { text: "2. &nbsp; Mia collected 245 seashells. Her brother collected 187 seashells. How many seashells did they collect in total?", answer: "432" }
-                            ] }
-                        ]
-                    },
-                    {
-                        id: "m7-w1-tue", name: "Tue", title: "Week 1: Tuesday",
-                        sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ 
-                                { patternLine: { values: [13, 18, 23, null, 33, null, 43], answers: [28, 38] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" },
-                                { text: "2. &nbsp; A book has 95 pages. Sam has read 48 pages. How many pages does he have left to read?", answer: "47" }
-                            ] }
-                        ]
-                    },
-                    {
-                        id: "m7-w1-wed", name: "Wed", title: "Week 1: Wednesday",
-                        sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ 
-                                { table: [ ["10", "14", "18", "22"], ["14", "ans:18", "22", "26"], ["18", "22", "ans:26", "30"], ["22", "26", "30", "ans:34"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern in the table?", answer: "" },
-                                { patternLine: { values: [7, 11, null, 19, null, 27], answers: [15, 23] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
-                            ] }
-                        ]
-                    },
-                    {
-                        id: "m7-w1-thu", name: "Thu", title: "Week 1: Thursday",
-                        sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ 
-                                { table: [ ["12", "15", "18", "21"], ["16", "ans:20", "24", "28"], ["20", "25", "ans:30", "35"], ["24", "30", "36", "ans:42"] ], text: "1. &nbsp; Part of a multiplication table is shown. What three numbers correctly complete the pattern in the table?", answer: "" },
-                                { text: "2. &nbsp; A toy store had 412 teddy bears. They sold 158 of them. How many teddy bears are left?", answer: "254" }
-                            ] }
-                        ]
-                    },
-                    {
-                        id: "m7-w1-fri", name: "Fri", title: "Week 1: Friday",
-                        sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ 
-                                { patternLine: { values: [null, 24, 30, 36, 42], answers: [18] }, text: "1. &nbsp; What unknown number completes the pattern on the number line? Enter it in the box.", answer: "" },
-                                { text: "2. &nbsp; A farmer has 4 baskets of eggs. There are 6 eggs in each basket. He packs all the eggs into cartons that hold 8 eggs each. How many cartons does he use?", answer: "3" }
-                            ] }
-                        ]
-                    }
-                ]
-            },
-            {
-                weekNum: 2,
-                days: [
-                    {
-                        id: "m7-w2-mon", name: "Mon", title: "Week 2: Monday",
-                        sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ 
-                                { text: "1. &nbsp; Lisa buys 5 packs of stickers. Each pack has 8 stickers. She gives 10 stickers to her friend. How many stickers does Lisa have left?", answer: "30" },
-                                { patternLine: { values: [20, 35, 50, null, 80, null], answers: [65, 95] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
-                            ] }
-                        ]
-                    },
-                    {
-                        id: "m7-w2-tue", name: "Tue", title: "Week 2: Tuesday",
-                        sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ 
-                                { table: [ ["35", "ans:40", "45", "50"], ["42", "48", "ans:54", "60"], ["49", "56", "63", "ans:70"], ["56", "64", "72", "80"] ], text: "1. &nbsp; Part of a multiplication table is shown. What three numbers correctly complete the pattern in the table?", answer: "" },
-                                { text: "2. &nbsp; A classroom has 6 tables. Each table has 4 chairs. If 21 students sit in the chairs, how many chairs are empty?", answer: "3" }
-                            ] }
-                        ]
-                    },
-                    {
-                        id: "m7-w2-wed", name: "Wed", title: "Week 2: Wednesday",
-                        sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ 
-                                { text: "1. &nbsp; The students in Mrs. Smith's class lined up in 4 equal rows. The class has more than 10 students but fewer than 25 students. If there was 1 fewer student, they could line up in 3 equal rows. How many students are in the class?", answer: "16" },
-                                { text: "2. &nbsp; A factory made 384 red cars and 267 blue cars. How many cars did the factory make in total?", answer: "651" }
-                            ] }
-                        ]
-                    },
-                    {
-                        id: "m7-w2-thu", name: "Thu", title: "Week 2: Thursday",
-                        sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ 
-                                { text: "1. &nbsp; A chef is baking cookies on trays. He places them in 5 equal rows. He baked more than 20 but fewer than 40 cookies. If he baked 1 more cookie, he could place them in 6 equal rows. How many cookies did he bake?", answer: "35" },
-                                { patternLine: { values: [null, 22, 30, 38, null], answers: [14, 46] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
-                            ] }
-                        ]
-                    },
-                    {
-                        id: "m7-w2-fri", name: "Fri", title: "Week 2: Friday",
-                        sections: [
-                            { type: "input", instruction: "Solve the problems below.", problems: [ 
-                                { table: [ ["21", "26", "31", "36"], ["26", "ans:31", "36", "41"], ["31", "36", "ans:41", "46"], ["36", "41", "46", "ans:51"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern?", answer: "" },
-                                { text: "2. &nbsp; Tom has 3 boxes of markers. Each box has 10 markers. He shares them equally among 5 friends. How many markers does each friend get?", answer: "6" },
-                                { patternLine: { values: [18, 30, null, 54, null], answers: [42, 66] }, text: "3. &nbsp; What unknown numbers complete the pattern on the number line?", answer: "" }
-                            ] }
-                        ]
-                    }
-                ]
-            }
-        ]
-    };
-
-
     // --- MAIN STATE & LOGIC ---
     let currentModuleIndex = -1;
     let currentDayId = '';
@@ -453,7 +442,8 @@
                 typeof mod4Data !== 'undefined' ? mod4Data : {name: "Module 4", weeks: false},
                 typeof mod5Data !== 'undefined' ? mod5Data : {name: "Two-Week Review", weeks: false},
                 typeof mod6Data !== 'undefined' ? mod6Data : {name: "Number & Ops: Fractions", weeks: false},
-                mod7Data // Inline for testing
+                typeof mod7Data !== 'undefined' ? mod7Data : {name: "Four Ops: Patterns & Logic", weeks: false},
+                typeof mod8Data !== 'undefined' ? mod8Data : {name: "Linear Area & Measurement", weeks: false} 
             ]
         };
 
@@ -507,13 +497,13 @@
                 if (day.name === 'Mon') {
                     const printHeader = document.createElement('div');
                     printHeader.className = 'print-header';
-                    printHeader.innerHTML = `<span>Name: _______________________________</span><span>Date: ____________________</span>`;
+                    printHeader.innerHTML = `<span>Name: _______________________________</span><span>Date: ____________________</span><span>Module: ${module.name}</span>`;
                     contentArea.appendChild(printHeader);
                 }
 
                 const dayDiv = document.createElement('div');
                 dayDiv.id = day.id; dayDiv.className = 'day-content hidden';
-                dayDiv.innerHTML = `<h3>${day.title}<span class="print-mod-label">M${index+1}</span></h3>`;
+                dayDiv.innerHTML = `<h3>${day.title}</h3>`;
                 
                 if (day.name === 'Tue' || day.name === 'Thu') {
                     dayDiv.classList.add('print-break');
@@ -521,19 +511,59 @@
                 
                 day.sections.forEach(sec => {
                     const card = document.createElement('div'); card.className = 'question-card';
-                    const iText = sec.instruction.split(':');
-                    const iHtml = iText.length > 1 ? `<strong>${formatText(iText[0]+':')}</strong>${formatText(iText.slice(1).join(':'))}` : formatText(sec.instruction);
-                    card.innerHTML = `<p class="instructions">${iHtml}</p>`;
+                    
+                    // SMART NUMBER EXTRACTION
+                    let qNumHtml = "";
+                    let instrText = sec.instruction || "";
+                    let overrideProbText = null;
+                    
+                    let matchInst = instrText.match(/^(\d+\.)(?:\s*&nbsp;\s*|\s+)/);
+                    if (matchInst) {
+                        qNumHtml = `<div class="q-num" style="font-size: 22px; padding-top: 1px;"><span style="color:#2c7be5; font-weight:700; margin-right:8px;">${matchInst[1]}</span></div>`;
+                        instrText = instrText.substring(matchInst[0].length);
+                    } else if (sec.problems && sec.problems.length > 0 && sec.problems[0].text) {
+                        let text = sec.problems[0].text.trim();
+                        let matchProb = text.match(/^(\d+\.)(?:\s*&nbsp;\s*|\s+)/);
+                        if (matchProb) {
+                            qNumHtml = `<div class="q-num" style="font-size: 22px; padding-top: 1px;"><span style="color:#2c7be5; font-weight:700; margin-right:8px;">${matchProb[1]}</span></div>`;
+                            overrideProbText = text.substring(matchProb[0].length);
+                        }
+                    }
+                    
+                    const iText = instrText.split(':');
+                    const iHtml = iText.length > 1 ? `<strong>${formatText(iText[0]+':')}</strong>${formatText(iText.slice(1).join(':'))}` : formatText(instrText);
+                    
+                    card.innerHTML = `<div style="display:flex; align-items:flex-start; margin-bottom: 20px;"><div class="instructions-wrapper" style="display:flex; align-items:flex-start; width: 100%;">${qNumHtml}<div class="instructions" style="margin-bottom:0; width: 100%;">${iHtml}</div></div></div>`;
                     
                     if (sec.type === 'grid') card.appendChild(createGrid(sec.rows));
-                    else if (sec.type === 'input' || sec.type === 'fraction-input') sec.problems.forEach(p => card.appendChild(createProblem(p, sec.type)));
+                    else if (sec.type === 'input' || sec.type === 'fraction-input') {
+                        sec.problems.forEach((p, idx) => {
+                            card.appendChild(createProblem(p, sec.type, idx === 0 ? overrideProbText : null));
+                        });
+                    }
                     else if (sec.type === 'double') card.appendChild(createDouble(sec));
-                    else if (sec.type === 'mc') card.appendChild(createMC(sec));
+                    else if (sec.type === 'mc') {
+                        if (sec.problems) {
+                            sec.problems.forEach((p, idx) => card.appendChild(createProblem(p, 'mc', idx === 0 ? overrideProbText : null)));
+                        }
+                        card.appendChild(createMC(sec));
+                    }
                     dayDiv.appendChild(card);
                 });
                 contentArea.appendChild(dayDiv);
 
-                if (day.name === 'Fri') {
+                // --- HELPER HUB INSERTION (Slots into the empty right column on Print!) ---
+                if (day.name === 'Fri' && week.helperHub) {
+                    const hhDiv = document.createElement('div');
+                    hhDiv.id = `hh-w${week.weekNum}`;
+                    hhDiv.className = 'helper-hub-card hidden';
+                    hhDiv.innerHTML = `<h3>${week.helperHub.title}</h3><div>${week.helperHub.content}</div>`;
+                    contentArea.appendChild(hhDiv);
+                }
+
+                // Add print spacer ONLY if there's another week coming.
+                // This prevents the double page-break before the Answer Key!
+                if (day.name === 'Fri' && week.weekNum < module.weeks.length) {
                     const spacer = document.createElement('div');
                     spacer.className = 'print-spacer print-break'; 
                     contentArea.appendChild(spacer);
@@ -589,7 +619,19 @@
         if (ph) ph.style.display = 'none';
         
         document.querySelectorAll('.day-content').forEach(d => d.classList.add('hidden'));
+        document.querySelectorAll('.helper-hub-card').forEach(d => d.classList.add('hidden'));
+        
         document.getElementById(dayId).classList.remove('hidden');
+        
+        // Show the correct Helper Hub on the screen if it's Friday
+        if (dayId.includes('fri')) {
+            const weekMatch = dayId.match(/-w(\d+)-/);
+            if (weekMatch) {
+                const hhCard = document.getElementById(`hh-w${weekMatch[1]}`);
+                if (hhCard) hhCard.classList.remove('hidden');
+            }
+        }
+        
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         document.getElementById('footer-controls').style.display = 'flex';
@@ -605,7 +647,7 @@
         return t.replace(/□|\[box\]/g, '<span class="unknown-square"></span>'); 
     }
 
-    function createProblem(p, type) {
+    function createProblem(p, type, overrideText = null) {
         const div = document.createElement('div'); div.className = 'math-problem';
         let inner = "";
 
@@ -613,26 +655,31 @@
         if (p.table) inner += `<div class="pattern-table-container" style="display:flex; justify-content:center; width:100%; margin: 15px 0;">${drawPatternTable(p.table)}</div>`;
         if (p.patternLine) inner += `<div style="text-align: center; width: 100%; margin-bottom: 15px;">${drawPatternLine(p.patternLine.values, p.patternLine.answers)}</div>`;
 
-        let rawText = p.text;
-        if (type === "fraction-input" && rawText.includes('[frac-box]')) {
-            const fHtml = `<div class="frac-box-container" data-answer="${p.answer}">
-                <input type="number" class="frac-input num-in">
-                <div class="frac-line"></div>
-                <input type="number" class="frac-input den-in">
-            </div>`;
-            let textWithFracBox = rawText.replace('[frac-box]', fHtml);
-            inner += formatText(textWithFracBox);
-        } else {
-            const input = `<input type="text" class="input-box" data-answer="${p.answer}">`;
-            let formatted = formatText(rawText);
-            
-            if (rawText.includes('[box]')) {
-                inner += formatted.replace('<span class="unknown-square"></span>', input);
-            } else if (p.answer) { 
-                inner += formatted + ' ' + input;
+        let rawText = overrideText !== null ? overrideText : p.text;
+        
+        if (rawText) {
+            if (type === "fraction-input" && rawText.includes('[frac-box]')) {
+                const fHtml = `<div class="frac-box-container" data-answer="${p.answer}">
+                    <input type="number" class="frac-input num-in">
+                    <div class="frac-line"></div>
+                    <input type="number" class="frac-input den-in">
+                </div>`;
+                let textWithFracBox = rawText.replace('[frac-box]', fHtml);
+                inner += formatText(textWithFracBox);
             } else {
-                inner += formatted; 
+                const input = `<input type="text" class="input-box" data-answer="${p.answer}">`;
+                let formatted = formatText(rawText);
+                
+                if (rawText.includes('[box]')) {
+                    inner += formatted.replace('<span class="unknown-square"></span>', input);
+                } else if (p.answer) { 
+                    inner += formatted + ' ' + input;
+                } else {
+                    inner += formatted; 
+                }
             }
+        } else if (p.answer) {
+             inner += `<div style="text-align:center; margin-top:10px;"><input type="text" class="input-box" data-answer="${p.answer}"></div>`;
         }
 
         div.innerHTML = inner;
