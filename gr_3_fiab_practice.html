@@ -130,13 +130,14 @@
             .module-nav, .nav-container, .footer-controls, .print-btn, .home-btn, 
             #placeholder, .btn-extra, #extraPracticeContainer, .tbd-message, h1 { display: none !important; }
             
-            #content-area { display: grid !important; grid-template-columns: 1fr 1fr; grid-gap: 20px; width: 100%; }
+            #content-area { display: grid !important; grid-template-columns: 1fr 1fr; grid-gap: 30px; width: 100%; }
             
+            /* RESTORED: Clean header with no heavy bottom border */
             .print-header { font-family: 'Roboto', sans-serif; grid-column: 1 / -1; display: flex !important; justify-content: space-between; gap: 20px; width: 100%; font-size: 16px; font-weight: 600; margin-top: 5px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: none; white-space: nowrap; }
             
             .day-content { display: block !important; border: none !important; padding: 0 !important; margin-bottom: 15px !important; break-inside: avoid; page-break-inside: avoid; }
             
-            .question-card { border: 1px solid #ccc !important; box-shadow: none !important; background: #fff !important; margin-bottom: 12px !important; padding: 10px 12px !important; border-radius: 10px !important; break-inside: avoid; page-break-inside: avoid; }
+            .question-card { border: 1px solid #ccc !important; box-shadow: none !important; background: #fff !important; margin-bottom: 15px !important; padding: 12px 15px !important; border-radius: 10px !important; break-inside: avoid; page-break-inside: avoid; }
             
             .helper-hub-card { display: block !important; border: 2px dashed #666 !important; background: #f9f9f9 !important; border-radius: 15px; padding: 15px !important; margin-top: 0 !important; break-inside: avoid; page-break-inside: avoid; box-shadow: none; align-self: start; }
             .helper-hub-card * { color: #333 !important; }
@@ -146,11 +147,12 @@
             .helper-hub-card svg rect[fill="#e3f2fd"], .helper-hub-card svg rect[fill="#fff9c4"], .helper-hub-card svg rect[fill="#c8e6c9"] { fill: #fff !important; stroke: #333 !important; }
             .helper-hub-card svg rect[fill="#81ecec"] { fill: #ddd !important; }
             
-            .math-problem { display: block; margin-bottom: 8px !important; border: none !important; padding: 0 !important; font-size: 16px !important; break-inside: avoid; page-break-inside: avoid; line-height: 1.3 !important; } 
+            .math-problem { display: block; margin-bottom: 10px !important; border: none !important; padding: 0 !important; font-size: 16px !important; break-inside: avoid; page-break-inside: avoid; line-height: 1.3 !important; } 
             
             .print-break { break-after: page; page-break-after: always; }
             .print-spacer { display: block !important; border: none; height: 10px; }
             
+            /* RESTORED: No black border box around the answer key */
             .answer-key-page { display: block !important; grid-column: 1 / -1; break-before: page; page-break-before: always; text-align: left; padding: 10px 0; border: none; }
             .answer-key-page h2 { font-size: 22px; margin-top: 0; margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 5px; } 
             
@@ -159,18 +161,18 @@
             .ak-day { margin-bottom: 10px; font-size: 12px; line-height: 1.3; border-bottom: 1px dashed #ccc; padding-bottom: 5px;}
             .ak-day strong { display: block; color: #444; margin-bottom: 2px; }
             
-            h3 { color: #000; border-bottom: 1px solid #000; margin-top: 0; font-size: 18px; margin-bottom: 6px; padding-bottom: 4px !important; }
-            .instructions { font-size: 15px !important; margin-bottom: 6px !important; }
-            .q-num { font-size: 16px !important; }
+            h3 { color: #000; border-bottom: 1px solid #000; margin-top: 0; font-size: 20px; margin-bottom: 8px; padding-bottom: 4px !important; }
+            .instructions { font-size: 16px !important; margin-bottom: 6px !important; }
+            .q-num { font-size: 18px !important; }
             .q-num span { color: #000 !important; }
             
             .math-problem > div[style*="text-align: center"] { margin-bottom: 2px !important; }
-            .math-problem svg.fraction-bar-svg, .math-problem svg.number-line-svg { max-height: 70px !important; width: auto !important; margin: 2px auto !important; }
+            .math-problem svg.fraction-bar-svg, .math-problem svg.number-line-svg { max-height: 80px !important; width: auto !important; margin: 2px auto !important; }
             .math-problem svg.pattern-line-svg { max-height: 80px !important; width: 100% !important; margin: 2px auto !important; }
             
             .grid-area-svg, .polygon-svg, .ruler-svg { max-height: 140px !important; margin: 2px auto !important; }
             
-            /* --- NEW PRINT STYLES FOR GRAPHS & TABLES --- */
+            /* --- PRINT STYLES FOR GRAPHS & TABLES --- */
             table.data-table { border: 2px solid #000 !important; width: 95%; margin: 5px auto !important; }
             table.data-table th { background: #e0e0e0 !important; color: #000 !important; border: 1px solid #000 !important; font-size: 14px !important; padding: 4px !important; -webkit-print-color-adjust: exact; }
             table.data-table td { border: 1px solid #000 !important; color: #000 !important; font-size: 14px !important; padding: 4px !important; }
@@ -235,6 +237,71 @@
     <script>
         // --- GLOBAL SVG & HTML GENERATORS ---
         
+        // --- GEOMETRY MODULE GENERATORS ---
+        function drawGeomShape(type, rot=0) {
+            let pts = "";
+            if(type==='square') pts = "20,20 80,20 80,80 20,80";
+            if(type==='rect-w') pts = "10,30 90,30 90,70 10,70";
+            if(type==='rect-t') pts = "30,10 70,10 70,90 30,90";
+            if(type==='rhombus') pts = "50,10 90,50 50,90 10,50";
+            if(type==='para') pts = "20,70 80,70 90,30 30,30";
+            if(type==='trap') pts = "20,80 80,80 65,20 35,20";
+            if(type==='iso-trap') pts = "20,80 80,80 60,30 40,30";
+            if(type==='right-tri') pts = "20,80 80,80 20,20";
+            if(type==='equi-tri') pts = "50,20 90,80 10,80";
+            if(type==='pentagon') pts = "50,10 95,45 75,95 25,95 5,45";
+            if(type==='hexagon') pts = "50,10 90,30 90,70 50,90 10,70 10,30";
+            if(type==='quad-irr') pts = "10,20 80,10 90,70 30,90";
+            
+            return `<svg width="80" height="80" viewBox="0 0 100 100" style="max-height:70px; margin:0 auto; display:block;">
+                <g transform="rotate(${rot} 50 50)">
+                    <polygon points="${pts}" fill="#e3f2fd" stroke="#1a5bb8" stroke-width="4" stroke-linejoin="round"/>
+                </g>
+            </svg>`;
+        }
+
+        function drawFractionShape(type, total, shaded) {
+            let svg = `<svg width="120" height="120" viewBox="0 0 120 120" style="margin: 10px auto; display: block;">`;
+            if (type === 'circle') {
+                svg += `<circle cx="60" cy="60" r="50" fill="#fff" stroke="#333" stroke-width="2"/>`;
+                if(total===1) {
+                   if(shaded===1) svg += `<circle cx="60" cy="60" r="50" fill="#81ecec" stroke="#333" stroke-width="2"/>`;
+                } else if (total===2) {
+                   svg += `<path d="M 60 60 L 60 10 A 50 50 0 0 1 60 110 Z" fill="${shaded>0?'#81ecec':'#fff'}" stroke="#333" stroke-width="2"/>`;
+                   svg += `<path d="M 60 60 L 60 110 A 50 50 0 0 1 60 10 Z" fill="${shaded>1?'#81ecec':'#fff'}" stroke="#333" stroke-width="2"/>`;
+                } else {
+                   for (let i = 0; i < total; i++) {
+                       let startAngle = (i * 360) / total;
+                       let endAngle = ((i + 1) * 360) / total;
+                       let startRad = (startAngle - 90) * Math.PI / 180;
+                       let endRad = (endAngle - 90) * Math.PI / 180;
+                       let x1 = 60 + 50 * Math.cos(startRad);
+                       let y1 = 60 + 50 * Math.sin(startRad);
+                       let x2 = 60 + 50 * Math.cos(endRad);
+                       let y2 = 60 + 50 * Math.sin(endRad);
+                       svg += `<path d="M 60 60 L ${x1} ${y1} A 50 50 0 0 1 ${x2} ${y2} Z" fill="${i < shaded ? '#81ecec' : '#fff'}" stroke="#333" stroke-width="2"/>`;
+                   }
+                }
+            } else if (type === 'rect') {
+                let cols = total; let rows = 1;
+                if (total === 4) { cols = 2; rows = 2; }
+                if (total === 6) { cols = 3; rows = 2; }
+                if (total === 8) { cols = 4; rows = 2; }
+                let cellW = 100 / cols; let cellH = 100 / rows;
+                let count = 0;
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        let fill = count < shaded ? '#81ecec' : '#fff';
+                        svg += `<rect x="${10 + c*cellW}" y="${10 + r*cellH}" width="${cellW}" height="${cellH}" fill="${fill}" stroke="#333" stroke-width="2"/>`;
+                        count++;
+                    }
+                }
+            }
+            svg += `</svg>`;
+            return svg;
+        }
+
+        // --- DATA & GRAPH GENERATORS ---
         function drawBarGraph(title, yLabel, xLabel, labels, data, maxVal, step) {
             const w = 350, h = 250;
             const originX = 60, originY = 200;
@@ -242,12 +309,10 @@
             
             let svg = `<svg class="bar-graph-svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="margin: 10px auto; display: block; background: #fff; border: 1px solid #eee; border-radius: 8px;">`;
             
-            // Titles
             svg += `<text x="${w/2}" y="25" font-size="16" font-weight="bold" fill="#333" text-anchor="middle">${title}</text>`;
             svg += `<text x="15" y="${originY - graphH/2}" font-size="14" font-weight="bold" fill="#555" text-anchor="middle" transform="rotate(-90 15,${originY - graphH/2})">${yLabel}</text>`;
             svg += `<text x="${originX + graphW/2}" y="${h - 10}" font-size="14" font-weight="bold" fill="#555" text-anchor="middle">${xLabel}</text>`;
 
-            // Grid and Y-axis labels
             let numSteps = maxVal / step;
             for (let i = 0; i <= numSteps; i++) {
                 let y = originY - (i / numSteps) * graphH;
@@ -255,11 +320,9 @@
                 svg += `<text x="${originX - 10}" y="${y + 5}" font-size="12" fill="#333" text-anchor="end">${i * step}</text>`;
             }
 
-            // Axes lines
             svg += `<line x1="${originX}" y1="${originY - graphH}" x2="${originX}" y2="${originY}" stroke="#333" stroke-width="2" />`;
             svg += `<line x1="${originX}" y1="${originY}" x2="${originX + graphW}" y2="${originY}" stroke="#333" stroke-width="2" />`;
 
-            // Bars
             const barW = (graphW / labels.length) * 0.6;
             const spacing = (graphW / labels.length);
             const colors = ['#a1c4fd', '#6c5ce7', '#f1c40f', '#e74c3c', '#27ae60'];
@@ -281,14 +344,13 @@
         function drawPictureGraph(title, categoryLabel, labels, data, iconKeyText, iconVal) {
             const w = 400, rowH = 40;
             const tableBottom = 75 + (labels.length * rowH);
-            const h = tableBottom + 45; // Increased padding to prevent key overlap
+            const h = tableBottom + 45; 
             
             let svg = `<svg class="picture-graph-svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="margin: 10px auto; display: block; background: #fff; border: 2px solid #ccc; border-radius: 8px;">`;
             
             svg += `<rect x="0" y="0" width="${w}" height="${h}" fill="#fcfcfc" rx="8" />`;
             svg += `<text x="${w/2}" y="30" font-size="18" font-weight="bold" fill="#333" text-anchor="middle">${title}</text>`;
             
-            // Header Row
             svg += `<rect x="10" y="45" width="100" height="30" fill="#d4e6f7" stroke="#333" stroke-width="1" />`;
             svg += `<rect x="110" y="45" width="280" height="30" fill="#d4e6f7" stroke="#333" stroke-width="1" />`;
             svg += `<text x="60" y="65" font-size="14" font-weight="bold" fill="#333" text-anchor="middle">${categoryLabel}</text>`;
@@ -312,7 +374,6 @@
                 }
             });
 
-            // Key
             svg += `<text x="${w/2}" y="${h - 15}" font-size="14" font-weight="bold" fill="#555" text-anchor="middle">Key: <tspan fill="#f1c40f" stroke="#333">⬤</tspan> = ${iconKeyText}</text>`;
             svg += `</svg>`;
             return svg;
@@ -327,7 +388,6 @@
             
             svg += `<text x="${w/2}" y="25" font-size="16" font-weight="bold" fill="#333" text-anchor="middle">${title}</text>`;
             
-            // Base line & arrows
             svg += `<line x1="${originX}" y1="${originY}" x2="${originX + lineW}" y2="${originY}" stroke="#333" stroke-width="3" />`;
             svg += `<polygon points="${originX},${originY} ${originX+10},${originY-6} ${originX+10},${originY+6}" fill="#333" />`;
             svg += `<polygon points="${originX+lineW},${originY} ${originX+lineW-10},${originY-6} ${originX+lineW-10},${originY+6}" fill="#333" />`;
@@ -338,7 +398,6 @@
                 let x = originX + spacing * (i + 1);
                 svg += `<line x1="${x}" y1="${originY - 5}" x2="${x}" y2="${originY + 10}" stroke="#333" stroke-width="2" />`;
                 
-                // Handling fractions elegantly in SVG with TIGHTER spacing
                 if (tickLabel.includes('/')) {
                     let parts = tickLabel.split(' ');
                     let yOffset = originY + 22;
@@ -358,7 +417,6 @@
                     svg += `<text x="${x}" y="${originY + 28}" font-size="16" font-weight="bold" fill="#333" text-anchor="middle">${tickLabel}</text>`;
                 }
 
-                // Draw X's
                 let count = data[i] || 0;
                 for(let j=0; j<count; j++) {
                     let xY = originY - 15 - (j * 20);
@@ -372,6 +430,7 @@
             return svg;
         }
 
+        // --- OTHER CORE GENERATORS ---
         function drawNumberLine(divisions, pointAt) {
             let svg = `<svg class="number-line-svg" width="400" height="100" viewBox="0 0 400 100" style="margin: 10px 0;">`;
             svg += `<line x1="40" y1="50" x2="360" y2="50" stroke="#333" stroke-width="3" />`; 
@@ -531,6 +590,7 @@
     <script src="data/gr3/mod7.js"></script>
     <script src="data/gr3/mod8.js"></script>
     <script src="data/gr3/mod9.js"></script>
+    <script src="data/gr3/mod10.js"></script>
 </head>
 <body>
 
@@ -550,6 +610,7 @@
         <button class="btn-module" onclick="selectModule(6)">Four Ops: Patterns & Logic</button>
         <button class="btn-module" onclick="selectModule(7)">Linear Area & Measurement</button>
         <button class="btn-module" onclick="selectModule(8)">Represent & Interpret Data</button>
+        <button class="btn-module" onclick="selectModule(9)">Geometry & Attributes</button>
     </div>
 
     <div class="nav-container" id="navContainer"></div>
@@ -594,17 +655,22 @@
                 typeof mod6Data !== 'undefined' ? mod6Data : {name: "Number & Ops: Fractions", weeks: false},
                 typeof mod7Data !== 'undefined' ? mod7Data : {name: "Four Ops: Patterns & Logic", weeks: false},
                 typeof mod8Data !== 'undefined' ? mod8Data : {name: "Linear Area & Measurement", weeks: false},
-                typeof mod9Data !== 'undefined' ? mod9Data : {name: "Represent & Interpret Data", weeks: false}
+                typeof mod9Data !== 'undefined' ? mod9Data : {name: "Represent & Interpret Data", weeks: false},
+                typeof mod10Data !== 'undefined' ? mod10Data : {name: "Geometry & Attributes", weeks: false}
             ]
         };
 
         if(index < 0 || index >= appData.modules.length) index = 0;
         currentModuleIndex = index;
         
-        // Update URL Params
-        const url = new URL(window.location);
-        url.searchParams.set('module', index);
-        window.history.pushState({}, '', url);
+        // Update URL Params SAFELY (Protects against file:/// security blocks)
+        try {
+            const url = new URL(window.location.href);
+            url.searchParams.set('module', index);
+            window.history.pushState({}, '', url);
+        } catch (e) {
+            console.warn("Could not update URL history (likely running locally).");
+        }
 
         document.querySelectorAll('.btn-module').forEach((btn, idx) => btn.classList.toggle('active', idx === index));
 
@@ -690,7 +756,8 @@
                         if (sec.problems) {
                             sec.problems.forEach((p, idx) => card.appendChild(createProblem(p, 'grid', idx === 0 ? overrideProbText : null)));
                         }
-                        card.appendChild(createGrid(sec.rows));
+                        // Pass along custom headers if they exist in the section data
+                        card.appendChild(createGrid(sec.rows, sec.th1, sec.th2, sec.th3));
                     }
                     else if (sec.type === 'input' || sec.type === 'fraction-input') {
                         sec.problems.forEach((p, idx) => {
@@ -843,12 +910,15 @@
         return div;
     }
 
-    function createGrid(rows) {
-        let h = `<table class="caaspp-grid"><tr><th style="width:50%">Statement / Equation</th><th>True</th><th>False</th></tr>`;
+    function createGrid(rows, th1="Statement / Equation", th2="True", th3="False") {
+        let h = `<table class="caaspp-grid"><tr><th style="width:50%">${th1}</th><th>${th2}</th><th>${th3}</th></tr>`;
         rows.forEach(r => {
             const tBox = `<label class="checkbox-container"><input type="checkbox" data-correct="${r.correct}"><span class="checkmark"></span></label>`;
             const fBox = `<label class="checkbox-container"><input type="checkbox" data-correct="${!r.correct}"><span class="checkmark"></span></label>`;
-            h += `<tr data-type="grid-row"><td>${formatText(r.text)}</td><td>${tBox}</td><td>${fBox}</td></tr>`;
+            
+            let cellContent = r.svg ? r.svg : formatText(r.text);
+            
+            h += `<tr data-type="grid-row"><td>${cellContent}</td><td>${tBox}</td><td>${fBox}</td></tr>`;
         });
         return createElementFromHTML(h + '</table>');
     }
