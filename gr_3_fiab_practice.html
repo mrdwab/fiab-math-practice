@@ -132,7 +132,6 @@
             
             #content-area { display: grid !important; grid-template-columns: 1fr 1fr; grid-gap: 30px; width: 100%; }
             
-            /* RESTORED: Clean header with no heavy bottom border */
             .print-header { font-family: 'Roboto', sans-serif; grid-column: 1 / -1; display: flex !important; justify-content: space-between; gap: 20px; width: 100%; font-size: 16px; font-weight: 600; margin-top: 5px; margin-bottom: 10px; padding-bottom: 5px; border-bottom: none; white-space: nowrap; }
             
             .day-content { display: block !important; border: none !important; padding: 0 !important; margin-bottom: 15px !important; break-inside: avoid; page-break-inside: avoid; }
@@ -152,7 +151,6 @@
             .print-break { break-after: page; page-break-after: always; }
             .print-spacer { display: block !important; border: none; height: 10px; }
             
-            /* RESTORED: No black border box around the answer key */
             .answer-key-page { display: block !important; grid-column: 1 / -1; break-before: page; page-break-before: always; text-align: left; padding: 10px 0; border: none; }
             .answer-key-page h2 { font-size: 22px; margin-top: 0; margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 5px; } 
             
@@ -170,7 +168,7 @@
             .math-problem svg.fraction-bar-svg, .math-problem svg.number-line-svg { max-height: 80px !important; width: auto !important; margin: 2px auto !important; }
             .math-problem svg.pattern-line-svg { max-height: 80px !important; width: 100% !important; margin: 2px auto !important; }
             
-            .grid-area-svg, .polygon-svg, .ruler-svg { max-height: 140px !important; margin: 2px auto !important; }
+            .grid-area-svg, .polygon-svg, .ruler-svg, .clock-svg { max-height: 140px !important; margin: 2px auto !important; }
             
             /* --- PRINT STYLES FOR GRAPHS & TABLES --- */
             table.data-table { border: 2px solid #000 !important; width: 95%; margin: 5px auto !important; }
@@ -236,6 +234,44 @@
 
     <script>
         // --- GLOBAL SVG & HTML GENERATORS ---
+        
+        // --- NEW: CLOCK GENERATOR ---
+        function drawClock(hour, minute) {
+            let svg = `<svg class="clock-svg" width="160" height="160" viewBox="0 0 120 120" style="margin: 10px auto; display: block;">`;
+            svg += `<circle cx="60" cy="60" r="50" fill="#fff" stroke="#333" stroke-width="3"/>`;
+            
+            // Draw tick marks (60 minutes)
+            for(let i=0; i<60; i++) {
+                let angle = (i * 6 - 90) * Math.PI / 180;
+                let isHour = i % 5 === 0;
+                let rStart = isHour ? 40 : 45;
+                let x1 = 60 + rStart * Math.cos(angle);
+                let y1 = 60 + rStart * Math.sin(angle);
+                let x2 = 60 + 50 * Math.cos(angle);
+                let y2 = 60 + 50 * Math.sin(angle);
+                svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#333" stroke-width="${isHour ? 2 : 1}"/>`;
+            }
+            
+            // Draw Numbers (1-12)
+            for(let i=1; i<=12; i++) {
+                let angle = (i * 30 - 90) * Math.PI / 180;
+                let x = 60 + 32 * Math.cos(angle);
+                let y = 60 + 32 * Math.sin(angle) + 4; // offset for text baseline
+                svg += `<text x="${x}" y="${y}" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">${i}</text>`;
+            }
+            
+            // Calculate Hand Angles
+            let hAngle = (hour % 12) * 30 + (minute * 0.5);
+            let mAngle = minute * 6;
+            
+            // Draw Hands
+            svg += `<g transform="rotate(${hAngle} 60 60)"><line x1="60" y1="60" x2="60" y2="35" stroke="#e74c3c" stroke-width="4" stroke-linecap="round"/></g>`;
+            svg += `<g transform="rotate(${mAngle} 60 60)"><line x1="60" y1="60" x2="60" y2="20" stroke="#2c7be5" stroke-width="3" stroke-linecap="round"/></g>`;
+            svg += `<circle cx="60" cy="60" r="3" fill="#333"/>`;
+            
+            svg += `</svg>`;
+            return svg;
+        }
         
         // --- GEOMETRY MODULE GENERATORS ---
         function drawGeomShape(type, rot=0) {
@@ -591,6 +627,7 @@
     <script src="data/gr3/mod8.js"></script>
     <script src="data/gr3/mod9.js"></script>
     <script src="data/gr3/mod10.js"></script>
+    <script src="data/gr3/mod11.js"></script>
 </head>
 <body>
 
@@ -611,6 +648,7 @@
         <button class="btn-module" onclick="selectModule(7)">Linear Area & Measurement</button>
         <button class="btn-module" onclick="selectModule(8)">Represent & Interpret Data</button>
         <button class="btn-module" onclick="selectModule(9)">Geometry & Attributes</button>
+        <button class="btn-module" onclick="selectModule(10)">Time, Volume & Mass</button>
     </div>
 
     <div class="nav-container" id="navContainer"></div>
@@ -656,7 +694,8 @@
                 typeof mod7Data !== 'undefined' ? mod7Data : {name: "Four Ops: Patterns & Logic", weeks: false},
                 typeof mod8Data !== 'undefined' ? mod8Data : {name: "Linear Area & Measurement", weeks: false},
                 typeof mod9Data !== 'undefined' ? mod9Data : {name: "Represent & Interpret Data", weeks: false},
-                typeof mod10Data !== 'undefined' ? mod10Data : {name: "Geometry & Attributes", weeks: false}
+                typeof mod10Data !== 'undefined' ? mod10Data : {name: "Geometry & Attributes", weeks: false},
+                typeof mod11Data !== 'undefined' ? mod11Data : {name: "Time, Volume & Mass", weeks: false}
             ]
         };
 
@@ -747,8 +786,8 @@
                         }
                     }
                     
-                    const iText = instrText.split(':');
-                    const iHtml = iText.length > 1 ? `<strong>${formatText(iText[0]+':')}</strong>${formatText(iText.slice(1).join(':'))}` : formatText(instrText);
+                    // FIXED: Removed the buggy split(':') logic that was breaking clock times
+                    const iHtml = formatText(instrText);
                     
                     card.innerHTML = `<div style="display:flex; align-items:flex-start; margin-bottom: 20px;"><div class="instructions-wrapper" style="display:flex; align-items:flex-start; width: 100%;">${qNumHtml}<div class="instructions" style="margin-bottom:0; width: 100%;">${iHtml}</div></div></div>`;
                     
