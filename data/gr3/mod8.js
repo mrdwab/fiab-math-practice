@@ -85,7 +85,6 @@ const helperHubW2_Mod8 = {
     `
 };
 
-
 // --- VERSIONS DATA ---
 const mod8Versions = {
     A: {

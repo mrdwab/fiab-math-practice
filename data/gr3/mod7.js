@@ -11,34 +11,42 @@ const helperHubW1_Mod7 = {
                     <polygon points="20,40 30,35 30,45" fill="#333" />
                     <polygon points="280,40 270,35 270,45" fill="#333" />
                     
-                    <line x1="70" y1="30" x2="70" y2="50" stroke="#333" stroke-width="2" />
-                    <text x="70" y="70" font-size="18" font-weight="bold" fill="#333" text-anchor="middle">5</text>
+                    <line x1="70" y1="30" x2="70" y2="50" stroke="#333" stroke-width="3" />
+                    <text x="70" y="20" font-size="20" font-weight="bold" fill="#333" text-anchor="middle">12</text>
                     
-                    <line x1="150" y1="30" x2="150" y2="50" stroke="#333" stroke-width="2" />
-                    <text x="150" y="70" font-size="18" font-weight="bold" fill="#333" text-anchor="middle">10</text>
+                    <line x1="120" y1="30" x2="120" y2="50" stroke="#333" stroke-width="3" />
+                    <text x="120" y="20" font-size="20" font-weight="bold" fill="#333" text-anchor="middle">15</text>
                     
-                    <line x1="230" y1="30" x2="230" y2="50" stroke="#333" stroke-width="2" />
-                    <text x="230" y="70" font-size="18" font-weight="bold" fill="#e74c3c" text-anchor="middle">?</text>
+                    <line x1="170" y1="30" x2="170" y2="50" stroke="#333" stroke-width="3" />
+                    <rect x="150" y="0" width="40" height="26" fill="#fff9c4" stroke="#e74c3c" stroke-width="2" rx="4" />
+                    <text x="170" y="20" font-size="20" font-weight="bold" fill="#e74c3c" text-anchor="middle">?</text>
                     
-                    <path d="M 70 25 Q 110 -10 150 25" fill="none" stroke="#2c7be5" stroke-width="3" />
-                    <polygon points="150,25 142,18 142,28" fill="#2c7be5" />
-                    <text x="110" y="10" font-size="16" font-weight="bold" fill="#2c7be5" text-anchor="middle">+5</text>
+                    <line x1="220" y1="30" x2="220" y2="50" stroke="#333" stroke-width="3" />
+                    <text x="220" y="20" font-size="20" font-weight="bold" fill="#333" text-anchor="middle">21</text>
                     
-                    <path d="M 150 25 Q 190 -10 230 25" fill="none" stroke="#e74c3c" stroke-width="3" stroke-dasharray="5,5" />
-                    <polygon points="230,25 222,18 222,28" fill="#e74c3c" />
-                    <text x="190" y="10" font-size="16" font-weight="bold" fill="#e74c3c" text-anchor="middle">+5</text>
+                    <path d="M 70 55 Q 95 85 120 55" fill="none" stroke="#2c7be5" stroke-width="3" />
+                    <text x="95" y="85" font-size="16" font-weight="bold" fill="#2c7be5" text-anchor="middle">+3</text>
+                    
+                    <path d="M 120 55 Q 145 85 170 55" fill="none" stroke="#e74c3c" stroke-width="3" stroke-dasharray="5,3" />
+                    <text x="145" y="85" font-size="16" font-weight="bold" fill="#e74c3c" text-anchor="middle">+3</text>
+                    
+                    <path d="M 170 55 Q 195 85 220 55" fill="none" stroke="#e74c3c" stroke-width="3" stroke-dasharray="5,3" />
+                    <text x="195" y="85" font-size="16" font-weight="bold" fill="#e74c3c" text-anchor="middle">+3</text>
                 </svg>
             </div>
-
-            <div style="display:flex; flex-direction:column; gap:8px; break-inside: avoid;">
-                <div style="background:#e8f5e9; border-left:5px solid #27ae60; padding:8px 12px; border-radius:0 8px 8px 0;">
-                    <strong>1. Find the Rule:</strong> Look at two numbers next to each other. How do you get from 5 to 10? You add 5!
+            
+            <div style="display:grid; grid-template-columns: 1fr; gap:10px; break-inside: avoid;">
+                <div style="border:2px solid #ccc; padding:10px; border-radius:10px; background:#fff;">
+                    <strong style="font-size:16px; color:#2c7be5;">Step 1: Find Neighbors</strong><br>
+                    Find two numbers next to each other. <strong style="color:#2c7be5;">(12 and 15)</strong>
                 </div>
-                <div style="background:#f0f7ff; border-left:5px solid #2c7be5; padding:8px 12px; border-radius:0 8px 8px 0;">
-                    <strong>2. Test the Rule:</strong> Does adding 5 work for the rest of the line? Yes!
+                <div style="border:2px solid #ccc; padding:10px; border-radius:10px; background:#fff;">
+                    <strong style="font-size:16px; color:#2c7be5;">Step 2: Find the "Jump"</strong><br>
+                    How much does it go up or down? <strong style="color:#2c7be5;">(12 + 3 = 15)</strong>
                 </div>
-                <div style="background:#fdf2f0; border-left:5px solid #e74c3c; padding:8px 12px; border-radius:0 8px 8px 0;">
-                    <strong>3. Use the Rule:</strong> To find the missing number, just do 10 + 5. The missing number is <strong>15</strong>!
+                <div style="border:2px solid #ccc; padding:10px; border-radius:10px; background:#fff;">
+                    <strong style="font-size:16px; color:#e74c3c;">Step 3: Test & Apply!</strong><br>
+                    Use the jump to find the missing number! <strong style="color:#e74c3c;">(15 + 3 = 18)</strong>
                 </div>
             </div>
         </div>
@@ -46,33 +54,35 @@ const helperHubW1_Mod7 = {
 };
 
 const helperHubW2_Mod7 = {
-    title: "★ Helper Hub: Two-Step Word Problems",
+    title: "★ Helper Hub: Word Problem Decoder",
     content: `
         <div style="font-size:15px; line-height: 1.3;">
-            <p style="margin-top:0; margin-bottom:12px;">Some math problems are like a puzzle with a secret, hidden step you have to do first!</p>
+            <p style="margin-top:0; margin-bottom:12px;">Don't just guess the math! Ask yourself: <strong>What ACTION is happening in the story?</strong></p>
             
-            <div style="border:2px solid #ccc; padding:15px; border-radius:10px; background:#fff; break-inside: avoid;">
-                <strong style="font-size:16px;">The Story:</strong><br>
-                <em>"Maria buys 3 packs of stickers. Each pack has 4 stickers. She gives 5 stickers to her brother. How many stickers does she have left?"</em>
-                
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:12px;">
-                    <div style="background:#f0f7ff; padding:10px; border-radius:8px; border: 1px solid #b3d7ff;">
-                        <strong style="color:#2c7be5;">Step 1: The Hidden Question</strong><br>
-                        Before we can subtract, we need to know how many she started with!<br><br>
-                        3 packs &times; 4 stickers = <strong>12 stickers</strong>
-                    </div>
-                    <div style="background:#fdf2f0; padding:10px; border-radius:8px; border: 1px solid #fadbd8;">
-                        <strong style="color:#e74c3c;">Step 2: The Final Answer</strong><br>
-                        Now that we know she has 12 stickers, we can give 5 away.<br><br>
-                        12 - 5 = <strong>7 stickers left!</strong>
-                    </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; break-inside: avoid;">
+                <div style="border:2px solid #ccc; padding:10px; border-radius:10px; background:#fff;">
+                    <strong style="font-size:16px; color:#2c7be5;">➕ Adding (Joining)</strong><br>
+                    Are you putting different amounts together?<br>
+                    <em style="color:#555;">"Mia found 12 shells and 8 rocks. How many total?"</em>
                 </div>
-            </div>
-
-            <p style="margin-top:15px; margin-bottom:5px;"><strong>What about letters?</strong></p>
-            <div style="background:#fff3e0; border-left:5px solid #f39c12; padding:10px 12px; border-radius:0 8px 8px 0; break-inside: avoid;">
-                If you see a letter like <strong style="font-family:monospace; font-size:18px;">m</strong> or <strong style="font-family:monospace; font-size:18px;">y</strong> in a problem, don't panic! It is just a blank box waiting for a number. <br>
-                <em>3 &times; <strong>y</strong> = 15</em> just means <em>"3 times WHAT equals 15?"</em> (The answer is 5!)
+                
+                <div style="border:2px solid #ccc; padding:10px; border-radius:10px; background:#fff;">
+                    <strong style="font-size:16px; color:#e74c3c;">➖ Subtracting (Difference)</strong><br>
+                    Are you taking some away, or finding how many are left?<br>
+                    <em style="color:#555;">"Sam had 50 pages, but read 20. How many are left?"</em>
+                </div>
+                
+                <div style="border:2px solid #ccc; padding:10px; border-radius:10px; background:#fff;">
+                    <strong style="font-size:16px; color:#27ae60;">&times; Multiplying (Equal Groups)</strong><br>
+                    Are you combining groups of the SAME size?<br>
+                    <em style="color:#555;">"There are 4 baskets with 6 eggs in EACH basket."</em>
+                </div>
+                
+                <div style="border:2px solid #ccc; padding:10px; border-radius:10px; background:#fff;">
+                    <strong style="font-size:16px; color:#8e44ad;">&divide; Dividing (Sharing)</strong><br>
+                    Are you splitting a big total into equal groups?<br>
+                    <em style="color:#555;">"30 markers shared EQUALLY with 5 friends."</em>
+                </div>
             </div>
         </div>
     `
@@ -92,10 +102,10 @@ const mod7Versions = {
                         id: "m7-w1-mon-a", name: "Mon", title: "Week 1: Monday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [3, 6, null, 12, null], answers: [9, 15] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { patternLine: { values: [12, 15, null, 21, 24, null], answers: [18, 27] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 24 &divide; m = 4", answer: "6" }
+                                { text: "2. &nbsp; Mia collected 245 seashells. Her brother collected 187 seashells. How many seashells did they collect in total?", answer: "432" }
                             ] }
                         ]
                     },
@@ -103,19 +113,21 @@ const mod7Versions = {
                         id: "m7-w1-tue-a", name: "Tue", title: "Week 1: Tuesday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { table: [ ["12", "17", "22", "27"], ["17", "ans:22", "27", "32"], ["22", "27", "ans:32", "37"], ["27", "32", "37", "ans:42"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern? Enter them in the empty boxes.", answer: "" }
+                                { patternLine: { values: [13, 18, 23, null, 33, null, 43], answers: [28, 38] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What value for y makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 7 &times; y = 42", answer: "6" }
+                                { text: "2. &nbsp; A book has 95 pages. Sam has read 48 pages. How many pages does he have left to read?", answer: "47" }
                             ] }
                         ]
                     },
                     {
                         id: "m7-w1-wed-a", name: "Wed", title: "Week 1: Wednesday",
                         sections: [
-                            { type: "grid", instruction: "1. &nbsp; A pattern of numbers is shown: 4, 8, 12, 16, 20... <br><br> Decide whether each statement about the pattern is true or false.", rows: [ { text: "The numbers are all even.", correct: true }, { text: "The rule is to add 2.", correct: false }, { text: "The numbers are all multiples of 4.", correct: true } ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [15, 20, null, 30, null], answers: [25, 35] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { table: [ ["10", "14", "18", "22"], ["14", "ans:18", "22", "26"], ["18", "22", "ans:26", "30"], ["22", "26", "30", "ans:34"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern in the table?", answer: "" }
+                            ] },
+                            { type: "input", instruction: "Solve the problem below.", problems: [ 
+                                { patternLine: { values: [7, 11, null, 19, null, 27], answers: [15, 23] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
                             ] }
                         ]
                     },
@@ -123,10 +135,10 @@ const mod7Versions = {
                         id: "m7-w1-thu-a", name: "Thu", title: "Week 1: Thursday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "1. &nbsp; A farmer has 5 rows of apple trees with 8 trees in each row. He plants 10 more trees. How many apple trees does he have now?", answer: "50" }
+                                { table: [ ["12", "15", "18", "21"], ["16", "ans:20", "24", "28"], ["20", "25", "ans:30", "35"], ["24", "30", "36", "ans:42"] ], text: "1. &nbsp; Part of a multiplication table is shown. What three numbers correctly complete the pattern in the table?", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 50 - 15 = k", answer: "35" }
+                                { text: "2. &nbsp; A toy store had 412 teddy bears. They sold 158 of them. How many teddy bears are left?", answer: "254" }
                             ] }
                         ]
                     },
@@ -134,13 +146,10 @@ const mod7Versions = {
                         id: "m7-w1-fri-a", name: "Fri", title: "Week 1: Friday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { table: [ ["15", "20", "25", "30"], ["20", "ans:25", "30", "35"], ["25", "30", "ans:35", "40"], ["30", "35", "40", "ans:45"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern?", answer: "" }
+                                { patternLine: { values: [null, 24, 30, 36, 42], answers: [18] }, text: "1. &nbsp; What unknown number completes the pattern on the number line? Enter it in the box.", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What value for n makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; n + 12 = 30", answer: "18" }
-                            ] },
-                            { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [9, 18, null, 36, null], answers: [27, 45] }, text: "3. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { text: "2. &nbsp; A farmer has 4 baskets of eggs. There are 6 eggs in each basket. He packs all the eggs into cartons that hold 8 eggs each. How many cartons does he use?", answer: "3" }
                             ] }
                         ]
                     }
@@ -154,19 +163,21 @@ const mod7Versions = {
                         id: "m7-w2-mon-a", name: "Mon", title: "Week 2: Monday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "1. &nbsp; Sarah buys 4 packs of pencils. Each pack has 5 pencils. She gives 3 pencils to her brother. How many pencils does she have left?", answer: "17" }
+                                { text: "1. &nbsp; Lisa buys 5 packs of stickers. Each pack has 8 stickers. She gives 10 stickers to her friend. How many stickers does Lisa have left?", answer: "30" }
                             ] },
-                            { type: "grid", instruction: "2. &nbsp; A pattern of numbers is shown: 5, 10, 15, 20, 25... <br><br> Decide whether each statement about the pattern is true or false.", rows: [ { text: "The rule is to multiply by 5.", correct: false }, { text: "The numbers alternate between odd and even.", correct: true }, { text: "Every number ends in 0 or 5.", correct: true } ] }
+                            { type: "input", instruction: "Solve the problem below.", problems: [ 
+                                { patternLine: { values: [20, 35, 50, null, 80, null], answers: [65, 95] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                            ] }
                         ]
                     },
                     {
                         id: "m7-w2-tue-a", name: "Tue", title: "Week 2: Tuesday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "1. &nbsp; What value for p makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 3 &times; 8 = p &times; 4", answer: "6" }
+                                { table: [ ["35", "ans:40", "45", "50"], ["42", "48", "ans:54", "60"], ["49", "56", "63", "ans:70"], ["56", "64", "72", "80"] ], text: "1. &nbsp; Part of a multiplication table is shown. What three numbers correctly complete the pattern in the table?", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [14, 21, null, 35, null], answers: [28, 42] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { text: "2. &nbsp; A classroom has 6 tables. Each table has 4 chairs. If 21 students sit in the chairs, how many chairs are empty?", answer: "3" }
                             ] }
                         ]
                     },
@@ -174,17 +185,19 @@ const mod7Versions = {
                         id: "m7-w2-wed-a", name: "Wed", title: "Week 2: Wednesday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "1. &nbsp; A toy store has 50 toy cars. A worker puts them on shelves. They fill 3 shelves with 8 cars on each shelf. How many cars are left over?", answer: "26" }
+                                { text: "1. &nbsp; The students in Mrs. Smith's class lined up in 4 equal rows. The class has more than 10 students but fewer than 25 students. If there was 1 fewer student, they could line up in 3 equal rows. How many students are in the class?", answer: "16" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What value for r makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 100 - r = 45", answer: "55" }
+                                { text: "2. &nbsp; A factory made 384 red cars and 267 blue cars. How many cars did the factory make in total?", answer: "651" }
                             ] }
                         ]
                     },
                     {
                         id: "m7-w2-thu-a", name: "Thu", title: "Week 2: Thursday",
                         sections: [
-                            { type: "grid", instruction: "1. &nbsp; If the value of w is 4, decide whether each equation is true or false.", rows: [ { text: "3 &times; w = 12", correct: true }, { text: "20 &divide; w = 5", correct: true }, { text: "w + 16 = 22", correct: false } ] },
+                            { type: "input", instruction: "Solve the problem below.", problems: [ 
+                                { text: "1. &nbsp; A chef is baking cookies on trays. He places them in 5 equal rows. He baked more than 20 but fewer than 40 cookies. If he baked 1 more cookie, he could place them in 6 equal rows. How many cookies did he bake?", answer: "35" }
+                            ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
                                 { patternLine: { values: [null, 22, 30, 38, null], answers: [14, 46] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
                             ] }
@@ -200,7 +213,7 @@ const mod7Versions = {
                                 { text: "2. &nbsp; Tom has 3 boxes of markers. Each box has 10 markers. He shares them equally among 5 friends. How many markers does each friend get?", answer: "6" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [18, 30, null, 54, null], answers: [42, 66] }, text: "3. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { patternLine: { values: [18, 30, null, 54, null], answers: [42, 66] }, text: "3. &nbsp; What unknown numbers complete the pattern on the number line?", answer: "" }
                             ] }
                         ]
                     }
@@ -220,10 +233,10 @@ const mod7Versions = {
                         id: "m7-w1-mon-b", name: "Mon", title: "Week 1: Monday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [4, 8, null, 16, null], answers: [12, 20] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { patternLine: { values: [16, 20, null, 28, 32, null], answers: [24, 36] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 30 &divide; m = 5", answer: "6" }
+                                { text: "2. &nbsp; Mia collected 315 seashells. Her brother collected 248 seashells. How many seashells did they collect in total?", answer: "563" }
                             ] }
                         ]
                     },
@@ -231,19 +244,21 @@ const mod7Versions = {
                         id: "m7-w1-tue-b", name: "Tue", title: "Week 1: Tuesday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { table: [ ["14", "19", "24", "29"], ["19", "ans:24", "29", "34"], ["24", "29", "ans:34", "39"], ["29", "34", "39", "ans:44"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern? Enter them in the empty boxes.", answer: "" }
+                                { patternLine: { values: [11, 17, 23, null, 35, null, 47], answers: [29, 41] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What value for y makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 8 &times; y = 32", answer: "4" }
+                                { text: "2. &nbsp; A book has 82 pages. Sam has read 37 pages. How many pages does he have left to read?", answer: "45" }
                             ] }
                         ]
                     },
                     {
                         id: "m7-w1-wed-b", name: "Wed", title: "Week 1: Wednesday",
                         sections: [
-                            { type: "grid", instruction: "1. &nbsp; A pattern of numbers is shown: 6, 12, 18, 24, 30... <br><br> Decide whether each statement about the pattern is true or false.", rows: [ { text: "The numbers are all even.", correct: true }, { text: "The rule is to multiply by 6.", correct: false }, { text: "The rule is to add 6.", correct: true } ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [12, 16, null, 24, null], answers: [20, 28] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { table: [ ["15", "20", "25", "30"], ["20", "ans:25", "30", "35"], ["25", "30", "ans:35", "40"], ["30", "35", "40", "ans:45"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern in the table?", answer: "" }
+                            ] },
+                            { type: "input", instruction: "Solve the problem below.", problems: [ 
+                                { patternLine: { values: [6, 11, null, 21, null, 31], answers: [16, 26] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
                             ] }
                         ]
                     },
@@ -251,10 +266,10 @@ const mod7Versions = {
                         id: "m7-w1-thu-b", name: "Thu", title: "Week 1: Thursday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "1. &nbsp; A teacher buys 4 packs of stickers. Each pack has 6 stickers. She gives away 5 stickers. How many stickers does she have left?", answer: "19" }
+                                { table: [ ["16", "20", "24", "28"], ["20", "ans:25", "30", "35"], ["24", "30", "ans:36", "42"], ["28", "35", "42", "ans:49"] ], text: "1. &nbsp; Part of a multiplication table is shown. What three numbers correctly complete the pattern in the table?", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 60 - 25 = k", answer: "35" }
+                                { text: "2. &nbsp; A toy store had 524 teddy bears. They sold 186 of them. How many teddy bears are left?", answer: "338" }
                             ] }
                         ]
                     },
@@ -262,13 +277,10 @@ const mod7Versions = {
                         id: "m7-w1-fri-b", name: "Fri", title: "Week 1: Friday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { table: [ ["11", "16", "21", "26"], ["16", "ans:21", "26", "31"], ["21", "26", "ans:31", "36"], ["26", "31", "36", "ans:41"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern?", answer: "" }
+                                { patternLine: { values: [null, 28, 35, 42, 49], answers: [21] }, text: "1. &nbsp; What unknown number completes the pattern on the number line? Enter it in the box.", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What value for n makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; n + 15 = 40", answer: "25" }
-                            ] },
-                            { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [8, 16, null, 32, null], answers: [24, 40] }, text: "3. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { text: "2. &nbsp; A farmer has 5 baskets of eggs. There are 6 eggs in each basket. He packs all the eggs into cartons that hold 10 eggs each. How many cartons does he use?", answer: "3" }
                             ] }
                         ]
                     }
@@ -282,19 +294,21 @@ const mod7Versions = {
                         id: "m7-w2-mon-b", name: "Mon", title: "Week 2: Monday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "1. &nbsp; Jake buys 5 packs of trading cards. Each pack has 4 cards. He gives 6 cards to his friend. How many cards does he have left?", answer: "14" }
+                                { text: "1. &nbsp; Lisa buys 4 packs of stickers. Each pack has 9 stickers. She gives 12 stickers to her friend. How many stickers does Lisa have left?", answer: "24" }
                             ] },
-                            { type: "grid", instruction: "2. &nbsp; A pattern of numbers is shown: 10, 20, 30, 40, 50... <br><br> Decide whether each statement about the pattern is true or false.", rows: [ { text: "The numbers alternate between odd and even.", correct: false }, { text: "The rule is to add 10.", correct: true }, { text: "Every number ends in a 0.", correct: true } ] }
+                            { type: "input", instruction: "Solve the problem below.", problems: [ 
+                                { patternLine: { values: [15, 30, 45, null, 75, null], answers: [60, 90] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                            ] }
                         ]
                     },
                     {
                         id: "m7-w2-tue-b", name: "Tue", title: "Week 2: Tuesday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "1. &nbsp; What value for p makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 4 &times; 6 = p &times; 3", answer: "8" }
+                                { table: [ ["36", "ans:42", "48", "54"], ["42", "49", "ans:56", "63"], ["48", "56", "64", "ans:72"], ["54", "63", "72", "81"] ], text: "1. &nbsp; Part of a multiplication table is shown. What three numbers correctly complete the pattern in the table?", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [16, 24, null, 40, null], answers: [32, 48] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { text: "2. &nbsp; A classroom has 7 tables. Each table has 5 chairs. If 29 students sit in the chairs, how many chairs are empty?", answer: "6" }
                             ] }
                         ]
                     },
@@ -302,19 +316,21 @@ const mod7Versions = {
                         id: "m7-w2-wed-b", name: "Wed", title: "Week 2: Wednesday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "1. &nbsp; A bakery makes 60 cupcakes. A worker places them into 4 boxes with 9 cupcakes in each box. How many cupcakes are left over?", answer: "24" }
+                                { text: "1. &nbsp; The students in Mrs. Smith's class lined up in 5 equal rows. The class has more than 10 students but fewer than 30 students. If there was 1 fewer student, they could line up in 4 equal rows. How many students are in the class?", answer: "25" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What value for r makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 100 - r = 35", answer: "65" }
+                                { text: "2. &nbsp; A factory made 426 red cars and 189 blue cars. How many cars did the factory make in total?", answer: "615" }
                             ] }
                         ]
                     },
                     {
                         id: "m7-w2-thu-b", name: "Thu", title: "Week 2: Thursday",
                         sections: [
-                            { type: "grid", instruction: "1. &nbsp; If the value of w is 5, decide whether each equation is true or false.", rows: [ { text: "4 &times; w = 20", correct: true }, { text: "30 &divide; w = 6", correct: true }, { text: "w + 12 = 18", correct: false } ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [null, 25, 35, 45, null], answers: [15, 55] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { text: "1. &nbsp; A chef is baking cookies on trays. He places them in 4 equal rows. He baked more than 15 but fewer than 35 cookies. If he baked 1 more cookie, he could place them in 5 equal rows. How many cookies did he bake?", answer: "24" }
+                            ] },
+                            { type: "input", instruction: "Solve the problem below.", problems: [ 
+                                { patternLine: { values: [null, 21, 28, 35, null], answers: [14, 42] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
                             ] }
                         ]
                     },
@@ -322,13 +338,13 @@ const mod7Versions = {
                         id: "m7-w2-fri-b", name: "Fri", title: "Week 2: Friday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { table: [ ["23", "28", "33", "38"], ["28", "ans:33", "38", "43"], ["33", "38", "ans:43", "48"], ["38", "43", "48", "ans:53"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern?", answer: "" }
+                                { table: [ ["18", "24", "30", "36"], ["24", "ans:30", "36", "42"], ["30", "36", "ans:42", "48"], ["36", "42", "48", "ans:54"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern?", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; Lily has 4 boxes of crayons. Each box has 8 crayons. She shares them equally between 2 friends. How many crayons does each friend get?", answer: "16" }
+                                { text: "2. &nbsp; Tom has 4 boxes of markers. Each box has 9 markers. He shares them equally among 6 friends. How many markers does each friend get?", answer: "6" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [15, 25, null, 45, null], answers: [35, 55] }, text: "3. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { patternLine: { values: [15, 25, null, 45, null], answers: [35, 55] }, text: "3. &nbsp; What unknown numbers complete the pattern on the number line?", answer: "" }
                             ] }
                         ]
                     }
@@ -348,10 +364,10 @@ const mod7Versions = {
                         id: "m7-w1-mon-c", name: "Mon", title: "Week 1: Monday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [5, 10, null, 20, null], answers: [15, 25] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { patternLine: { values: [15, 20, null, 30, 35, null], answers: [25, 40] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 36 &divide; m = 4", answer: "9" }
+                                { text: "2. &nbsp; Mia collected 418 seashells. Her brother collected 265 seashells. How many seashells did they collect in total?", answer: "683" }
                             ] }
                         ]
                     },
@@ -359,19 +375,21 @@ const mod7Versions = {
                         id: "m7-w1-tue-c", name: "Tue", title: "Week 1: Tuesday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { table: [ ["15", "25", "35", "45"], ["25", "ans:35", "45", "55"], ["35", "45", "ans:55", "65"], ["45", "55", "65", "ans:75"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern? Enter them in the empty boxes.", answer: "" }
+                                { patternLine: { values: [14, 18, 22, null, 30, null, 38], answers: [26, 34] }, text: "1. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What value for y makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 9 &times; y = 63", answer: "7" }
+                                { text: "2. &nbsp; A book has 74 pages. Sam has read 39 pages. How many pages does he have left to read?", answer: "35" }
                             ] }
                         ]
                     },
                     {
                         id: "m7-w1-wed-c", name: "Wed", title: "Week 1: Wednesday",
                         sections: [
-                            { type: "grid", instruction: "1. &nbsp; A pattern of numbers is shown: 7, 14, 21, 28, 35... <br><br> Decide whether each statement about the pattern is true or false.", rows: [ { text: "The numbers alternate between odd and even.", correct: true }, { text: "The rule is to multiply by 7.", correct: false }, { text: "The rule is to add 7.", correct: true } ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [18, 24, null, 36, null], answers: [30, 42] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { table: [ ["12", "18", "24", "30"], ["18", "ans:24", "30", "36"], ["24", "30", "ans:36", "42"], ["30", "36", "42", "ans:48"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern in the table?", answer: "" }
+                            ] },
+                            { type: "input", instruction: "Solve the problem below.", problems: [ 
+                                { patternLine: { values: [8, 14, null, 26, null, 38], answers: [20, 32] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
                             ] }
                         ]
                     },
@@ -379,10 +397,10 @@ const mod7Versions = {
                         id: "m7-w1-thu-c", name: "Thu", title: "Week 1: Thursday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "1. &nbsp; A boy has 5 bags of marbles. Each bag has 8 marbles. He loses 12 marbles. How many marbles does he have left?", answer: "28" }
+                                { table: [ ["14", "21", "28", "35"], ["21", "ans:28", "35", "42"], ["28", "35", "ans:42", "49"], ["35", "42", "49", "ans:56"] ], text: "1. &nbsp; Part of a multiplication table is shown. What three numbers correctly complete the pattern in the table?", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What unknown number makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 80 - 45 = k", answer: "35" }
+                                { text: "2. &nbsp; A toy store had 635 teddy bears. They sold 287 of them. How many teddy bears are left?", answer: "348" }
                             ] }
                         ]
                     },
@@ -390,13 +408,10 @@ const mod7Versions = {
                         id: "m7-w1-fri-c", name: "Fri", title: "Week 1: Friday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { table: [ ["17", "27", "37", "47"], ["27", "ans:37", "47", "57"], ["37", "47", "ans:57", "67"], ["47", "57", "67", "ans:77"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern?", answer: "" }
+                                { patternLine: { values: [null, 32, 40, 48, 56], answers: [24] }, text: "1. &nbsp; What unknown number completes the pattern on the number line? Enter it in the box.", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What value for n makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; n + 18 = 50", answer: "32" }
-                            ] },
-                            { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [7, 14, null, 28, null], answers: [21, 35] }, text: "3. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { text: "2. &nbsp; A farmer has 6 baskets of eggs. There are 6 eggs in each basket. He packs all the eggs into cartons that hold 9 eggs each. How many cartons does he use?", answer: "4" }
                             ] }
                         ]
                     }
@@ -410,19 +425,21 @@ const mod7Versions = {
                         id: "m7-w2-mon-c", name: "Mon", title: "Week 2: Monday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "1. &nbsp; A teacher buys 6 packs of paper clips. Each pack has 6 clips. She gives 10 clips to another teacher. How many clips does she have left?", answer: "26" }
+                                { text: "1. &nbsp; Lisa buys 6 packs of stickers. Each pack has 7 stickers. She gives 15 stickers to her friend. How many stickers does Lisa have left?", answer: "27" }
                             ] },
-                            { type: "grid", instruction: "2. &nbsp; A pattern of numbers is shown: 3, 6, 9, 12, 15... <br><br> Decide whether each statement about the pattern is true or false.", rows: [ { text: "The numbers alternate between odd and even.", correct: true }, { text: "The rule is to add 3.", correct: true }, { text: "Every number is a multiple of 4.", correct: false } ] }
+                            { type: "input", instruction: "Solve the problem below.", problems: [ 
+                                { patternLine: { values: [25, 45, 65, null, 105, null], answers: [85, 125] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                            ] }
                         ]
                     },
                     {
                         id: "m7-w2-tue-c", name: "Tue", title: "Week 2: Tuesday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "1. &nbsp; What value for p makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 5 &times; 6 = p &times; 10", answer: "3" }
+                                { table: [ ["24", "ans:32", "40", "48"], ["32", "40", "ans:48", "56"], ["40", "48", "56", "ans:64"], ["48", "56", "64", "72"] ], text: "1. &nbsp; Part of a multiplication table is shown. What three numbers correctly complete the pattern in the table?", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [18, 27, null, 45, null], answers: [36, 54] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { text: "2. &nbsp; A classroom has 8 tables. Each table has 3 chairs. If 19 students sit in the chairs, how many chairs are empty?", answer: "5" }
                             ] }
                         ]
                     },
@@ -430,19 +447,21 @@ const mod7Versions = {
                         id: "m7-w2-wed-c", name: "Wed", title: "Week 2: Wednesday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "1. &nbsp; A farmer has 80 pumpkins. He puts them into 6 baskets with 7 pumpkins in each basket. How many pumpkins are left over?", answer: "38" }
+                                { text: "1. &nbsp; The students in Mrs. Smith's class lined up in 6 equal rows. The class has more than 20 students but fewer than 40 students. If there was 1 fewer student, they could line up in 5 equal rows. How many students are in the class?", answer: "36" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; What value for r makes this equation true?<br>&nbsp;&nbsp;&nbsp;&nbsp; 100 - r = 55", answer: "45" }
+                                { text: "2. &nbsp; A factory made 517 red cars and 296 blue cars. How many cars did the factory make in total?", answer: "813" }
                             ] }
                         ]
                     },
                     {
                         id: "m7-w2-thu-c", name: "Thu", title: "Week 2: Thursday",
                         sections: [
-                            { type: "grid", instruction: "1. &nbsp; If the value of w is 6, decide whether each equation is true or false.", rows: [ { text: "5 &times; w = 30", correct: true }, { text: "24 &divide; w = 4", correct: true }, { text: "w + 15 = 20", correct: false } ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [null, 32, 42, 52, null], answers: [22, 62] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { text: "1. &nbsp; A chef is baking cookies on trays. He places them in 3 equal rows. He baked more than 10 but fewer than 25 cookies. If he baked 1 more cookie, he could place them in 4 equal rows. How many cookies did he bake?", answer: "15" }
+                            ] },
+                            { type: "input", instruction: "Solve the problem below.", problems: [ 
+                                { patternLine: { values: [null, 23, 32, 41, null], answers: [14, 50] }, text: "2. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
                             ] }
                         ]
                     },
@@ -450,13 +469,13 @@ const mod7Versions = {
                         id: "m7-w2-fri-c", name: "Fri", title: "Week 2: Friday",
                         sections: [
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { table: [ ["28", "38", "48", "58"], ["38", "ans:48", "58", "68"], ["48", "58", "ans:68", "78"], ["58", "68", "78", "ans:88"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern?", answer: "" }
+                                { table: [ ["22", "29", "36", "43"], ["29", "ans:36", "43", "50"], ["36", "43", "ans:50", "57"], ["43", "50", "57", "ans:64"] ], text: "1. &nbsp; Part of an addition table is shown. What three numbers correctly complete the pattern?", answer: "" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { text: "2. &nbsp; Emma has 5 boxes of toys. Each box has 6 toys. She shares them equally among 3 friends. How many toys does each friend get?", answer: "10" }
+                                { text: "2. &nbsp; Tom has 5 boxes of markers. Each box has 8 markers. He shares them equally among 4 friends. How many markers does each friend get?", answer: "10" }
                             ] },
                             { type: "input", instruction: "Solve the problem below.", problems: [ 
-                                { patternLine: { values: [20, 35, null, 65, null], answers: [50, 80] }, text: "3. &nbsp; What unknown numbers complete the pattern on the number line? Enter them in the boxes.", answer: "" }
+                                { patternLine: { values: [20, 34, null, 62, null], answers: [48, 76] }, text: "3. &nbsp; What unknown numbers complete the pattern on the number line?", answer: "" }
                             ] }
                         ]
                     }

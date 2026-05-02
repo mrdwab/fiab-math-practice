@@ -9,8 +9,8 @@ const helperHubW1_Mod11 = {
                 <div style="flex:1; padding:10px; border:2px solid #ccc; border-radius:10px; background:#fff; text-align:center;">
                     <strong style="font-size:16px; color:#2c7be5;">Reading the Clock</strong><br>
                     ${drawClock(4, 35)}
-                    The <span style="color:#e74c3c; font-weight:bold;">Red Hand</span> points to the hour. If it's between two numbers, the hour is the smaller number!<br>
-                    The <span style="color:#2c7be5; font-weight:bold;">Blue Hand</span> points to the minutes. Count by 5s for the big numbers, then by 1s!
+                    The <span style="color:#e74c3c; font-weight:bold;">Short Hand</span> points to the hour. If it's between two numbers, the hour is the smaller number!<br>
+                    The <span style="color:#2c7be5; font-weight:bold;">Long Hand</span> points to the minutes. Count by 5s for the big numbers, then by 1s!
                 </div>
                 <div style="flex:1; padding:10px; border:2px solid #ccc; border-radius:10px; background:#fff;">
                     <strong style="font-size:16px; color:#27ae60;">Jumping on a Timeline</strong><br>

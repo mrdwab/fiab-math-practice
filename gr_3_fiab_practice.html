@@ -5,14 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grade 3 Math Warmups</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Roboto:wght@400;600&display=swap" rel="stylesheet">
-    <style>
+    <style id="main-styles">
         /* --- CORE STYLES --- */
         body{font-family:'Fredoka','Comic Sans MS',sans-serif;background:linear-gradient(120deg,#a1c4fd,#c2e9fb) fixed;padding:20px;text-align:center;color:#333;margin:0;-webkit-print-color-adjust:exact}
         .container{max-width:900px;margin:30px auto;background:#fff;padding:35px;border-radius:30px;box-shadow:0 10px 0 #5c9ded,0 20px 30px rgba(0,0,0,.2);border:5px solid #d4e6f7;min-height:700px;position:relative}
         h1{color:#2c7be5;font-size:36px;margin:10px 0 30px;text-shadow:2px 2px 0 #bae0ff} h3{color:#555;font-size:24px;border-bottom:2px dashed #d4e6f7;padding-bottom:10px;text-align:left}
-        .print-btn,.home-btn{position:absolute;top:20px;background:#fff;color:#555;border:2px solid #ccc;padding:8px 15px;border-radius:12px;cursor:pointer;font-weight:700;font-size:14px;transition:.2s;z-index:100;text-decoration:none}
-        .print-btn{right:20px} .home-btn{left:20px;background:#f0f0f0} .print-btn:hover,.home-btn:hover{background:#e0e0e0;border-color:#bbb}
         
+        /* Top Controls (Print, Hubs, Version, Home) */
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        .home-btn { background: #f0f0f0; color: #555; border: 2px solid #ccc; padding: 8px 15px; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 14px; transition: .2s; text-decoration: none; }
+        .top-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; }
+        .print-btn { background: #fff; color: #555; border: 2px solid #ccc; padding: 8px 15px; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 14px; transition: .2s; }
+        .home-btn:hover, .print-btn:hover { background: #e0e0e0; border-color: #bbb; }
+        .version-select { padding: 6px 12px; border-radius: 12px; border: 2px solid #ccc; font-family: inherit; font-weight: 700; font-size: 14px; color: #2c7be5; background: #f0f7ff; cursor: pointer; outline: none; }
+        .version-select:hover { border-color: #2c7be5; }
+
         /* Header for Print Only - HIDDEN ON SCREEN */
         .print-header { display: none; }
         .print-spacer { display: none; } 
@@ -127,7 +134,7 @@
             @page { size: landscape; margin: 0.3in; }
             body { background: none; color: #000; padding: 0; margin: 0; zoom: 0.95; }
             .container { box-shadow: none; border: none; width: 100%; max-width: 100%; margin: 0; padding: 0; }
-            .module-nav, .nav-container, .footer-controls, .print-btn, .home-btn, 
+            .module-nav, .nav-container, .footer-controls, .top-bar,
             #placeholder, .btn-extra, #extraPracticeContainer, .tbd-message, h1 { display: none !important; }
             
             #content-area { display: grid !important; grid-template-columns: 1fr 1fr; grid-gap: 30px; width: 100%; }
@@ -235,12 +242,10 @@
     <script>
         // --- GLOBAL SVG & HTML GENERATORS ---
         
-        // --- NEW: CLOCK GENERATOR ---
         function drawClock(hour, minute) {
             let svg = `<svg class="clock-svg" width="160" height="160" viewBox="0 0 120 120" style="margin: 10px auto; display: block;">`;
             svg += `<circle cx="60" cy="60" r="50" fill="#fff" stroke="#333" stroke-width="3"/>`;
             
-            // Draw tick marks (60 minutes)
             for(let i=0; i<60; i++) {
                 let angle = (i * 6 - 90) * Math.PI / 180;
                 let isHour = i % 5 === 0;
@@ -252,19 +257,16 @@
                 svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#333" stroke-width="${isHour ? 2 : 1}"/>`;
             }
             
-            // Draw Numbers (1-12)
             for(let i=1; i<=12; i++) {
                 let angle = (i * 30 - 90) * Math.PI / 180;
                 let x = 60 + 32 * Math.cos(angle);
-                let y = 60 + 32 * Math.sin(angle) + 4; // offset for text baseline
+                let y = 60 + 32 * Math.sin(angle) + 4;
                 svg += `<text x="${x}" y="${y}" font-size="12" font-weight="bold" fill="#333" text-anchor="middle">${i}</text>`;
             }
             
-            // Calculate Hand Angles
             let hAngle = (hour % 12) * 30 + (minute * 0.5);
             let mAngle = minute * 6;
             
-            // Draw Hands
             svg += `<g transform="rotate(${hAngle} 60 60)"><line x1="60" y1="60" x2="60" y2="35" stroke="#e74c3c" stroke-width="4" stroke-linecap="round"/></g>`;
             svg += `<g transform="rotate(${mAngle} 60 60)"><line x1="60" y1="60" x2="60" y2="20" stroke="#2c7be5" stroke-width="3" stroke-linecap="round"/></g>`;
             svg += `<circle cx="60" cy="60" r="3" fill="#333"/>`;
@@ -273,7 +275,6 @@
             return svg;
         }
         
-        // --- GEOMETRY MODULE GENERATORS ---
         function drawGeomShape(type, rot=0) {
             let pts = "";
             if(type==='square') pts = "20,20 80,20 80,80 20,80";
@@ -337,7 +338,6 @@
             return svg;
         }
 
-        // --- DATA & GRAPH GENERATORS ---
         function drawBarGraph(title, yLabel, xLabel, labels, data, maxVal, step) {
             const w = 350, h = 250;
             const originX = 60, originY = 200;
@@ -466,7 +466,6 @@
             return svg;
         }
 
-        // --- OTHER CORE GENERATORS ---
         function drawNumberLine(divisions, pointAt) {
             let svg = `<svg class="number-line-svg" width="400" height="100" viewBox="0 0 400 100" style="margin: 10px 0;">`;
             svg += `<line x1="40" y1="50" x2="360" y2="50" stroke="#333" stroke-width="3" />`; 
@@ -632,8 +631,18 @@
 <body>
 
 <div class="container">
-    <a href="index.html" class="home-btn">🏠 Home</a>
-    <button class="print-btn" onclick="window.print()">🖨️ Print Worksheet</button>
+    <div class="top-bar">
+        <a href="index.html" class="home-btn">🏠 Home</a>
+        <div class="top-controls">
+            <select id="versionSelect" class="version-select" onchange="changeVersion()">
+                <option value="A">Version A</option>
+                <option value="B">Version B</option>
+                <option value="C">Version C</option>
+            </select>
+            <button class="print-btn" onclick="printHelperHubs()">★ Print Hubs</button>
+            <button class="print-btn" onclick="window.print()">🖨️ Print Warmup</button>
+        </div>
+    </div>
 
     <h1>Grade 3 Math Warmups</h1>
 
@@ -642,13 +651,12 @@
         <button class="btn-module" onclick="selectModule(1)">Mult/Div: Interpret & Solve</button>
         <button class="btn-module" onclick="selectModule(2)">Properties of Mult/Div</button>
         <button class="btn-module" onclick="selectModule(3)">Number & Ops in Base Ten</button>
-        <button class="btn-module" onclick="selectModule(4)">Two-Week Review</button>
-        <button class="btn-module" onclick="selectModule(5)">Number & Ops: Fractions</button>
-        <button class="btn-module" onclick="selectModule(6)">Four Ops: Patterns & Logic</button>
-        <button class="btn-module" onclick="selectModule(7)">Linear Area & Measurement</button>
-        <button class="btn-module" onclick="selectModule(8)">Represent & Interpret Data</button>
-        <button class="btn-module" onclick="selectModule(9)">Geometry & Attributes</button>
-        <button class="btn-module" onclick="selectModule(10)">Time, Volume & Mass</button>
+        <button class="btn-module" onclick="selectModule(4)">Number & Ops: Fractions</button>
+        <button class="btn-module" onclick="selectModule(5)">Four Ops: Patterns & Logic</button>
+        <button class="btn-module" onclick="selectModule(6)">Linear Area & Measurement</button>
+        <button class="btn-module" onclick="selectModule(7)">Represent & Interpret Data</button>
+        <button class="btn-module" onclick="selectModule(8)">Geometry & Attributes</button>
+        <button class="btn-module" onclick="selectModule(9)">Time, Volume & Mass</button>
     </div>
 
     <div class="nav-container" id="navContainer"></div>
@@ -676,62 +684,121 @@
 </div>
 
 <script>
-
     // --- MAIN STATE & LOGIC ---
     let currentModuleIndex = -1;
     let currentDayId = '';
+    let currentVersion = 'A';
     let attempts = {}; 
 
-    function selectModule(index) {
-        const appData = {
-            modules: [
-                typeof mod1Data !== 'undefined' ? mod1Data : {name: "Multiply & Divide Within 100", weeks: false}, 
-                typeof mod2Data !== 'undefined' ? mod2Data : {name: "Mult/Div: Interpret & Solve", weeks: false}, 
-                typeof mod3Data !== 'undefined' ? mod3Data : {name: "Properties of Mult/Div", weeks: false}, 
-                typeof mod4Data !== 'undefined' ? mod4Data : {name: "Number & Ops in Base Ten", weeks: false},
-                typeof mod5Data !== 'undefined' ? mod5Data : {name: "Two-Week Review", weeks: false},
-                typeof mod6Data !== 'undefined' ? mod6Data : {name: "Number & Ops: Fractions", weeks: false},
-                typeof mod7Data !== 'undefined' ? mod7Data : {name: "Four Ops: Patterns & Logic", weeks: false},
-                typeof mod8Data !== 'undefined' ? mod8Data : {name: "Linear Area & Measurement", weeks: false},
-                typeof mod9Data !== 'undefined' ? mod9Data : {name: "Represent & Interpret Data", weeks: false},
-                typeof mod10Data !== 'undefined' ? mod10Data : {name: "Geometry & Attributes", weeks: false},
-                typeof mod11Data !== 'undefined' ? mod11Data : {name: "Time, Volume & Mass", weeks: false}
-            ]
-        };
+    function changeVersion() {
+        currentVersion = document.getElementById('versionSelect').value;
+        if (currentModuleIndex !== -1) {
+            selectModule(currentModuleIndex); 
+        }
+    }
 
-        if(index < 0 || index >= appData.modules.length) index = 0;
+    function printHelperHubs() {
+        const moduleOrder = [];
+        if (typeof mod5Versions !== 'undefined') moduleOrder.push(mod5Versions);
+        if (typeof mod1Versions !== 'undefined') moduleOrder.push(mod1Versions);
+        if (typeof mod2Versions !== 'undefined') moduleOrder.push(mod2Versions);
+        if (typeof mod3Versions !== 'undefined') moduleOrder.push(mod3Versions);
+        if (typeof mod4Versions !== 'undefined') moduleOrder.push(mod4Versions);
+        if (typeof mod6Versions !== 'undefined') moduleOrder.push(mod6Versions);
+        if (typeof mod7Versions !== 'undefined') moduleOrder.push(mod7Versions);
+        if (typeof mod8Versions !== 'undefined') moduleOrder.push(mod8Versions);
+        if (typeof mod9Versions !== 'undefined') moduleOrder.push(mod9Versions);
+        if (typeof mod10Versions !== 'undefined') moduleOrder.push(mod10Versions);
+        if (typeof mod11Versions !== 'undefined') moduleOrder.push(mod11Versions);
+
+        const rawStyles = document.getElementById('main-styles').innerHTML;
+        const baseStyles = rawStyles.split('@media print')[0];
+
+        // Splitting HTML tags so syntax highlighters don't break
+        let html = "<!DOCTYPE html>\n<html>\n<head>\n";
+        html += "<title>Math Helper Hubs</title>\n";
+        html += "<link href=\"https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Roboto:wght@400;600&display=swap\" rel=\"stylesheet\">\n";
+        html += "<style>\n" + baseStyles + "\n";
+        html += "body { background: #fff; text-align: left; padding: 0.5in; zoom: 0.95; }\n";
+        html += ".print-hub-wrapper { page-break-inside: avoid; break-inside: avoid; margin-bottom: 30px; border: 3px dashed #f1c40f; border-radius: 20px; padding: 20px; background: #fffdf2; }\n";
+        html += ".print-hub-wrapper h3 { border-bottom: 2px dashed #f39c12; color: #d35400; margin-top: 0; padding-bottom: 10px; font-size: 22px; }\n";
+        html += "svg { max-width: 100%; }\n";
+        html += "@media print { @page { size: portrait; margin: 0.5in; } body { padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }\n";
+        html += "<\/" + "style>\n<\/" + "head>\n<body>\n";
+        html += "<h1 style=\"text-align: center; color: #2c7be5; font-size: 32px; border-bottom: 4px solid #d4e6f7; padding-bottom: 20px; margin-bottom: 30px; text-shadow: none;\">Grade 3 Math Helper Hubs</h1>\n";
+
+        moduleOrder.forEach(modGrp => {
+            const mod = modGrp["A"];
+            if (mod && mod.weeks) {
+                mod.weeks.forEach(week => {
+                    if (week.helperHub) {
+                        let cleanTitle = week.helperHub.title.replace(/\s*Helper\s*Hub:\s*/i, ' ').trim();
+                        html += "<div class=\"print-hub-wrapper\">\n";
+                        html += "<h3>" + cleanTitle + "</h3>\n";
+                        html += "<div>" + week.helperHub.content + "</div>\n";
+                        html += "</div>\n";
+                    }
+                });
+            }
+        });
+
+        html += "<\/" + "body>\n<\/" + "html>";
+
+        const printWin = window.open('', '_blank');
+        printWin.document.write(html);
+        printWin.document.close();
+        printWin.focus();
+        
+        setTimeout(() => {
+            printWin.print();
+        }, 500);
+    }
+
+    function selectModule(index) {
+        const activeModules = [
+            typeof mod1Versions !== 'undefined' ? mod1Versions : null,
+            typeof mod2Versions !== 'undefined' ? mod2Versions : null,
+            typeof mod3Versions !== 'undefined' ? mod3Versions : null,
+            typeof mod4Versions !== 'undefined' ? mod4Versions : null,
+            typeof mod6Versions !== 'undefined' ? mod6Versions : null,
+            typeof mod7Versions !== 'undefined' ? mod7Versions : null,
+            typeof mod8Versions !== 'undefined' ? mod8Versions : null,
+            typeof mod9Versions !== 'undefined' ? mod9Versions : null,
+            typeof mod10Versions !== 'undefined' ? mod10Versions : null,
+            typeof mod11Versions !== 'undefined' ? mod11Versions : null
+        ];
+
+        if(index < 0 || index >= activeModules.length) index = 0;
         currentModuleIndex = index;
         
-        // Update URL Params SAFELY (Protects against file:/// security blocks)
         try {
             const url = new URL(window.location.href);
             url.searchParams.set('module', index);
             window.history.pushState({}, '', url);
         } catch (e) {
-            console.warn("Could not update URL history (likely running locally).");
+            console.warn("Could not update URL history.");
         }
 
         document.querySelectorAll('.btn-module').forEach((btn, idx) => btn.classList.toggle('active', idx === index));
 
-        const module = appData.modules[index];
+        const moduleGroup = activeModules[index];
         const navContainer = document.getElementById('navContainer');
         const contentArea = document.getElementById('content-area');
         
-        // Reset View
         navContainer.innerHTML = '';
         contentArea.innerHTML = ''; 
         document.getElementById('footer-controls').style.display = 'none';
-        
-        // Toggle Extra Practice
-        const extraBtn = document.getElementById('btnExtra');
-        const extraCont = document.getElementById('extraPracticeContainer');
-        if(module.weeks) { extraBtn.classList.remove('hidden'); } 
-        else { extraBtn.classList.add('hidden'); extraCont.classList.add('hidden'); }
 
-        if (!module.weeks) {
-            contentArea.innerHTML = `<div class="tbd-message">Coming Soon: ${module.name} content is TBD! 🚧</div>`;
+        if (!moduleGroup || !moduleGroup[currentVersion] || !moduleGroup[currentVersion].weeks) {
+            contentArea.innerHTML = `<div class="tbd-message" style="margin-top: 50px; font-size: 20px; color: #e74c3c;">Content missing or not loaded correctly! 🚧</div>`;
+            document.getElementById('btnExtra').classList.add('hidden');
+            document.getElementById('extraPracticeContainer').classList.add('hidden');
             return;
         }
+
+        const module = moduleGroup[currentVersion]; 
+        const extraBtn = document.getElementById('btnExtra');
+        extraBtn.classList.remove('hidden'); 
 
         module.weeks.forEach(week => {
             const label = document.createElement('div');
@@ -749,11 +816,10 @@
                 btn.onclick = () => showDay(day.id, btn);
                 row.appendChild(btn);
                 
-                // --- PRINT HEADER INSERTION ---
                 if (day.name === 'Mon') {
                     const printHeader = document.createElement('div');
                     printHeader.className = 'print-header';
-                    printHeader.innerHTML = `<span>Name: _______________________________</span><span>Date: ____________________</span><span>Module: ${module.name}</span>`;
+                    printHeader.innerHTML = `<span>Name: _______________________________</span><span>Date: ____________________</span><span>Module: ${module.name} (Ver. ${currentVersion})</span>`;
                     contentArea.appendChild(printHeader);
                 }
 
@@ -768,7 +834,6 @@
                 day.sections.forEach(sec => {
                     const card = document.createElement('div'); card.className = 'question-card';
                     
-                    // SMART NUMBER EXTRACTION
                     let qNumHtml = "";
                     let instrText = sec.instruction || "";
                     let overrideProbText = null;
@@ -786,7 +851,6 @@
                         }
                     }
                     
-                    // FIXED: Removed the buggy split(':') logic that was breaking clock times
                     const iHtml = formatText(instrText);
                     
                     card.innerHTML = `<div style="display:flex; align-items:flex-start; margin-bottom: 20px;"><div class="instructions-wrapper" style="display:flex; align-items:flex-start; width: 100%;">${qNumHtml}<div class="instructions" style="margin-bottom:0; width: 100%;">${iHtml}</div></div></div>`;
@@ -795,7 +859,6 @@
                         if (sec.problems) {
                             sec.problems.forEach((p, idx) => card.appendChild(createProblem(p, 'grid', idx === 0 ? overrideProbText : null)));
                         }
-                        // Pass along custom headers if they exist in the section data
                         card.appendChild(createGrid(sec.rows, sec.th1, sec.th2, sec.th3));
                     }
                     else if (sec.type === 'input' || sec.type === 'fraction-input') {
@@ -814,16 +877,15 @@
                 });
                 contentArea.appendChild(dayDiv);
 
-                // --- HELPER HUB INSERTION (Slots into the empty right column on Print!) ---
                 if (day.name === 'Fri' && week.helperHub) {
                     const hhDiv = document.createElement('div');
                     hhDiv.id = `hh-w${week.weekNum}`;
                     hhDiv.className = 'helper-hub-card hidden';
-                    hhDiv.innerHTML = `<h3>${week.helperHub.title}</h3><div>${week.helperHub.content}</div>`;
+                    let cleanTitle = week.helperHub.title;
+                    hhDiv.innerHTML = `<h3>${cleanTitle}</h3><div>${week.helperHub.content}</div>`;
                     contentArea.appendChild(hhDiv);
                 }
 
-                // Add print spacer ONLY if there's another week coming.
                 if (day.name === 'Fri' && week.weekNum < module.weeks.length) {
                     const spacer = document.createElement('div');
                     spacer.className = 'print-spacer print-break'; 
@@ -840,7 +902,7 @@
     function generateAnswerKey(module) {
         const div = document.createElement('div');
         div.className = 'answer-key-page';
-        let html = `<h2>Teacher Answer Key: ${module.name}</h2><div class="ak-cols">`;
+        let html = `<h2>Teacher Answer Key: ${module.name} (Ver. ${currentVersion})</h2><div class="ak-cols">`;
         
         module.weeks.forEach(week => {
             html += `<div class="ak-week"><h4>Week ${week.weekNum}</h4>`;
@@ -886,7 +948,6 @@
         
         document.getElementById(dayId).classList.remove('hidden');
         
-        // Show the correct Helper Hub on the screen if it's Friday
         if (dayId.includes('fri')) {
             const weekMatch = dayId.match(/-w(\d+)-/);
             if (weekMatch) {
@@ -1174,7 +1235,6 @@
         if (isNaN(modIndex)) modIndex = 0;
         selectModule(modIndex);
     };
-
 </script>
 </body>
 </html>
