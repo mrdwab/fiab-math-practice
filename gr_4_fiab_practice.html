@@ -57,6 +57,7 @@
             <button class="btn-module" onclick="selectModule(4)">Review (Modules 1-4)</button>
             <button class="btn-module" onclick="selectModule(5)">Four Operations</button>
             <button class="btn-module" onclick="selectModule(6)">Multidigit Arithmetic</button>
+            <button class="btn-module" onclick="selectModule(7)">Factors & Multiples</button>
         </div>
 
         <div class="nav-container" id="navContainer"></div>
@@ -86,6 +87,7 @@
     <script src="data/gr4/mod5.js"></script>
     <script src="data/gr4/mod6.js"></script>
     <script src="data/gr4/mod7.js"></script>
+    <script src="data/gr4/mod8.js"></script>
     <script src="data/gr4/bonus.js"></script>
 
     <script>
@@ -98,7 +100,8 @@
                 typeof module4 !== 'undefined' ? module4 : { id: "m4", name: "Module 4", weeks: [] },
                 typeof module5 !== 'undefined' ? module5 : { id: "m5", name: "Module 5", weeks: [] },
                 typeof module6 !== 'undefined' ? module6 : { id: "m6", name: "Module 6", weeks: [] },
-                typeof module7 !== 'undefined' ? module7 : { id: "m7", name: "Module 7", weeks: [] }
+                typeof module7 !== 'undefined' ? module7 : { id: "m7", name: "Module 7", weeks: [] },
+                typeof module8 !== 'undefined' ? module8 : { id: "m8", name: "Module 8", weeks: [] }
             ]
         };
 
@@ -491,6 +494,12 @@
 
         function selectModule(index) {
             currentModuleIndex = index;
+            
+            // Update the URL so the state can be saved/shared
+            const url = new URL(window.location);
+            url.searchParams.set('module', index);
+            window.history.replaceState({}, '', url);
+
             document.querySelectorAll('.btn-module').forEach((btn, idx) => { if (idx === index) btn.classList.add('active'); else btn.classList.remove('active'); });
             
             const module = appData.modules[index];
@@ -536,7 +545,7 @@
                             if (day.name === "Mon") {
                                 const headerDiv = document.createElement('div'); 
                                 headerDiv.className = 'print-header'; 
-                                headerDiv.innerHTML = `<span>Name: _______________________________</span><span>Date: ____________________</span><span style="text-align: right;">${module.name} (Ver. ${currentVersion})</span>`; 
+                                headerDiv.innerHTML = `<span>Name: _______________________________</span><span>Date: ____________________</span><span style="text-align: right;">Module: ${module.name} (Ver. ${currentVersion})</span>`; 
                                 currentPrintPage.appendChild(headerDiv);
                             }
                             
@@ -841,7 +850,22 @@
             });
         }
 
-        window.onload = function () { selectModule(0); };
+        window.onload = function () {
+            // Check the URL for the ?module= parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const modParam = urlParams.get('module');
+            
+            let initialModule = 0;
+            if (modParam !== null && !isNaN(modParam)) {
+                initialModule = parseInt(modParam, 10);
+                // Ensure the parameter is a valid module index
+                if (initialModule < 0 || initialModule >= appData.modules.length) {
+                    initialModule = 0;
+                }
+            }
+            
+            selectModule(initialModule);
+        };
     </script>
 </body>
 </html>
