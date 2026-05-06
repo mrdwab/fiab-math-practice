@@ -574,169 +574,6 @@ input[type="checkbox"] {
   border-color: #bbb;
 }
 
-@media print {
-  .home-btn {
-    display: none !important;
-  }
-}
-
-/* --- PRINT STYLES --- */
-@media print {
-  @page {
-    size: landscape;
-    margin: 0.5in;
-  }
-
-  body {
-    background: none;
-    background-color: white;
-    color: black;
-    padding: 0;
-    zoom: 80%;
-    /* Automatically scale content to 80% */
-  }
-
-  .container {
-    box-shadow: none;
-    border: none;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* HIDE UI ELEMENTS */
-  .module-nav,
-  .nav-container,
-  .footer-controls,
-  .print-btn,
-  .tbd-message,
-  .btn-extra,
-  #extraPracticeContainer,
-  #placeholder {
-    display: none !important;
-  }
-
-  h1 {
-    display: none !important;
-  }
-
-  /* SHOW PRINT ELEMENTS */
-  .print-header {
-    display: flex !important;
-    justify-content: space-between;
-    font-size: 20px;
-    font-weight: bold;
-    border-bottom: 2px solid #000;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    margin-top: 10px;
-    grid-column: 1 / -1;
-    /* Span full width of grid */
-    width: 100%;
-  }
-
-  .print-spacer {
-    display: block !important;
-    break-after: page;
-    height: 1px;
-    grid-column: 1 / -1;
-    width: 100%;
-  }
-
-  /* LAYOUT: 2-COLUMN GRID */
-  #content-area {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 40px;
-    row-gap: 20px;
-    width: 100%;
-  }
-
-  .day-content {
-    display: block !important;
-    break-inside: avoid;
-    /* Keep day content together */
-    margin-bottom: 0;
-    border: 2px solid #444;
-    /* Clean border for print */
-    padding: 15px;
-    border-radius: 15px;
-    height: fit-content;
-  }
-
-  h3 {
-    color: black;
-    border-bottom: 1px solid #000;
-    margin-top: 0;
-  }
-
-  .print-mod-label {
-    display: inline-block !important;
-    float: right;
-    font-size: 16px;
-    color: #555;
-  }
-
-  .question-card {
-    border: 1px solid #ccc;
-    box-shadow: none;
-    background-color: white;
-    border-left: 5px solid #888;
-    border-radius: 10px;
-    margin-bottom: 15px;
-  }
-
-  .frac-input,
-  .std-input,
-  .mixed-whole-input,
-  .drill-input {
-    border: 2px solid #000;
-    background-color: white;
-    color: transparent !important;
-    /* Hide text for blank worksheet */
-  }
-
-  .frac-top {
-    border-bottom-color: #000;
-  }
-
-  .correction-text {
-    display: none !important;
-  }
-
-  table.caaspp-grid {
-    border: 1px solid #000;
-  }
-
-  table.caaspp-grid th {
-    background-color: #eee;
-    color: black;
-    border-bottom: 1px solid #000;
-  }
-
-  table.caaspp-grid td {
-    border-bottom: 1px solid #ccc;
-  }
-
-  .correct-bg,
-  .incorrect-bg,
-  .cell-correct,
-  .cell-incorrect {
-    background-color: white !important;
-  }
-
-  .grid-answer-indicator {
-    display: none !important;
-  }
-
-  .mixed-input-group,
-  .fraction-input-group {
-    border: none;
-    background: none;
-  }
-}
-
 /* ============================================================== */
 /* --- STYLES MIGRATED FROM HTML (Ensuring Precedence via Cascade) --- */
 /* ============================================================== */
@@ -853,21 +690,28 @@ td.cell-incorrect {
   display: none;
 }
 
+/* --- PRINT STYLES (Merged & Fixed Layout) --- */
 @media print {
   @page {
     size: letter landscape;
     margin: 0.5in;
   }
+  
   * {
     box-sizing: border-box;
   }
+  
   body {
-    background: 0 0;
-    margin: 0;
+    background: none;
+    background-color: white;
+    color: black;
     padding: 0;
+    margin: 0;
     font-size: 14pt;
     width: 100%;
+    zoom: 80%;
   }
+  
   .container {
     width: 100%;
     max-width: none;
@@ -876,46 +720,84 @@ td.cell-incorrect {
     padding: 0;
     margin: 0;
   }
-  #btnExtra,
-  .check-btn,
-  .footer-controls,
+
+  /* HIDE UI ELEMENTS */
+  h1,
   .home-btn,
   .module-nav,
   .nav-container,
-  .print-btn {
+  .footer-controls,
+  .print-btn,
+  .tbd-message,
+  .btn-extra,
+  .check-btn,
+  #extraPracticeContainer,
+  #placeholder {
     display: none !important;
   }
-  #content-area {
-    column-count: 2;
-    column-gap: 0.5in;
-    column-fill: auto;
+
+  /* SHOW PRINT ELEMENTS */
+  .print-header {
+    column-span: all;
+    grid-column: 1 / -1;
+    display: flex !important;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  /* NEW STRICT PAGE-BREAK WRAPPER */
+  .print-page {
+    page-break-after: always;
+    break-after: page;
     width: 100%;
     display: block;
   }
+
+  /* RIGID GRID FOR COLUMNS */
+  .days-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.5in;
+    width: 100%;
+    align-items: start;
+  }
+
+  /* Ensure helper hubs display when printing */
+  .helper-hub {
+    display: block !important;
+  }
+
   .day-content {
     display: block !important;
-    break-inside: auto;
+    break-inside: avoid;
     margin-bottom: 0;
-    padding-bottom: 20px;
-    border-bottom: none;
+    padding: 0; 
+    border: none;
     width: 100%;
-    break-before: auto;
-    page-break-before: auto;
-    -webkit-column-break-before: auto;
+    height: fit-content;
+    counter-reset: question-counter; 
   }
-  .print-page-break {
-    break-before: page !important;
-    page-break-before: always !important;
+
+  h3 {
+    color: black;
+    border-bottom: 2px solid #000;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 16pt;
+    text-align: left;
+    break-after: avoid;
   }
-  .print-col-break {
-    break-before: column !important;
-    -webkit-column-break-before: always !important;
+
+  .print-mod-label {
+    display: none !important; 
   }
-  .print-page-break-header {
-    break-before: page !important;
-    page-break-before: always !important;
-    column-span: all;
-  }
+
   .question-card {
     break-inside: avoid;
     page-break-inside: avoid;
@@ -928,35 +810,142 @@ td.cell-incorrect {
     box-shadow: none;
     background: #fff;
   }
-  h3 {
+
+  .instructions {
+    font-size: 13pt;
+    margin-bottom: 8px;
     margin-top: 0;
-    margin-bottom: 12px;
-    font-size: 16pt;
-    border-bottom: 2px solid #000;
+  }
+
+  .instructions::before {
+    counter-increment: question-counter;
+    content: counter(question-counter) ". ";
+    font-weight: bold;
+    color: #000;
+  }
+
+  .frac-input,
+  .std-input,
+  .mixed-whole-input,
+  .drill-input {
+    border: 1px solid #000;
+    background-color: white;
+    color: transparent !important;
+    box-shadow: none;
+    min-width: 25px;
+  }
+
+  .frac-top {
+    border-bottom-color: #000;
+  }
+
+  .correction-text,
+  .grid-answer-indicator {
+    display: none !important;
+  }
+
+  table.caaspp-grid,
+  table.match-grid {
+    border-collapse: collapse !important;
+    border: 2px solid #000 !important;
+  }
+  
+  table.caaspp-grid td,
+  table.caaspp-grid th,
+  table.match-grid td,
+  table.match-grid th {
+    border: 1px solid #000 !important;
+  }
+
+  table.match-grid {
+    font-size: 12pt;
+    margin: 10px auto;
+  }
+  
+  table.match-grid td,
+  table.match-grid th {
+    padding: 12px 4px;
+  }
+  
+  table.match-grid td:first-child,
+  table.match-grid th:first-child {
+    width: 15% !important;
+  }
+  
+  table.match-grid td:not(:first-child),
+  table.match-grid th:not(:first-child) {
+    width: 21.25% !important;
+  }
+
+  table.caaspp-grid {
+    table-layout: fixed;
+    width: 100%;
+    font-size: 12pt;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+  }
+  
+  table.caaspp-grid td,
+  table.caaspp-grid th {
+    padding: 10px 8px;
     text-align: center;
-    break-after: avoid;
   }
-  .print-header {
-    column-span: all;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #000;
-    padding-bottom: 5px;
-    font-weight: 700;
+  
+  table.caaspp-grid td:first-child,
+  table.caaspp-grid th:first-child {
+    text-align: left;
+    padding-left: 8px;
+    width: 60%;
   }
-  .print-spacer {
-    display: none;
+  
+  table.caaspp-grid td:not(:first-child),
+  table.caaspp-grid th:not(:first-child) {
+    width: 20%;
   }
+  
+  table.caaspp-grid th {
+    background-color: #eee;
+    color: black;
+  }
+
+  table.caaspp-grid .fraction-wrap,
+  table.match-grid .fraction-wrap {
+    transform: scale(1.05);
+    transform-origin: center;
+    margin: 0 auto;
+  }
+  
+  table.caaspp-grid td:first-child .fraction-wrap {
+    margin: 0;
+  }
+
+  table.caaspp-grid input[type="checkbox"],
+  table.match-grid input[type="checkbox"] {
+    transform: scale(1.5);
+    margin: 0;
+  }
+
+  .correct-bg,
+  .incorrect-bg,
+  .cell-correct,
+  .cell-incorrect {
+    background-color: white !important;
+  }
+
+  .mixed-input-group,
+  .fraction-input-group {
+    border: none;
+    background: none;
+  }
+
   #answer-key-section {
     display: block !important;
     break-before: page !important;
     page-break-before: always !important;
-    column-count: 3;
-    column-gap: 0.4in;
     font-size: 11pt;
     font-family: sans-serif;
   }
+  
   .ak-title {
     column-span: all;
     text-align: center;
@@ -965,117 +954,52 @@ td.cell-incorrect {
     font-size: 14pt;
     padding-bottom: 5px;
   }
+  
   .ak-day-block {
     break-inside: avoid;
     margin-bottom: 15px;
+    text-align: left;
   }
+  
   .ak-day-title {
     font-weight: 700;
     text-decoration: underline;
     margin-bottom: 4px;
   }
+  
   .ak-list {
     margin: 0;
     padding-left: 22px;
+    text-align: left;
   }
+  
   .ak-list li {
     margin-bottom: 4px;
     line-height: 1.3;
   }
+  
   .mixed-text-container {
     font-size: 13pt;
     gap: 6px;
   }
-  .instructions {
-    font-size: 13pt;
-    margin-bottom: 8px;
-    margin-top: 0;
-  }
+  
   .mc-label {
     font-size: 13pt;
     margin: 12px 0;
   }
+  
   .number-line-container svg {
     width: 100%;
     height: auto;
     max-height: 85px;
   }
-  table.caaspp-grid,
-  table.match-grid {
-    border-collapse: collapse !important;
-    border: 2px solid #000 !important;
-  }
-  table.caaspp-grid td,
-  table.caaspp-grid th,
-  table.match-grid td,
-  table.match-grid th {
-    border: 1px solid #000 !important;
-  }
-  table.match-grid {
-    font-size: 12pt;
-    margin: 10px auto;
-  }
-  table.match-grid td,
-  table.match-grid th {
-    padding: 12px 4px;
-  }
-  table.match-grid td:first-child,
-  table.match-grid th:first-child {
-    width: 15% !important;
-  }
-  table.match-grid td:not(:first-child),
-  table.match-grid th:not(:first-child) {
-    width: 21.25% !important;
-  }
-  table.caaspp-grid {
-    table-layout: fixed;
-    width: 100%;
-    font-size: 12pt;
-    margin-bottom: 10px;
-    word-wrap: break-word;
-  }
-  table.caaspp-grid td,
-  table.caaspp-grid th {
-    padding: 10px 8px;
-    text-align: center;
-  }
-  table.caaspp-grid td:first-child,
-  table.caaspp-grid th:first-child {
-    text-align: left;
-    padding-left: 8px;
-    width: 60%;
-  }
-  table.caaspp-grid td:not(:first-child),
-  table.caaspp-grid th:not(:first-child) {
-    width: 20%;
-  }
-  table.caaspp-grid .fraction-wrap,
-  table.match-grid .fraction-wrap {
-    transform: scale(1.05);
-    transform-origin: center;
-    margin: 0 auto;
-  }
-  table.caaspp-grid td:first-child .fraction-wrap {
-    margin: 0;
-  }
-  table.caaspp-grid input[type="checkbox"],
-  table.match-grid input[type="checkbox"] {
-    transform: scale(1.5);
-    margin: 0;
-  }
+  
   .unknown-box {
     border: 2px solid #000 !important;
   }
+  
   .pie-chart-container svg {
     width: 50px;
     height: 50px;
-  }
-  .frac-input,
-  .mixed-whole-input,
-  .std-input {
-    border: 1px solid #000;
-    color: transparent !important;
-    box-shadow: none;
-    min-width: 25px;
   }
 }

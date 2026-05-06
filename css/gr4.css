@@ -848,6 +848,8 @@ td.cell-incorrect {
   table.match-grid {
     border-collapse: collapse !important;
     border: 2px solid #000 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
   }
   
   table.caaspp-grid td,
