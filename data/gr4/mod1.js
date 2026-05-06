@@ -9,7 +9,7 @@ const module1 = {
             content: `
                 <div style="font-size:16px; line-height: 1.5;">
                     <p style="margin-top:0; margin-bottom:15px;">Fractions are just like building blocks! A <strong>unit fraction</strong> is a single block (like ${f(1,4)} or ${f(1,5)}). You can add them together to build bigger fractions or mixed numbers.</p>
-                    
+                    <div class="print-stack" style="display:flex; gap:15px; align-items:stretch; break-inside: avoid;">
                     <div style="display:flex; gap:15px; align-items:flex-start; break-inside: avoid;">
                         <div style="flex:1; padding:15px; border:2px solid #ccc; border-radius:10px; background:#fff; text-align:center;">
                             <strong style="font-size:18px; color:#2c7be5;">Decomposing Fractions</strong><br><br>
@@ -24,6 +24,7 @@ const module1 = {
                             So, <div style="font-weight:bold; display:flex; align-items:center; justify-content: center; margin-top: 5px;">${mf(1,2,5)} = ${f(5,5)} + ${f(2,5)} = ${f(7,5)}</div>
                         </div>
                     </div>
+                    </div>
                 </div>`
         },
         week2: {
@@ -31,7 +32,7 @@ const module1 = {
             content: `
                 <div style="font-size:16px; line-height: 1.5;">
                     <p style="margin-top:0; margin-bottom:15px;">When we multiply a whole number by a fraction, we are just doing repeated addition!</p>
-                    
+                    <div class="print-stack" style="display:flex; gap:15px; align-items:stretch; break-inside: avoid;">
                     <div style="display:flex; gap:15px; align-items:flex-start; break-inside: avoid;">
                         <div style="flex:1; padding:15px; border:2px solid #ccc; border-radius:10px; background:#fff; text-align:center;">
                             <strong style="font-size:18px; color:#2c7be5;">Multiplying Fractions</strong><br><br>
@@ -46,6 +47,7 @@ const module1 = {
                             Pull out a whole (${f(4,4)}):<br>
                             <div style="font-weight:bold; display: flex; align-items: center; justify-content: center;">${f(4,4)} + ${f(1,4)} = ${mf(1,1,4)}</div>
                         </div>
+                    </div>
                     </div>
                 </div>`
         }

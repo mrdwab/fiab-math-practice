@@ -335,7 +335,7 @@ input[type="checkbox"] {
 .math-row {
   font-size: 22px;
   font-weight: 600;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   color: #444;
   display: flex;
   align-items: center;
@@ -742,10 +742,10 @@ td.cell-incorrect {
     grid-column: 1 / -1;
     display: flex !important;
     justify-content: space-between;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     font-family: 'Roboto', sans-serif;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     padding-bottom: 10px;
     margin-top: 10px;
     width: 100%;
@@ -804,8 +804,8 @@ td.cell-incorrect {
     -webkit-column-break-inside: avoid;
     display: block;
     width: 100%;
-    margin-bottom: 18px;
-    padding: 12px 15px;
+    margin-bottom: 12px;
+    padding: 12px 12px;
     border: 1px solid #ccc;
     box-shadow: none;
     background: #fff;
@@ -866,7 +866,7 @@ td.cell-incorrect {
   
   table.match-grid td,
   table.match-grid th {
-    padding: 12px 4px;
+    padding: 8px 4px;
   }
   
   table.match-grid td:first-child,
@@ -883,7 +883,7 @@ td.cell-incorrect {
     table-layout: fixed;
     width: 100%;
     font-size: 12pt;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     word-wrap: break-word;
   }
   
@@ -1003,5 +1003,17 @@ td.cell-incorrect {
   .pie-chart-container svg {
     width: 50px;
     height: 50px;
+  }
+
+  /* Stack flex items completely on top of each other for print */
+  .print-stack {
+    display: block !important;
+  }
+  
+  .print-stack > div {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 15px;
+    box-sizing: border-box;
   }
 }
