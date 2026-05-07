@@ -107,7 +107,8 @@ const module3 = {
                                 },
                                 {
                                     instruction: "Select True or False for each comparison.",
-                                    type: "grid",
+                                    type: "grid", col0: "Equation/Inequality",
+                                    col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'fraction', n: 3, d: 4 }, { type: 'text', val: ' > ' }, { type: 'fraction', n: 1, d: 2 }], correct: true },
                                         { segments: [{ type: 'fraction', n: 2, d: 5 }, { type: 'text', val: ' = ' }, { type: 'fraction', n: 1, d: 2 }], correct: false }
@@ -219,7 +220,8 @@ const module3 = {
                                         { label: { type: 'fraction', n: 4, d: 8 }, matches: [false, false, true, false] }
                                     ]
                                 },
-                                { instruction: "Select True or False for each comparison.", type: "grid", rows: [{ segments: [{ type: 'fraction', n: 2, d: 3 }, { type: 'text', val: ' > ' }, { type: 'fraction', n: 2, d: 5 }], correct: true }, { segments: [{ type: 'fraction', n: 3, d: 10 }, { type: 'text', val: ' > ' }, { type: 'fraction', n: 40, d: 100 }], correct: false }] }
+                                { instruction: "Select True or False for each comparison.", type: "grid", col0: "Equation/Inequality",
+                                    col1: "True", col2: "False", rows: [{ segments: [{ type: 'fraction', n: 2, d: 3 }, { type: 'text', val: ' > ' }, { type: 'fraction', n: 2, d: 5 }], correct: true }, { segments: [{ type: 'fraction', n: 3, d: 10 }, { type: 'text', val: ' > ' }, { type: 'fraction', n: 40, d: 100 }], correct: false }] }
                             ]
                         },
                         { 
@@ -338,7 +340,8 @@ const module3 = {
                                 },
                                 {
                                     instruction: "Select True or False for each comparison.",
-                                    type: "grid",
+                                    type: "grid", col0: "Equation/Inequality",
+                                    col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'fraction', n: 2, d: 3 }, { type: 'text', val: ' > ' }, { type: 'fraction', n: 1, d: 4 }], correct: true },
                                         { segments: [{ type: 'fraction', n: 3, d: 8 }, { type: 'text', val: ' = ' }, { type: 'fraction', n: 1, d: 2 }], correct: false }
@@ -450,7 +453,8 @@ const module3 = {
                                         { label: { type: 'fraction', n: 40, d: 100 }, matches: [false, false, false, true] }
                                     ]
                                 },
-                                { instruction: "Select True or False for each comparison.", type: "grid", rows: [{ segments: [{ type: 'fraction', n: 3, d: 4 }, { type: 'text', val: ' > ' }, { type: 'fraction', n: 1, d: 2 }], correct: true }, { segments: [{ type: 'fraction', n: 2, d: 5 }, { type: 'text', val: ' = ' }, { type: 'fraction', n: 4, d: 10 }], correct: true }] }
+                                { instruction: "Select True or False for each comparison.", type: "grid", col0: "Equation/Inequality",
+                                    col1: "True", col2: "False", rows: [{ segments: [{ type: 'fraction', n: 3, d: 4 }, { type: 'text', val: ' > ' }, { type: 'fraction', n: 1, d: 2 }], correct: true }, { segments: [{ type: 'fraction', n: 2, d: 5 }, { type: 'text', val: ' = ' }, { type: 'fraction', n: 4, d: 10 }], correct: true }] }
                             ]
                         },
                         { 
@@ -569,7 +573,8 @@ const module3 = {
                                 },
                                 {
                                     instruction: "Select True or False for each comparison.",
-                                    type: "grid",
+                                    type: "grid", col0: "Equation/Inequality",
+                                    col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'fraction', n: 1, d: 3 }, { type: 'text', val: ' < ' }, { type: 'fraction', n: 3, d: 4 }], correct: true },
                                         { segments: [{ type: 'fraction', n: 1, d: 4 }, { type: 'text', val: ' = ' }, { type: 'fraction', n: 2, d: 5 }], correct: false }
@@ -681,7 +686,8 @@ const module3 = {
                                         { label: { type: 'fraction', n: 1, d: 3 }, matches: [false, false, false, true] }
                                     ]
                                 },
-                                { instruction: "Select True or False for each comparison.", type: "grid", rows: [{ segments: [{ type: 'fraction', n: 1, d: 4 }, { type: 'text', val: ' < ' }, { type: 'fraction', n: 1, d: 2 }], correct: true }, { segments: [{ type: 'fraction', n: 4, d: 5 }, { type: 'text', val: ' = ' }, { type: 'fraction', n: 8, d: 10 }], correct: true }] }
+                                { instruction: "Select True or False for each comparison.", type: "grid", col0: "Equation/Inequality",
+                                    col1: "True", col2: "False", rows: [{ segments: [{ type: 'fraction', n: 1, d: 4 }, { type: 'text', val: ' < ' }, { type: 'fraction', n: 1, d: 2 }], correct: true }, { segments: [{ type: 'fraction', n: 4, d: 5 }, { type: 'text', val: ' = ' }, { type: 'fraction', n: 8, d: 10 }], correct: true }] }
                             ]
                         },
                         { 

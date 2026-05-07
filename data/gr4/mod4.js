@@ -159,7 +159,7 @@ const module4 = {
                             sections: [
                                 {
                                     instruction: "Select True or False for each comparison.",
-                                    type: "grid",
+                                    type: "grid", col0: "Equation/Inequality",
                                     col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: '805 = 800 + 50' }], correct: false },
@@ -234,7 +234,7 @@ const module4 = {
                             sections: [
                                 {
                                     instruction: "When rounding to the nearest thousand, which numbers round to 45,000? Select Yes if the number rounds to 45,000. Select No if it does not.",
-                                    type: "grid",
+                                    type: "grid", col0: "Number",
                                     col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "44,812", correct: true },
@@ -275,7 +275,7 @@ const module4 = {
                             sections: [
                                 {
                                     instruction: "When rounding to the nearest ten thousand, which numbers round to 80,000? Select Yes or No.",
-                                    type: "grid",
+                                    type: "grid", col0: "Number",
                                     col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "82,199", correct: true },
@@ -304,7 +304,7 @@ const module4 = {
                                 },
                                 {
                                     instruction: "Select True or False for the comparison.",
-                                    type: "grid",
+                                    type: "grid", col0: "Equation/Inequality",
                                     col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: '5000 + 400 + 10 = 5041' }], correct: false }
@@ -394,7 +394,7 @@ const module4 = {
                             sections: [
                                 {
                                     instruction: "Select True or False for each comparison.",
-                                    type: "grid",
+                                    type: "grid", col0: "Equation/Inequality",
                                     col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: '307 = 300 + 70' }], correct: false },
@@ -469,7 +469,7 @@ const module4 = {
                             sections: [
                                 {
                                     instruction: "When rounding to the nearest thousand, which numbers round to 38,000? Select Yes if the number rounds to 38,000. Select No if it does not.",
-                                    type: "grid",
+                                    type: "grid", col0: "Number",
                                     col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "37,819", correct: true },
@@ -510,7 +510,7 @@ const module4 = {
                             sections: [
                                 {
                                     instruction: "When rounding to the nearest ten thousand, which numbers round to 90,000? Select Yes or No.",
-                                    type: "grid",
+                                    type: "grid", col0: "Number",
                                     col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "91,200", correct: true },
@@ -539,7 +539,7 @@ const module4 = {
                                 },
                                 {
                                     instruction: "Select True or False for the comparison.",
-                                    type: "grid",
+                                    type: "grid", col0: "Equation/Inequality",
                                     col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: '9000 + 600 + 40 = 9064' }], correct: false }
@@ -629,7 +629,7 @@ const module4 = {
                             sections: [
                                 {
                                     instruction: "Select True or False for each comparison.",
-                                    type: "grid",
+                                    type: "grid", col0: "Equation/Inequality",
                                     col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: '604 = 600 + 40' }], correct: false },
@@ -704,7 +704,7 @@ const module4 = {
                             sections: [
                                 {
                                     instruction: "When rounding to the nearest thousand, which numbers round to 38,000? Select Yes if the number rounds to 38,000. Select No if it does not.",
-                                    type: "grid",
+                                    type: "grid", col0: "Number",
                                     col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "37,819", correct: true },
@@ -745,7 +745,7 @@ const module4 = {
                             sections: [
                                 {
                                     instruction: "When rounding to the nearest ten thousand, which numbers round to 90,000? Select Yes or No.",
-                                    type: "grid",
+                                    type: "grid", col0: "Number",
                                     col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "91,200", correct: true },
@@ -774,7 +774,7 @@ const module4 = {
                                 },
                                 {
                                     instruction: "Select True or False for the comparison.",
-                                    type: "grid",
+                                    type: "grid", col0: "Equation/Inequality",
                                     col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: '9000 + 600 + 40 = 9064' }], correct: false }

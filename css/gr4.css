@@ -1016,4 +1016,53 @@ td.cell-incorrect {
     margin-bottom: 15px;
     box-sizing: border-box;
   }
+
+  /* 1. Prevent long property words from wrapping and overflowing */
+  .match-grid td:first-child {
+    font-size: 13px !important;
+    padding: 4px 6px !important;
+  }
+
+  /* 3. Force geometry shapes to print white with crisp black outlines */
+  .geometry-shape path, 
+  .geometry-shape polygon {
+    fill: white !important;
+    stroke: black !important;
+  }
+
+  /* Force symmetry lines to print black for contrast */
+  .geometry-shape line {
+    stroke: black !important;
+  }
+
+  /* 4. Apply the same clean grayscale formatting to the Helper Hub visuals */
+  .helper-hub svg {
+    background-color: transparent !important;
+  }
+  .helper-hub svg path, 
+  .helper-hub svg polygon, 
+  .helper-hub svg rect,
+  .helper-hub svg circle {
+    fill: white !important;
+    stroke: black !important;
+  }
+  .helper-hub svg line, 
+  .helper-hub svg polyline {
+    stroke: black !important;
+  }
+
+  .match-grid th, .caaspp-grid th { background-color: #f4f4f4 !important; }
+
+  /* Hide the "W" placeholder when printing */
+  input::placeholder { color: transparent !important; }
+  input::-webkit-input-placeholder { color: transparent !important; }
+
+  /* Force all SVG shapes to white fill with black borders */
+  svg.geometry-shape path, svg.geometry-shape polygon, svg.geometry-shape rect,
+  .helper-hub svg path, .helper-hub svg polyline, .helper-hub svg rect {
+      fill: #ffffff !important;
+      stroke: #000000 !important;
+  }
+  svg.geometry-shape line, .helper-hub svg line { stroke: #000000 !important; }
+
 }

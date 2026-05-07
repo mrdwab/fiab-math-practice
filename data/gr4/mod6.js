@@ -97,7 +97,7 @@ const module6 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '192' }, { type: 'text', val: ' muffins' }] }]
                                 },
                                 {
-                                    instruction: "Determine whether each comparison is true or false.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Determine whether each comparison is true or false.", type: "grid", col0: "Equation/Inequality", col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: '0.4 = ' }, { type: 'fraction', n: '4', d: '100' }], correct: false },
                                         { segments: [{ type: 'text', val: '0.8 > 0.08' }], correct: true }
@@ -156,7 +156,7 @@ const module6 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '852' }, { type: 'text', val: ' miles' }] }]
                                 },
                                 {
-                                    instruction: "Determine whether each equation or comparison is true or false.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Determine whether each equation or comparison is true or false.", type: "grid", col0: "Equation/Inequality", col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'fraction', n: '4', d: '10' }, { type: 'text', val: ' = 0.4' }], correct: true },
                                         { segments: [{ type: 'text', val: '0.7 < 0.65' }], correct: false }
@@ -202,7 +202,7 @@ const module6 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '27' }, { type: 'text', val: ' boxes' }] }]
                                 },
                                 {
-                                    instruction: "Select True or False for each comparison.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Select True or False for each comparison.", type: "grid", col0: "Equation/Inequality", col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: '500 + 40 + 2 = 542' }], correct: true },
                                         { segments: [{ type: 'text', val: '3 thousands + 5 tens > 3050' }], correct: false }
@@ -243,7 +243,7 @@ const module6 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '1200' }, { type: 'text', val: ' boxes' }] }]
                                 },
                                 {
-                                    instruction: "When rounding to the nearest ten thousand, which numbers round to 60,000?", type: "grid", col1: "Yes", col2: "No",
+                                    instruction: "When rounding to the nearest ten thousand, which numbers round to 60,000?", type: "grid", col0: "Number", col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "59,500", correct: true },
                                         { text: "65,100", correct: false },
@@ -318,7 +318,7 @@ const module6 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '192' }, { type: 'text', val: ' plants' }] }]
                                 },
                                 {
-                                    instruction: "Determine whether each comparison is true or false.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Determine whether each comparison is true or false.", type: "grid", col0: "Equation/Inequality", col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: '0.7 = ' }, { type: 'fraction', n: '7', d: '100' }], correct: false },
                                         { segments: [{ type: 'text', val: '0.5 > 0.05' }], correct: true }
@@ -377,7 +377,7 @@ const module6 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '823' }, { type: 'text', val: ' miles' }] }]
                                 },
                                 {
-                                    instruction: "Determine whether each equation or comparison is true or false.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Determine whether each equation or comparison is true or false.", type: "grid", col0: "Equation/Inequality", col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'fraction', n: '6', d: '10' }, { type: 'text', val: ' = 0.6' }], correct: true },
                                         { segments: [{ type: 'text', val: '0.5 < 0.45' }], correct: false }
@@ -423,7 +423,7 @@ const module6 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '24' }, { type: 'text', val: ' bouquets' }] }]
                                 },
                                 {
-                                    instruction: "Select True or False for each comparison.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Select True or False for each comparison.", type: "grid", col0: "Equation/Inequality", col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: '600 + 70 + 3 = 673' }], correct: true },
                                         { segments: [{ type: 'text', val: '4 thousands + 8 tens > 4080' }], correct: false }
@@ -464,7 +464,7 @@ const module6 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '800' }, { type: 'text', val: ' crates' }] }]
                                 },
                                 {
-                                    instruction: "When rounding to the nearest ten thousand, which numbers round to 40,000?", type: "grid", col1: "Yes", col2: "No",
+                                    instruction: "When rounding to the nearest ten thousand, which numbers round to 40,000?", type: "grid", col0: "Number", col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "39,600", correct: true },
                                         { text: "45,200", correct: false },
@@ -539,7 +539,7 @@ const module6 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '196' }, { type: 'text', val: ' seats' }] }]
                                 },
                                 {
-                                    instruction: "Determine whether each comparison is true or false.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Determine whether each comparison is true or false.", type: "grid", col0: "Equation/Inequality", col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: '0.3 = ' }, { type: 'fraction', n: '3', d: '100' }], correct: false },
                                         { segments: [{ type: 'text', val: '0.9 > 0.09' }], correct: true }
@@ -598,7 +598,7 @@ const module6 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '823' }, { type: 'text', val: ' miles' }] }]
                                 },
                                 {
-                                    instruction: "Determine whether each equation or comparison is true or false.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Determine whether each equation or comparison is true or false.", type: "grid", col0: "Equation/Inequality", col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'fraction', n: '8', d: '10' }, { type: 'text', val: ' = 0.8' }], correct: true },
                                         { segments: [{ type: 'text', val: '0.3 < 0.25' }], correct: false }
@@ -644,7 +644,7 @@ const module6 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '28' }, { type: 'text', val: ' cartons' }] }]
                                 },
                                 {
-                                    instruction: "Select True or False for each comparison.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Select True or False for each comparison.", type: "grid", col0: "Equation/Inequality", col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: '800 + 20 + 5 = 825' }], correct: true },
                                         { segments: [{ type: 'text', val: '2 thousands + 6 tens > 2060' }], correct: false }
@@ -685,7 +685,7 @@ const module6 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '900' }, { type: 'text', val: ' posters' }] }]
                                 },
                                 {
-                                    instruction: "When rounding to the nearest ten thousand, which numbers round to 70,000?", type: "grid", col1: "Yes", col2: "No",
+                                    instruction: "When rounding to the nearest ten thousand, which numbers round to 70,000?", type: "grid", col0: "Number", col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "69,500", correct: true },
                                         { text: "75,300", correct: false },

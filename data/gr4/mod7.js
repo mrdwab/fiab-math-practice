@@ -124,7 +124,7 @@ const module7 = {
                                     ]
                                 },
                                 {
-                                    instruction: "Review: Determine whether the comparison is true or false.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Review: Determine whether the comparison is true or false.", type: "grid", col0: "Equation", col1: "True", col2: "False",
                                     rows: [{ segments: [{ type: 'text', val: '0.40 = 0.04' }], correct: false }]
                                 }
                             ] 
@@ -339,7 +339,7 @@ const module7 = {
                                     ]
                                 },
                                 {
-                                    instruction: "Review: Determine whether the comparison is true or false.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Review: Determine whether the comparison is true or false.", type: "grid", col0: "Equation", col1: "True", col2: "False",
                                     rows: [{ segments: [{ type: 'text', val: '0.50 = 0.05' }], correct: false }]
                                 }
                             ] 
@@ -554,7 +554,7 @@ const module7 = {
                                     ]
                                 },
                                 {
-                                    instruction: "Review: Determine whether the comparison is true or false.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Review: Determine whether the comparison is true or false.", type: "grid", col0: "Equation", col1: "True", col2: "False",
                                     rows: [{ segments: [{ type: 'text', val: '0.70 = 0.07' }], correct: false }]
                                 }
                             ] 

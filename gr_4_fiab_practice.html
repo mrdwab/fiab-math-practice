@@ -7,6 +7,29 @@
     <title>Grade 4 Math Warmups</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/gr4.css">
+    <style>
+        @media print {
+            /* Fix for long geometry words in matrix columns */
+            .match-grid td:first-child {
+                font-size: 13px !important;
+                padding: 4px 6px !important;
+            }
+            .match-grid th, .caaspp-grid th { background-color: #f4f4f4 !important; }
+
+            /* Hide the "W" placeholder when printing */
+            input::placeholder { color: transparent !important; }
+            input::-webkit-input-placeholder { color: transparent !important; }
+
+            /* Force all SVG shapes to white fill with black borders */
+            svg.geometry-shape path, svg.geometry-shape polygon, svg.geometry-shape rect,
+            .helper-hub svg path, .helper-hub svg polyline, .helper-hub svg rect,
+            svg path, svg polygon, svg rect, svg polyline {
+                fill: #ffffff !important;
+                stroke: #000000 !important;
+            }
+            svg line, .helper-hub svg line { stroke: #000000 !important; }
+        }
+    </style>
     <script>
         // Helper function for rendering perfectly aligned stacked math problems
         function stackedHTML(top, bottom, operator) {
@@ -30,6 +53,50 @@
         function mf(w, n, d) {
             return `<div class="mixed-text-container" style="font-size: 1.1em; display: inline-flex;"><span class="whole-part">${w}</span>${f(n, d)}</div>`;
         }
+
+        function decimalToFractionStr(dec) {
+            let w = Math.floor(dec);
+            let fPart = dec - w;
+            let fr = "";
+            // Precision check for common fractions
+            if (Math.abs(fPart - 0.75) < 0.01) fr = "3/4";
+            else if (Math.abs(fPart - 0.5) < 0.01) fr = "1/2";
+            else if (Math.abs(fPart - 0.25) < 0.01) fr = "1/4";
+            else if (Math.abs(fPart - 0.333) < 0.01 || Math.abs(fPart - 0.3333) < 0.01) fr = "1/3";
+            else if (Math.abs(fPart - 0.666) < 0.01 || Math.abs(fPart - 0.6667) < 0.01) fr = "2/3";
+            else if (Math.abs(fPart - 0.2) < 0.01) fr = "1/5";
+            else if (Math.abs(fPart - 0.4) < 0.01) fr = "2/5";
+            else if (Math.abs(fPart - 0.6) < 0.01) fr = "3/5";
+            else if (Math.abs(fPart - 0.8) < 0.01) fr = "4/5";
+            else if (Math.abs(fPart - 0.125) < 0.01) fr = "1/8";
+            else if (Math.abs(fPart - 0.375) < 0.01) fr = "3/8";
+            else if (Math.abs(fPart - 0.625) < 0.01) fr = "5/8";
+            else if (Math.abs(fPart - 0.875) < 0.01) fr = "7/8";
+            else return String(dec); // Fallback to decimal if it's not a clean fraction
+
+            if (w > 0 && fr !== "") return `${w} ${fr}`;
+            if (w > 0) return `${w}`;
+            return fr;
+        }
+
+        // GLOBAL SHAPE LIBRARY FOR SVG GENERATION
+        const shapes = {
+            rect: { type: 'shape', name: 'Rectangle', points: "15,25 85,25 85,75 15,75" },
+            parallelogram: { type: 'shape', name: 'Parallelogram', points: "20,75 80,75 90,25 30,25" },
+            kite: { type: 'shape', name: 'Kite', points: "50,5 80,40 50,95 20,40" },
+            rightTri: { type: 'shape', name: 'Right Triangle', points: "20,80 80,80 20,20" },
+            acuteTri: { type: 'shape', name: 'Acute Triangle', points: "30,80 70,80 50,10" },
+            obtuseTri: { type: 'shape', name: 'Obtuse Triangle', points: "20,80 95,80 10,40" },
+            hexagon: { type: 'shape', name: 'Hexagon', points: "25,15 75,15 95,50 75,85 25,85 5,50" },
+            octagon: { type: 'shape', name: 'Octagon', points: "30,10 70,10 90,30 90,70 70,90 30,90 10,70 10,30" },
+            trapezoid: { type: 'shape', name: 'Trapezoid', points: "20,80 80,80 60,30 40,30" },
+            rightTrapezoid: { type: 'shape', name: 'Right Trapezoid', points: "20,80 80,80 60,30 20,30" },
+            heart: { type: 'shape', name: 'Heart', path: "M 50,90 C 50,90 10,60 10,30 A 20,20 0 0,1 50,30 A 20,20 0 0,1 90,30 C 90,60 50,90 50,90 Z" },
+            arrow: { type: 'shape', name: 'Arrow', points: "10,40 50,40 50,20 90,50 50,80 50,60 10,60" },
+            chevron: { type: 'shape', name: 'Chevron', points: "20,20 60,50 20,80 50,80 90,50 50,20" },
+            star: { type: 'shape', name: 'Star', points: "50,5 61,35 95,35 68,55 78,85 50,65 22,85 32,55 5,35 39,35" },
+            rhombus: { type: 'shape', name: 'Rhombus', points: "50,10 85,50 50,90 15,50" }
+        };
     </script>
 </head>
 
@@ -59,6 +126,7 @@
             <button class="btn-module" onclick="selectModule(6)">Multidigit Arithmetic</button>
             <button class="btn-module" onclick="selectModule(7)">Factors & Multiples</button>
             <button class="btn-module" onclick="selectModule(8)">Angle Measurement & Data</button>
+            <button class="btn-module" onclick="selectModule(9)">Geometry</button>
         </div>
 
         <div class="nav-container" id="navContainer"></div>
@@ -90,6 +158,7 @@
     <script src="data/gr4/mod7.js"></script>
     <script src="data/gr4/mod8.js"></script>
     <script src="data/gr4/mod9.js"></script>
+    <script src="data/gr4/mod10.js"></script>
     <script src="data/gr4/bonus.js"></script>
 
     <script>
@@ -103,7 +172,8 @@
                 typeof module6 !== 'undefined' ? module6 : { id: "m6", name: "Module 6", weeks: [] },
                 typeof module7 !== 'undefined' ? module7 : { id: "m7", name: "Module 7", weeks: [] },
                 typeof module8 !== 'undefined' ? module8 : { id: "m8", name: "Module 8", weeks: [] },
-                typeof module9 !== 'undefined' ? module9 : { id: "m9", name: "Module 9", weeks: [] }
+                typeof module9 !== 'undefined' ? module9 : { id: "m9", name: "Module 9", weeks: [] },
+                typeof module10 !== 'undefined' ? module10 : { id: "m10", name: "Module 10", weeks: [] }
             ]
         };
 
@@ -162,6 +232,31 @@
             svgContent += `</svg>`;
             container.innerHTML = svgContent;
             return container;
+        }
+
+        function createShapeSVG(shape) {
+            const size = shape.size || 100;
+            let svg = `<svg width="${size}" height="${size}" viewBox="0 0 100 100" style="display:block; margin: 0 auto; overflow:visible;">
+                <defs>
+                    <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="#e74c3c" /></marker>
+                    <marker id="arrowhead-start" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><polygon points="6,0 0,3 6,6" fill="#e74c3c" /></marker>
+                </defs>`;
+            
+            if (shape.path) {
+                svg += `<path d="${shape.path}" fill="${shape.fill || '#e0f7fa'}" stroke="${shape.stroke || '#00bcd4'}" stroke-width="2"/>`;
+            } else if (shape.points) {
+                svg += `<polygon points="${shape.points}" fill="${shape.fill || '#e0f7fa'}" stroke="${shape.stroke || '#00bcd4'}" stroke-width="2"/>`;
+            }
+
+            if (shape.symmetryLine) {
+                svg += `<line x1="${shape.symmetryLine.x1}" y1="${shape.symmetryLine.y1}" x2="${shape.symmetryLine.x2}" y2="${shape.symmetryLine.y2}" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,5" marker-start="url(#arrowhead-start)" marker-end="url(#arrowhead)"/>`;
+            } else if (shape.lines) {
+                 shape.lines.forEach(l => {
+                     svg += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,5"/>`;
+                 });
+            }
+            svg += `</svg>`;
+            return svg;
         }
 
         function createRectModel(rows, cols, shaded, fillMode = 'row') {
@@ -530,21 +625,24 @@
 
         function createGrid(section) {
             const table = document.createElement('table'); table.className = 'caaspp-grid';
+            const col0Label = section.col0 || 'Expression'; 
             const col1Label = section.col1 || 'True';
             const col2Label = section.col2 || 'False';
             
-            table.innerHTML = `<tr><th style="width: 50%">Expression</th><th>${col1Label}</th><th>${col2Label}</th></tr>`;
+            table.innerHTML = `<tr><th style="width: 50%">${col0Label}</th><th>${col1Label}</th><th>${col2Label}</th></tr>`;
             section.rows.forEach(row => {
                 const tr = document.createElement('tr'); tr.setAttribute('data-type', 'grid-row');
                 const tdLabel = document.createElement('td');
                 if (row.segments) {
-                    // CRITICAL FIX: Changed from div to span and removed class that forced block display
                     const mixedCont = document.createElement('span'); 
                     row.segments.forEach(seg => {
                         if (seg.type === 'text') { const s = document.createElement('span'); s.innerHTML = seg.val; mixedCont.appendChild(s); }
                         else if (seg.type === 'fraction') { mixedCont.appendChild(createFraction(seg)); }
                     });
                     tdLabel.appendChild(mixedCont);
+                } else if (row.shape) {
+                    tdLabel.innerHTML = createShapeSVG(row.shape);
+                    tdLabel.style.textAlign = 'center';
                 } else { tdLabel.innerHTML = row.text; }
                 tr.appendChild(tdLabel);
                 tr.innerHTML += `<td><input type="checkbox" data-correct="${row.correct}"></td><td><input type="checkbox" data-correct="${!row.correct}"></td>`;
@@ -561,6 +659,7 @@
                 const th = document.createElement('th');
                 if (col.type === 'pie') { th.appendChild(createPieChart(col.n, col.d)); }
                 else if (col.type === 'fraction') { th.appendChild(createFraction(col)); }
+                else if (col.type === 'shape') { th.innerHTML = createShapeSVG(col); }
                 else { th.innerText = col.val; }
                 thead.appendChild(th);
             });
@@ -568,7 +667,9 @@
             section.rows.forEach((rowData, rIdx) => {
                 const tr = document.createElement('tr'); tr.setAttribute('data-row-idx', rIdx);
                 const tdLabel = document.createElement('td');
-                if (rowData.label.type === 'fraction') tdLabel.appendChild(createFraction(rowData.label)); else tdLabel.innerHTML = rowData.label.val;
+                if (rowData.label.type === 'fraction') { tdLabel.appendChild(createFraction(rowData.label)); }
+                else if (rowData.label.type === 'shape') { tdLabel.innerHTML = createShapeSVG(rowData.label); tdLabel.style.textAlign = 'center'; } 
+                else { tdLabel.innerHTML = rowData.label.val; }
                 tr.appendChild(tdLabel);
                 rowData.matches.forEach(isMatch => {
                     const td = document.createElement('td');
@@ -645,8 +746,8 @@
                                             let a = baseAns.replace(/\|/g, ' or ');
                                             
                                             if (!seg.ak) {
-                                                const decimalToFrac = {"0.75":"3/4", "0.3333":"1/3", "0.4":"2/5", "0.6":"3/5", "0.25":"1/4", "0.5":"1/2", "0.625":"5/8", "0.8":"4/5", "1.2":"1 2/10", "1.5":"1 1/2", "2.5":"2 1/2", "1.75":"1 3/4", "2.25":"2 1/4"};
-                                                if(decimalToFrac[a]) a = decimalToFrac[a];
+                                                let num = parseFloat(a);
+                                                if (!isNaN(num)) a = decimalToFractionStr(num);
                                             }
                                             segAnswers.push(a);
                                         }
@@ -662,8 +763,8 @@
 
                                 } else if (p.ans) {
                                     let a = String(p.ans);
-                                    const decimalToFrac = {"0.75":"3/4", "0.3333":"1/3", "0.4":"2/5", "0.6":"3/5", "0.25":"1/4", "0.5":"1/2", "0.625":"5/8", "0.8":"4/5", "1.5":"1 1/2", "2.5":"2 1/2"};
-                                    if(decimalToFrac[a]) a = decimalToFrac[a];
+                                    let num = parseFloat(a);
+                                    if (!isNaN(num)) a = decimalToFractionStr(num);
                                     answers.push(a);
                                 }
                             });
@@ -684,8 +785,8 @@
                                 r.matches.forEach((m, idx) => {
                                     if (m) {
                                         let col = section.colHeaders[idx];
-                                        let cVal = col.type === 'fraction' || col.type === 'pie' ? `${col.n}/${col.d}` : col.val;
-                                        let rVal = r.label.type === 'fraction' ? `${r.label.n}/${r.label.d}` : r.label.val;
+                                        let cVal = (col.type === 'fraction' || col.type === 'pie') ? `${col.n}/${col.d}` : (col.type === 'shape' ? (col.name || 'Shape') : col.val);
+                                        let rVal = (r.label.type === 'fraction') ? `${r.label.n}/${r.label.d}` : (r.label.type === 'shape' ? (r.label.name || 'Shape') : r.label.val);
                                         matchAns.push(`${rVal} → ${cVal}`);
                                     }
                                 });
@@ -1107,10 +1208,11 @@
                 if (!group.querySelector('.correction-text')) { 
                     const ansStr = group.getAttribute('data-answer');
                     const ans = parseFloat(ansStr.split('|')[0]);
-                    let txt = `Val: ${ans}`; 
-                    if(ans === 0.75) txt = "3/4"; if(ans === 0.3333) txt = "1/3"; if(ans === 0.4) txt = "2/5"; if(ans === 0.6) txt = "3/5"; if(ans === 0.25) txt = "1/4"; if(ans === 0.5) txt = "1/2";
-                    if(ans === 0.625) txt = "5/8"; if(ans === 0.8) txt = "4/5"; if(ans === 1.5) txt = "1 1/2"; if(ans === 2.5) txt = "2 1/2"; if(ans === 1.75) txt = "1 3/4"; if(ans === 2.25) txt = "2 1/4";
-                    const span = document.createElement('span'); span.className = 'correction-text'; span.innerText = txt; group.appendChild(span); 
+                    const txt = decimalToFractionStr(ans);
+                    const span = document.createElement('span'); 
+                    span.className = 'correction-text'; 
+                    span.innerText = txt; 
+                    group.appendChild(span); 
                 }
             });
             container.querySelectorAll('tr[data-type="grid-row"]').forEach(row => {
