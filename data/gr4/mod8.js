@@ -82,7 +82,7 @@ const module8 = {
                                     problems: [{ segments: [{ type: 'input', ans: "7" }, { type: 'text', val: ', &nbsp;' }, { type: 'input', ans: "14" }, { type: 'text', val: ', &nbsp;' }, { type: 'input', ans: "21" }, { type: 'text', val: ', &nbsp;' }, { type: 'input', ans: "28" }] }]
                                 },
                                 {
-                                    instruction: "Is the number a factor of 42? Select Yes or No.", type: "grid", col1: "Yes", col2: "No",
+                                    instruction: "Is the number a factor of 42? Select Yes or No.", type: "grid", col0: "Number", col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "6", correct: true },
                                         { text: "8", correct: false },
@@ -122,7 +122,7 @@ const module8 = {
                             id: "m8-w1-wed", name: "Wed", title: "Week 1: Wednesday", 
                             sections: [
                                 {
-                                    instruction: "Are all the numbers in the list multiples of 8? Select True or False.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Are all the numbers in the list multiples of 8? Select True or False.", type: "grid", col0: "List", col1: "True", col2: "False",
                                     rows: [
                                         { text: "8, 16, 24", correct: true },
                                         { text: "12, 16, 20", correct: false }
@@ -147,7 +147,7 @@ const module8 = {
                             id: "m8-w1-thu", name: "Thu", title: "Week 1: Thursday",
                             sections: [
                                 {
-                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col1: "Prime", col2: "Composite",
+                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col0: "Number", col1: "Prime", col2: "Composite",
                                     rows: [
                                         { text: "15", correct: false },
                                         { text: "23", correct: true },
@@ -177,7 +177,7 @@ const module8 = {
                                     ]
                                 },
                                 {
-                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col1: "Prime", col2: "Composite",
+                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col0: "Number", col1: "Prime", col2: "Composite",
                                     rows: [
                                         { text: "21", correct: false },
                                         { text: "41", correct: true },
@@ -199,7 +199,7 @@ const module8 = {
                             id: "m8-w2-mon", name: "Mon", title: "Week 2: Monday",
                             sections: [
                                 {
-                                    instruction: "Is the number a factor of 45? Select Yes or No.", type: "grid", col1: "Yes", col2: "No",
+                                    instruction: "Is the number a factor of 45? Select Yes or No.", type: "grid", col0: "Number", col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "3", correct: true },
                                         { text: "5", correct: true },
@@ -229,7 +229,7 @@ const module8 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Factor: &nbsp;' }, { type: 'input', ans: '7' }] }]
                                 },
                                 {
-                                    instruction: "Select True or False for the statement.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Select True or False for the statement.", type: "grid", col0: "Statement", col1: "True", col2: "False",
                                     rows: [{ text: "40 is a multiple of both 5 and 8.", correct: true }]
                                 },
                                 {
@@ -242,7 +242,7 @@ const module8 = {
                             id: "m8-w2-wed", name: "Wed", title: "Week 2: Wednesday", 
                             sections: [
                                 {
-                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col1: "Prime", col2: "Composite",
+                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col0: "Number", col1: "Prime", col2: "Composite",
                                     rows: [
                                         { text: "47", correct: true },
                                         { text: "49", correct: false },
@@ -268,7 +268,7 @@ const module8 = {
                             id: "m8-w2-thu", name: "Thu", title: "Week 2: Thursday",
                             sections: [
                                 {
-                                    instruction: "Sort the numbers into Multiples of 4 and Not Multiples of 4.", type: "grid", col1: "Multiple", col2: "Not Multiple",
+                                    instruction: "Sort the numbers into Multiples of 4 and Not Multiples of 4.", type: "grid", col0: "Number", col1: "Multiple", col2: "Not Multiple",
                                     rows: [
                                         { text: "12", correct: true },
                                         { text: "18", correct: false },
@@ -302,7 +302,7 @@ const module8 = {
                                     ]
                                 },
                                 {
-                                    instruction: "Is the number a factor of 32? Select Yes or No.", type: "grid", col1: "Yes", col2: "No",
+                                    instruction: "Is the number a factor of 32? Select Yes or No.", type: "grid", col0: "Number", col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "4", correct: true },
                                         { text: "6", correct: false },
@@ -328,7 +328,7 @@ const module8 = {
                                     problems: [{ segments: [{ type: 'input', ans: "8" }, { type: 'text', val: ', &nbsp;' }, { type: 'input', ans: "16" }, { type: 'text', val: ', &nbsp;' }, { type: 'input', ans: "24" }, { type: 'text', val: ', &nbsp;' }, { type: 'input', ans: "32" }] }]
                                 },
                                 {
-                                    instruction: "Is the number a factor of 48? Select Yes or No.", type: "grid", col1: "Yes", col2: "No",
+                                    instruction: "Is the number a factor of 48? Select Yes or No.", type: "grid", col0: "Number", col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "6", correct: true },
                                         { text: "9", correct: false },
@@ -368,7 +368,7 @@ const module8 = {
                             id: "m8-w1-wed", name: "Wed", title: "Week 1: Wednesday", 
                             sections: [
                                 {
-                                    instruction: "Are all the numbers in the list multiples of 7? Select True or False.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Are all the numbers in the list multiples of 7? Select True or False.", type: "grid", col0: "List", col1: "True", col2: "False",
                                     rows: [
                                         { text: "7, 14, 21", correct: true },
                                         { text: "14, 20, 28", correct: false }
@@ -393,7 +393,7 @@ const module8 = {
                             id: "m8-w1-thu", name: "Thu", title: "Week 1: Thursday",
                             sections: [
                                 {
-                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col1: "Prime", col2: "Composite",
+                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col0: "Number", col1: "Prime", col2: "Composite",
                                     rows: [
                                         { text: "14", correct: false },
                                         { text: "17", correct: true },
@@ -423,7 +423,7 @@ const module8 = {
                                     ]
                                 },
                                 {
-                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col1: "Prime", col2: "Composite",
+                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col0: "Number", col1: "Prime", col2: "Composite",
                                     rows: [
                                         { text: "25", correct: false },
                                         { text: "43", correct: true },
@@ -445,7 +445,7 @@ const module8 = {
                             id: "m8-w2-mon", name: "Mon", title: "Week 2: Monday",
                             sections: [
                                 {
-                                    instruction: "Is the number a factor of 50? Select Yes or No.", type: "grid", col1: "Yes", col2: "No",
+                                    instruction: "Is the number a factor of 50? Select Yes or No.", type: "grid", col0: "Number", col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "5", correct: true },
                                         { text: "10", correct: true },
@@ -475,7 +475,7 @@ const module8 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Factor: &nbsp;' }, { type: 'input', ans: '5' }] }]
                                 },
                                 {
-                                    instruction: "Select True or False for the statement.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Select True or False for the statement.", type: "grid", col0: "Statement", col1: "True", col2: "False",
                                     rows: [{ text: "24 is a multiple of both 4 and 6.", correct: true }]
                                 },
                                 {
@@ -488,7 +488,7 @@ const module8 = {
                             id: "m8-w2-wed", name: "Wed", title: "Week 2: Wednesday", 
                             sections: [
                                 {
-                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col1: "Prime", col2: "Composite",
+                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col0: "Number", col1: "Prime", col2: "Composite",
                                     rows: [
                                         { text: "41", correct: true },
                                         { text: "45", correct: false },
@@ -514,7 +514,7 @@ const module8 = {
                             id: "m8-w2-thu", name: "Thu", title: "Week 2: Thursday",
                             sections: [
                                 {
-                                    instruction: "Sort the numbers into Multiples of 6 and Not Multiples of 6.", type: "grid", col1: "Multiple", col2: "Not Multiple",
+                                    instruction: "Sort the numbers into Multiples of 6 and Not Multiples of 6.", type: "grid", col0: "Number", col1: "Multiple", col2: "Not Multiple",
                                     rows: [
                                         { text: "18", correct: true },
                                         { text: "26", correct: false },
@@ -548,7 +548,7 @@ const module8 = {
                                     ]
                                 },
                                 {
-                                    instruction: "Is the number a factor of 36? Select Yes or No.", type: "grid", col1: "Yes", col2: "No",
+                                    instruction: "Is the number a factor of 36? Select Yes or No.", type: "grid", col0: "Number", col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "4", correct: true },
                                         { text: "8", correct: false },
@@ -574,7 +574,7 @@ const module8 = {
                                     problems: [{ segments: [{ type: 'input', ans: "9" }, { type: 'text', val: ', &nbsp;' }, { type: 'input', ans: "18" }, { type: 'text', val: ', &nbsp;' }, { type: 'input', ans: "27" }, { type: 'text', val: ', &nbsp;' }, { type: 'input', ans: "36" }] }]
                                 },
                                 {
-                                    instruction: "Is the number a factor of 56? Select Yes or No.", type: "grid", col1: "Yes", col2: "No",
+                                    instruction: "Is the number a factor of 56? Select Yes or No.", type: "grid", col0: "Number", col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "7", correct: true },
                                         { text: "8", correct: true },
@@ -614,7 +614,7 @@ const module8 = {
                             id: "m8-w1-wed", name: "Wed", title: "Week 1: Wednesday", 
                             sections: [
                                 {
-                                    instruction: "Are all the numbers in the list multiples of 6? Select True or False.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Are all the numbers in the list multiples of 6? Select True or False.", type: "grid", col0: "List", col1: "True", col2: "False",
                                     rows: [
                                         { text: "6, 12, 18", correct: true },
                                         { text: "12, 16, 24", correct: false }
@@ -639,7 +639,7 @@ const module8 = {
                             id: "m8-w1-thu", name: "Thu", title: "Week 1: Thursday",
                             sections: [
                                 {
-                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col1: "Prime", col2: "Composite",
+                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col0: "Number", col1: "Prime", col2: "Composite",
                                     rows: [
                                         { text: "21", correct: false },
                                         { text: "37", correct: true },
@@ -669,7 +669,7 @@ const module8 = {
                                     ]
                                 },
                                 {
-                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col1: "Prime", col2: "Composite",
+                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col0: "Number", col1: "Prime", col2: "Composite",
                                     rows: [
                                         { text: "27", correct: false },
                                         { text: "47", correct: true },
@@ -691,7 +691,7 @@ const module8 = {
                             id: "m8-w2-mon", name: "Mon", title: "Week 2: Monday",
                             sections: [
                                 {
-                                    instruction: "Is the number a factor of 60? Select Yes or No.", type: "grid", col1: "Yes", col2: "No",
+                                    instruction: "Is the number a factor of 60? Select Yes or No.", type: "grid", col0: "Number", col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "6", correct: true },
                                         { text: "10", correct: true },
@@ -721,7 +721,7 @@ const module8 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Factor: &nbsp;' }, { type: 'input', ans: '11' }] }]
                                 },
                                 {
-                                    instruction: "Select True or False for the statement.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Select True or False for the statement.", type: "grid", col0: "Statement", col1: "True", col2: "False",
                                     rows: [{ text: "36 is a multiple of both 4 and 9.", correct: true }]
                                 },
                                 {
@@ -734,7 +734,7 @@ const module8 = {
                             id: "m8-w2-wed", name: "Wed", title: "Week 2: Wednesday", 
                             sections: [
                                 {
-                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col1: "Prime", col2: "Composite",
+                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col0: "Number", col1: "Prime", col2: "Composite",
                                     rows: [
                                         { text: "59", correct: true },
                                         { text: "63", correct: false },
@@ -760,7 +760,7 @@ const module8 = {
                             id: "m8-w2-thu", name: "Thu", title: "Week 2: Thursday",
                             sections: [
                                 {
-                                    instruction: "Sort the numbers into Multiples of 7 and Not Multiples of 7.", type: "grid", col1: "Multiple", col2: "Not Multiple",
+                                    instruction: "Sort the numbers into Multiples of 7 and Not Multiples of 7.", type: "grid", col0: "Number", col1: "Multiple", col2: "Not Multiple",
                                     rows: [
                                         { text: "14", correct: true },
                                         { text: "24", correct: false },
@@ -794,7 +794,7 @@ const module8 = {
                                     ]
                                 },
                                 {
-                                    instruction: "Is the number a factor of 40? Select Yes or No.", type: "grid", col1: "Yes", col2: "No",
+                                    instruction: "Is the number a factor of 40? Select Yes or No.", type: "grid", col0: "Number", col1: "Yes", col2: "No",
                                     rows: [
                                         { text: "5", correct: true },
                                         { text: "8", correct: true },

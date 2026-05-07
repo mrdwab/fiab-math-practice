@@ -89,7 +89,7 @@ const module9 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Missing Angle: &nbsp;' }, { type: 'input', ans: '50' }, { type: 'text', val: '°' }] }]
                                 },
                                 {
-                                    instruction: "Determine if each statement is True or False.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Determine if each statement is True or False.", type: "grid", col0: "Statement", col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: 'An angle that turns through ' }, { type: 'fraction', n: '1', d: '4' }, { type: 'text', val: ' of a circle is 90°.' }], correct: true },
                                         { segments: [{ type: 'text', val: 'An angle that turns through ' }, { type: 'fraction', n: '1', d: '2' }, { type: 'text', val: ' of a circle is 90°.' }], correct: false }
@@ -159,7 +159,7 @@ const module9 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '60' }, { type: 'text', val: '°' }] }]
                                 },
                                 {
-                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col1: "Prime", col2: "Composite",
+                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col0: "Number", col1: "Prime", col2: "Composite",
                                     rows: [
                                         { text: "19", correct: true },
                                         { text: "21", correct: false }
@@ -232,7 +232,7 @@ const module9 = {
                                     instruction: "Use the line plot to determine if each statement is True or False.", type: "line_plot",
                                     start: 0, end: 1, denominator: 4, points: [0.25, 0.5, 0.5, 0.75, 1, 1], title: "Plant Heights", xLabel: "Feet",
                                     grid: {
-                                        col1: "True", col2: "False",
+                                        col0: "Statement", col1: "True", col2: "False",
                                         rows: [
                                             { segments: [{ type: 'text', val: 'The difference between the tallest and shortest plant is ' }, { type: 'fraction', n: '3', d: '4' }, { type: 'text', val: ' feet.' }], correct: true },
                                             { segments: [{ type: 'text', val: 'Exactly two plants are ' }, { type: 'fraction', n: '1', d: '2' }, { type: 'text', val: ' foot tall.' }], correct: true }
@@ -300,7 +300,7 @@ const module9 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Missing Angle: &nbsp;' }, { type: 'input', ans: '70' }, { type: 'text', val: '°' }] }]
                                 },
                                 {
-                                    instruction: "Determine if each statement is True or False.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Determine if each statement is True or False.", type: "grid", col0: "Statement", col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: 'An angle that turns through ' }, { type: 'fraction', n: '1', d: '3' }, { type: 'text', val: ' of a circle is 120°.' }], correct: true },
                                         { segments: [{ type: 'text', val: 'An angle that turns through ' }, { type: 'fraction', n: '1', d: '2' }, { type: 'text', val: ' of a circle is 100°.' }], correct: false }
@@ -370,7 +370,7 @@ const module9 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '90' }, { type: 'text', val: '°' }] }]
                                 },
                                 {
-                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col1: "Prime", col2: "Composite",
+                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col0: "Number", col1: "Prime", col2: "Composite",
                                     rows: [
                                         { text: "23", correct: true },
                                         { text: "27", correct: false }
@@ -443,7 +443,7 @@ const module9 = {
                                     instruction: "Use the line plot to determine if each statement is True or False.", type: "line_plot",
                                     start: 0, end: 1, denominator: 4, points: [0.25, 0.5, 0.5, 0.5, 1], title: "String Lengths", xLabel: "Yards",
                                     grid: {
-                                        col1: "True", col2: "False",
+                                        col0: "Statement", col1: "True", col2: "False",
                                         rows: [
                                             { segments: [{ type: 'text', val: 'The difference between the longest and shortest string is ' }, { type: 'fraction', n: '3', d: '4' }, { type: 'text', val: ' yards.' }], correct: true },
                                             { segments: [{ type: 'text', val: 'Exactly two strings are ' }, { type: 'fraction', n: '1', d: '2' }, { type: 'text', val: ' yard long.' }], correct: false }
@@ -511,7 +511,7 @@ const module9 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Missing Angle: &nbsp;' }, { type: 'input', ans: '55' }, { type: 'text', val: '°' }] }]
                                 },
                                 {
-                                    instruction: "Determine if each statement is True or False.", type: "grid", col1: "True", col2: "False",
+                                    instruction: "Determine if each statement is True or False.", type: "grid", col0: "Statement", col1: "True", col2: "False",
                                     rows: [
                                         { segments: [{ type: 'text', val: 'An angle that turns through ' }, { type: 'fraction', n: '1', d: '6' }, { type: 'text', val: ' of a circle is 60°.' }], correct: true },
                                         { segments: [{ type: 'text', val: 'An angle that turns through ' }, { type: 'fraction', n: '1', d: '4' }, { type: 'text', val: ' of a circle is 45°.' }], correct: false }
@@ -581,7 +581,7 @@ const module9 = {
                                     problems: [{ segments: [{ type: 'text', val: 'Answer: &nbsp;' }, { type: 'input', ans: '45' }, { type: 'text', val: '°' }] }]
                                 },
                                 {
-                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col1: "Prime", col2: "Composite",
+                                    instruction: "Decide whether each number is prime or composite.", type: "grid", col0: "Number", col1: "Prime", col2: "Composite",
                                     rows: [
                                         { text: "31", correct: true },
                                         { text: "35", correct: false }
@@ -654,7 +654,7 @@ const module9 = {
                                     instruction: "Use the line plot to determine if each statement is True or False.", type: "line_plot",
                                     start: 0, end: 1, denominator: 4, points: [0.25, 0.5, 0.5, 0.5, 1], title: "String Lengths", xLabel: "Yards",
                                     grid: {
-                                        col1: "True", col2: "False",
+                                        col0: "Statement", col1: "True", col2: "False",
                                         rows: [
                                             { segments: [{ type: 'text', val: 'The difference between the longest and shortest string is ' }, { type: 'fraction', n: '3', d: '4' }, { type: 'text', val: ' yards.' }], correct: true },
                                             { segments: [{ type: 'text', val: 'Exactly two strings are ' }, { type: 'fraction', n: '1', d: '2' }, { type: 'text', val: ' yard long.' }], correct: false }
