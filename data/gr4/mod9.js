@@ -225,7 +225,7 @@ const module9 = {
                                 {
                                     instructionSegments: [{ type: 'text', val: 'A right angle (90°) is split into two smaller angles. Find the missing measure of ∠XVY.' }], type: "protractor",
                                     vertex: "V", rayLabels: ["W", "X", "Y"],
-                                    rays: [0, 35, 90], arcs: [{start:0, end:35, label:"35°"}, {start:35, end:90, isRight: true, color: 'none'}],
+                                    rays: [0, 35, 90], arcs: [{start:0, end:35, label:"35°"}, {start:35, end:90, isRight: false, color: 'none'}],
                                     problems: [{ segments: [{ type: 'text', val: 'Missing Angle: &nbsp;' }, { type: 'input', ans: '55' }, { type: 'text', val: '°' }] }]
                                 },
                                 {
@@ -436,7 +436,7 @@ const module9 = {
                                 {
                                     instructionSegments: [{ type: 'text', val: 'A right angle (90°) is split into two smaller angles. Find the missing measure of ∠TUV.' }], type: "protractor",
                                     vertex: "U", rayLabels: ["W", "T", "V"],
-                                    rays: [0, 45, 90], arcs: [{start:0, end:45, label:"45°"}, {start:45, end:90, isRight: true, color: 'none'}],
+                                    rays: [0, 45, 90], arcs: [{start:0, end:45, label:"45°"}, {start:45, end:90, isRight: false, color: 'none'}],
                                     problems: [{ segments: [{ type: 'text', val: 'Missing Angle: &nbsp;' }, { type: 'input', ans: '45' }, { type: 'text', val: '°' }] }]
                                 },
                                 {
@@ -647,7 +647,7 @@ const module9 = {
                                 {
                                     instructionSegments: [{ type: 'text', val: 'A right angle (90°) is split into two smaller angles. Find the missing measure of ∠IJK.' }], type: "protractor",
                                     vertex: "J", rayLabels: ["H", "I", "K"],
-                                    rays: [0, 45, 90], arcs: [{start:0, end:45, label:"45°"}, {start:45, end:90, isRight: true, color: 'none'}],
+                                    rays: [0, 45, 90], arcs: [{start:0, end:45, label:"45°"}, {start:45, end:90, isRight: false, color: 'none'}],
                                     problems: [{ segments: [{ type: 'text', val: 'Missing Angle: &nbsp;' }, { type: 'input', ans: '45' }, { type: 'text', val: '°' }] }]
                                 },
                                 {
