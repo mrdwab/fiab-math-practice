@@ -58,6 +58,7 @@
             <button class="btn-module" onclick="selectModule(5)">Four Operations</button>
             <button class="btn-module" onclick="selectModule(6)">Multidigit Arithmetic</button>
             <button class="btn-module" onclick="selectModule(7)">Factors & Multiples</button>
+            <button class="btn-module" onclick="selectModule(8)">Angle Measurement & Data</button>
         </div>
 
         <div class="nav-container" id="navContainer"></div>
@@ -88,10 +89,10 @@
     <script src="data/gr4/mod6.js"></script>
     <script src="data/gr4/mod7.js"></script>
     <script src="data/gr4/mod8.js"></script>
+    <script src="data/gr4/mod9.js"></script>
     <script src="data/gr4/bonus.js"></script>
 
     <script>
-
         const appData = {
             modules: [
                 typeof module1 !== 'undefined' ? module1 : { id: "m1", name: "Module 1", weeks: [] },
@@ -101,14 +102,15 @@
                 typeof module5 !== 'undefined' ? module5 : { id: "m5", name: "Module 5", weeks: [] },
                 typeof module6 !== 'undefined' ? module6 : { id: "m6", name: "Module 6", weeks: [] },
                 typeof module7 !== 'undefined' ? module7 : { id: "m7", name: "Module 7", weeks: [] },
-                typeof module8 !== 'undefined' ? module8 : { id: "m8", name: "Module 8", weeks: [] }
+                typeof module8 !== 'undefined' ? module8 : { id: "m8", name: "Module 8", weeks: [] },
+                typeof module9 !== 'undefined' ? module9 : { id: "m9", name: "Module 9", weeks: [] }
             ]
         };
 
         // --- GLOBAL VARIABLES ---
         let currentModuleIndex = -1;
         let currentDayId = '';
-        let currentVersion = 'A'; // Defaults to Version A
+        let currentVersion = 'A'; 
         let attempts = {};
 
         // --- DOM BUILDERS ---
@@ -213,6 +215,284 @@
             const div = document.createElement('div'); div.innerHTML = svgHTML; return div;
         }
 
+        // SVG GENERATOR: Angles with Point Labels and Right Angle Support
+        function createAngleDiagram(section) {
+            const size = 200; const cx = 100, cy = 100; const r = 70;
+            let svg = `<svg width="100%" height="100%" viewBox="0 0 ${size} ${size}" style="max-width:200px; display:block; margin: 0 auto; overflow:visible;">`;
+            
+            const getXY = (angle) => {
+                const rad = -angle * Math.PI / 180;
+                return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+            };
+
+            if (section.arcs) {
+                section.arcs.forEach((arc, i) => {
+                    if (arc.isRight) {
+                        const arcR = 15;
+                        const sRad = -arc.start * Math.PI / 180;
+                        const eRad = -arc.end * Math.PI / 180;
+                        const p1x = cx + arcR * Math.cos(sRad);
+                        const p1y = cy + arcR * Math.sin(sRad);
+                        const p2x = cx + arcR * Math.cos(eRad);
+                        const p2y = cy + arcR * Math.sin(eRad);
+                        const px = cx + arcR * Math.cos(sRad) + arcR * Math.cos(eRad);
+                        const py = cy + arcR * Math.sin(sRad) + arcR * Math.sin(eRad);
+                        svg += `<polyline points="${p1x},${p1y} ${px},${py} ${p2x},${p2y}" fill="none" stroke="${arc.color || '#e74c3c'}" stroke-width="2"/>`;
+                    } else {
+                        const arcR = arc.radius || (25 + (i * 10)); 
+                        const sX = cx + arcR * Math.cos(-arc.start * Math.PI / 180);
+                        const sY = cy + arcR * Math.sin(-arc.start * Math.PI / 180);
+                        const eX = cx + arcR * Math.cos(-arc.end * Math.PI / 180);
+                        const eY = cy + arcR * Math.sin(-arc.end * Math.PI / 180);
+                        const largeArc = (arc.end - arc.start) > 180 ? 1 : 0;
+                        svg += `<path d="M ${sX} ${sY} A ${arcR} ${arcR} 0 ${largeArc} 0 ${eX} ${eY}" fill="none" stroke="${arc.color || '#e74c3c'}" stroke-width="2"/>`;
+                        
+                        if (arc.label) {
+                            const midAngle = (arc.start + arc.end) / 2;
+                            const labelR = arcR + 18;
+                            const lX = cx + labelR * Math.cos(-midAngle * Math.PI / 180);
+                            const lY = cy + labelR * Math.sin(-midAngle * Math.PI / 180);
+                            svg += `<text x="${lX}" y="${lY + 5}" text-anchor="middle" font-size="14" font-weight="bold">${arc.label}</text>`;
+                        }
+                    }
+                });
+            }
+
+            if (section.rays) {
+                section.rays.forEach((ray, idx) => {
+                    const pt = getXY(ray);
+                    svg += `<line x1="${cx}" y1="${cy}" x2="${pt.x}" y2="${pt.y}" stroke="black" stroke-width="2"/>`;
+                    const rad = -ray * Math.PI / 180;
+                    const arrowL1 = rad + Math.PI*0.85;
+                    const arrowL2 = rad - Math.PI*0.85;
+                    const ax1 = pt.x + 8 * Math.cos(arrowL1);
+                    const ay1 = pt.y + 8 * Math.sin(arrowL1);
+                    const ax2 = pt.x + 8 * Math.cos(arrowL2);
+                    const ay2 = pt.y + 8 * Math.sin(arrowL2);
+                    svg += `<polygon points="${pt.x},${pt.y} ${ax1},${ay1} ${ax2},${ay2}" fill="black"/>`;
+                    
+                    if (section.rayLabels && section.rayLabels[idx]) {
+                        const lx = cx + (r + 15) * Math.cos(rad);
+                        const ly = cy + (r + 15) * Math.sin(rad);
+                        svg += `<text x="${lx}" y="${ly+5}" font-size="16" font-family="sans-serif" font-weight="bold" text-anchor="middle">${section.rayLabels[idx]}</text>`;
+                    }
+                });
+            }
+            
+            if (section.vertex) {
+                svg += `<text x="${cx}" y="${cy+20}" font-size="16" font-family="sans-serif" font-weight="bold" text-anchor="middle">${section.vertex}</text>`;
+            }
+
+            svg += `<circle cx="${cx}" cy="${cy}" r="4" fill="black"/></svg>`;
+
+            const container = document.createElement('div');
+            container.style.textAlign = 'center'; container.style.marginBottom = '15px';
+            container.innerHTML = svg;
+            if(section.problems) section.problems.forEach(prob => container.appendChild(createMixedRow(prob)));
+            return container;
+        }
+
+        // SVG GENERATOR: Protractor Overhauled
+        function createProtractor(section) {
+            const w = 450, h = 240; const cx = 225, cy = 200, r = 130;
+            let svg = `<svg width="100%" height="100%" viewBox="0 0 ${w} ${h}" style="max-width:450px; display:block; margin: 0 auto; overflow:visible;">`;
+            
+            svg += `<path d="M ${cx-r-45} ${cy} A ${r+45} ${r+45} 0 0 1 ${cx+r+45} ${cy} Z" fill="#e0f7fa" stroke="#00bcd4" stroke-width="2" opacity="0.4"/>`;
+            svg += `<path d="M ${cx-r-45} ${cy} L ${cx+r+45} ${cy}" stroke="#00bcd4" stroke-width="2"/>`;
+            svg += `<path d="M ${cx-r+20} ${cy} A ${r-20} ${r-20} 0 0 1 ${cx+r-20} ${cy} Z" fill="none" stroke="#00bcd4" stroke-width="1"/>`;
+            svg += `<circle cx="${cx}" cy="${cy}" r="4" fill="black"/>`;
+            
+            for (let i = 0; i <= 180; i+=5) {
+                const rad = -i * Math.PI / 180;
+                const isMajor = (i % 10 === 0);
+                
+                const tickStart = r;
+                const tickEnd = isMajor ? r + 10 : r + 5;
+                const x1 = cx + tickStart * Math.cos(rad); const y1 = cy + tickStart * Math.sin(rad);
+                const x2 = cx + tickEnd * Math.cos(rad);   const y2 = cy + tickEnd * Math.sin(rad);
+                svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#333" stroke-width="${isMajor ? 2 : 1}"/>`;
+                
+                if (isMajor) {
+                    const outerNum = 180 - i;
+                    const innerNum = i;
+                    
+                    const txOut = cx + (r + 25) * Math.cos(rad); 
+                    const tyOut = cy + (r + 25) * Math.sin(rad);
+                    svg += `<text x="${txOut}" y="${tyOut+5}" font-size="14" font-weight="bold" font-family="sans-serif" text-anchor="middle" transform="rotate(${i-90}, ${txOut}, ${tyOut})">${outerNum}</text>`;
+                    
+                    const txIn = cx + (r - 12) * Math.cos(rad); 
+                    const tyIn = cy + (r - 12) * Math.sin(rad);
+                    svg += `<text x="${txIn}" y="${tyIn+3}" font-size="10" font-family="sans-serif" text-anchor="middle" transform="rotate(${i-90}, ${txIn}, ${tyIn})" fill="#555">${innerNum}</text>`;
+                }
+            }
+            
+            if (section.arcs) {
+                section.arcs.forEach(arc => {
+                    if (arc.isRight) {
+                        const arcR = 15;
+                        const sRad = -arc.start * Math.PI / 180;
+                        const eRad = -arc.end * Math.PI / 180;
+                        const p1x = cx + arcR * Math.cos(sRad); const p1y = cy + arcR * Math.sin(sRad);
+                        const p2x = cx + arcR * Math.cos(eRad); const p2y = cy + arcR * Math.sin(eRad);
+                        const px = cx + arcR * Math.cos(sRad) + arcR * Math.cos(eRad);
+                        const py = cy + arcR * Math.sin(sRad) + arcR * Math.sin(eRad);
+                        svg += `<polyline points="${p1x},${p1y} ${px},${py} ${p2x},${p2y}" fill="none" stroke="${arc.color || '#27ae60'}" stroke-width="2"/>`;
+                    } else {
+                        const arcR = 40;
+                        const sX = cx + arcR * Math.cos(-arc.start * Math.PI / 180);
+                        const sY = cy + arcR * Math.sin(-arc.start * Math.PI / 180);
+                        const eX = cx + arcR * Math.cos(-arc.end * Math.PI / 180);
+                        const eY = cy + arcR * Math.sin(-arc.end * Math.PI / 180);
+                        svg += `<path d="M ${sX} ${sY} A ${arcR} ${arcR} 0 0 0 ${eX} ${eY}" fill="none" stroke="#27ae60" stroke-width="3"/>`;
+                        
+                        if(arc.label) {
+                            const midAngle = (arc.start + arc.end) / 2;
+                            const lX = cx + (arcR + 15) * Math.cos(-midAngle * Math.PI / 180);
+                            const lY = cy + (arcR + 15) * Math.sin(-midAngle * Math.PI / 180);
+                            svg += `<text x="${lX}" y="${lY + 5}" text-anchor="middle" font-size="16" font-weight="bold" fill="#27ae60">${arc.label}</text>`;
+                        }
+                    }
+                });
+            }
+
+            if (section.rays) {
+                section.rays.forEach((angle, idx) => {
+                    const rad = -angle * Math.PI / 180;
+                    const px = cx + (r+50) * Math.cos(rad); const py = cy + (r+50) * Math.sin(rad);
+                    svg += `<line x1="${cx}" y1="${cy}" x2="${px}" y2="${py}" stroke="#e74c3c" stroke-width="3"/>`;
+                    
+                    const arrowL1 = rad + Math.PI*0.85; const arrowL2 = rad - Math.PI*0.85;
+                    const ax1 = px + 10 * Math.cos(arrowL1); const ay1 = py + 10 * Math.sin(arrowL1);
+                    const ax2 = px + 10 * Math.cos(arrowL2); const ay2 = py + 10 * Math.sin(arrowL2);
+                    svg += `<polygon points="${px},${py} ${ax1},${ay1} ${ax2},${ay2}" fill="#e74c3c"/>`;
+
+                    if (section.rayLabels && section.rayLabels[idx]) {
+                        const lx = cx + (r+65) * Math.cos(rad); const ly = cy + (r+65) * Math.sin(rad);
+                        svg += `<text x="${lx}" y="${ly+6}" font-size="16" font-family="sans-serif" font-weight="bold" text-anchor="middle">${section.rayLabels[idx]}</text>`;
+                    }
+                });
+            }
+
+            if (section.vertex) {
+                svg += `<text x="${cx}" y="${cy+20}" font-size="16" font-family="sans-serif" font-weight="bold" text-anchor="middle">${section.vertex}</text>`;
+            }
+
+            svg += `</svg>`;
+
+            const container = document.createElement('div');
+            container.style.textAlign = 'center'; container.style.marginBottom = '15px';
+            container.innerHTML = svg;
+            if(section.problems) section.problems.forEach(prob => container.appendChild(createMixedRow(prob)));
+            return container;
+        }
+
+        // SVG GENERATOR: Line Plot with strictly horizontal fractions
+        function createLinePlot(section) {
+            const w = 500, h = 180;
+            const marginX = 40, baseY = 120;
+            const range = section.end - section.start;
+            const scaleX = (w - 2 * marginX) / range;
+            
+            let svg = `<svg width="100%" height="100%" viewBox="0 0 ${w} ${h}" style="max-width:500px; display:block; margin: 0 auto; overflow:visible;">`;
+            
+            svg += `<line x1="${marginX-15}" y1="${baseY}" x2="${w-marginX+15}" y2="${baseY}" stroke="black" stroke-width="3"/>`;
+            
+            const steps = Math.round(range * section.denominator);
+            for(let i=0; i<=steps; i++) {
+                const val = section.start + (i / section.denominator);
+                const px = marginX + (val - section.start) * scaleX;
+                const isWhole = Number.isInteger(val);
+                const tickH = isWhole ? 10 : 5;
+                svg += `<line x1="${px}" y1="${baseY}" x2="${px}" y2="${baseY + tickH}" stroke="black" stroke-width="2"/>`;
+                
+                if (isWhole) {
+                    svg += `<text x="${px}" y="${baseY + 28}" text-anchor="middle" font-size="15" font-family="sans-serif">${val}</text>`;
+                } else if (i % 2 === 0 || section.denominator <= 4 || section.denominator === 8) {
+                    const whole = Math.floor(val);
+                    const num = i % section.denominator;
+                    
+                    const fractionWidth = 14;
+                    let cX = px;
+                    
+                    if (whole > 0) {
+                        svg += `<text x="${px - 8}" y="${baseY + 28}" font-size="15" font-family="sans-serif" text-anchor="end">${whole}</text>`;
+                        cX = px + 6; 
+                    }
+                    svg += `<text x="${cX}" y="${baseY + 18}" font-size="11" font-family="sans-serif" text-anchor="middle">${num}</text>`;
+                    svg += `<line x1="${cX - fractionWidth/2}" y1="${baseY + 22}" x2="${cX + fractionWidth/2}" y2="${baseY + 22}" stroke="black" stroke-width="1"/>`;
+                    svg += `<text x="${cX}" y="${baseY + 33}" font-size="11" font-family="sans-serif" text-anchor="middle">${section.denominator}</text>`;
+                }
+            }
+            
+            const counts = {};
+            section.points.forEach(p => { counts[p] = (counts[p] || 0) + 1; });
+            for(let p in counts) {
+                const val = parseFloat(p);
+                const px = marginX + (val - section.start) * scaleX;
+                for(let i=0; i<counts[p]; i++) {
+                    const py = baseY - 12 - (i * 20);
+                    svg += `<text x="${px}" y="${py}" text-anchor="middle" font-size="18" font-family="sans-serif" font-weight="bold" fill="#2c7be5">X</text>`;
+                }
+            }
+            
+            if (section.title) svg += `<text x="${w/2}" y="20" text-anchor="middle" font-size="16" font-weight="bold" font-family="sans-serif">${section.title}</text>`;
+            if (section.xLabel) svg += `<text x="${w/2}" y="${h-5}" text-anchor="middle" font-size="14" font-family="sans-serif" fill="#555">${section.xLabel}</text>`;
+            
+            svg += `</svg>`;
+            
+            const container = document.createElement('div');
+            container.style.textAlign = 'center';
+            container.style.marginBottom = '15px';
+            container.innerHTML = svg;
+            
+            if(section.grid) container.appendChild(createGrid(section.grid));
+            if(section.problems) section.problems.forEach(prob => container.appendChild(createMixedRow(prob)));
+            
+            return container;
+        }
+
+        // --- Core Builders ---
+
+        function createFraction(seg) {
+            const container = document.createElement('span'); 
+            container.className = 'fraction-wrap';
+            container.style.display = 'inline-flex';
+            container.style.flexDirection = 'column';
+            container.style.alignItems = 'center';
+            container.style.verticalAlign = 'middle';
+            container.style.margin = '0 4px'; 
+            
+            if (seg.w) {
+                const wSpan = document.createElement('span'); 
+                wSpan.className = 'whole-part'; 
+                wSpan.innerHTML = seg.w;
+                wSpan.style.marginRight = '4px';
+                
+                const wrapper = document.createElement('span'); 
+                wrapper.className = 'mixed-text-container';
+                wrapper.style.display = 'inline-flex';
+                wrapper.style.alignItems = 'center';
+                wrapper.style.verticalAlign = 'middle';
+                
+                const innerTop = document.createElement('span'); innerTop.className = 'frac-top'; innerTop.innerHTML = seg.n;
+                const innerBot = document.createElement('span'); innerBot.className = 'frac-bottom'; innerBot.innerHTML = seg.d;
+                
+                container.appendChild(innerTop); container.appendChild(innerBot); 
+                wrapper.appendChild(wSpan); wrapper.appendChild(container); 
+                return wrapper;
+            }
+            
+            const top = document.createElement('span'); top.className = 'frac-top';
+            if (seg.n === 'box') { const inp = document.createElement('input'); inp.className = 'frac-input'; inp.setAttribute('data-answer', seg.ans || seg.ansN); top.appendChild(inp); }
+            else { top.innerHTML = seg.n; }
+            
+            const bot = document.createElement('span'); bot.className = 'frac-bottom';
+            if (seg.d === 'box') { const inp = document.createElement('input'); inp.className = 'frac-input'; inp.setAttribute('data-answer', seg.ansD); bot.appendChild(inp); }
+            else { bot.innerHTML = seg.d; }
+            
+            container.appendChild(top); container.appendChild(bot); return container;
+        }
+
         function createMixedRow(probData) {
             const rowDiv = document.createElement('div'); rowDiv.className = 'math-row';
             probData.segments.forEach(seg => {
@@ -248,24 +528,6 @@
             fracWrap.appendChild(top); fracWrap.appendChild(bot); wrapper.appendChild(wholeInp); wrapper.appendChild(fracWrap); return wrapper;
         }
 
-        function createFraction(seg) {
-            const container = document.createElement('div'); container.className = 'fraction-wrap';
-            if (seg.w) {
-                const wSpan = document.createElement('span'); wSpan.className = 'whole-part'; wSpan.textContent = seg.w;
-                const wrapper = document.createElement('div'); wrapper.className = 'mixed-text-container';
-                const innerTop = document.createElement('div'); innerTop.className = 'frac-top'; innerTop.textContent = seg.n;
-                const innerBot = document.createElement('div'); innerBot.className = 'frac-bottom'; innerBot.textContent = seg.d;
-                container.appendChild(innerTop); container.appendChild(innerBot); wrapper.appendChild(wSpan); wrapper.appendChild(container); return wrapper;
-            }
-            const top = document.createElement('div'); top.className = 'frac-top';
-            if (seg.n === 'box') { const inp = document.createElement('input'); inp.className = 'frac-input'; inp.setAttribute('data-answer', seg.ans || seg.ansN); top.appendChild(inp); }
-            else { top.textContent = seg.n; }
-            const bot = document.createElement('div'); bot.className = 'frac-bottom';
-            if (seg.d === 'box') { const inp = document.createElement('input'); inp.className = 'frac-input'; inp.setAttribute('data-answer', seg.ansD); bot.appendChild(inp); }
-            else { bot.textContent = seg.d; }
-            container.appendChild(top); container.appendChild(bot); return container;
-        }
-
         function createGrid(section) {
             const table = document.createElement('table'); table.className = 'caaspp-grid';
             const col1Label = section.col1 || 'True';
@@ -276,7 +538,8 @@
                 const tr = document.createElement('tr'); tr.setAttribute('data-type', 'grid-row');
                 const tdLabel = document.createElement('td');
                 if (row.segments) {
-                    const mixedCont = document.createElement('div'); mixedCont.className = 'mixed-text-container';
+                    // CRITICAL FIX: Changed from div to span and removed class that forced block display
+                    const mixedCont = document.createElement('span'); 
                     row.segments.forEach(seg => {
                         if (seg.type === 'text') { const s = document.createElement('span'); s.innerHTML = seg.val; mixedCont.appendChild(s); }
                         else if (seg.type === 'fraction') { mixedCont.appendChild(createFraction(seg)); }
@@ -305,7 +568,7 @@
             section.rows.forEach((rowData, rIdx) => {
                 const tr = document.createElement('tr'); tr.setAttribute('data-row-idx', rIdx);
                 const tdLabel = document.createElement('td');
-                if (rowData.label.type === 'fraction') tdLabel.appendChild(createFraction(rowData.label)); else tdLabel.innerText = rowData.label.val;
+                if (rowData.label.type === 'fraction') tdLabel.appendChild(createFraction(rowData.label)); else tdLabel.innerHTML = rowData.label.val;
                 tr.appendChild(tdLabel);
                 rowData.matches.forEach(isMatch => {
                     const td = document.createElement('td');
@@ -363,8 +626,8 @@
                     day.sections.forEach(section => {
                         let answers = [];
                         
-                        if (section.type === 'mixed_row' || section.type === 'word_problem' || section.type === 'rect_model_equiv') {
-                            const probs = section.problems || [section];
+                        if (section.type === 'mixed_row' || section.type === 'word_problem' || section.type === 'rect_model_equiv' || section.type === 'angle_diagram' || section.type === 'protractor' || section.type === 'line_plot') {
+                            const probs = section.problems || [];
                             probs.forEach(p => {
                                 if (p.segments) {
                                     let segAnswers = [];
@@ -382,7 +645,7 @@
                                             let a = baseAns.replace(/\|/g, ' or ');
                                             
                                             if (!seg.ak) {
-                                                const decimalToFrac = {"0.75":"3/4", "0.3333":"1/3", "0.4":"2/5", "0.6":"3/5", "0.25":"1/4", "0.5":"1/2", "0.625":"5/8", "0.8":"4/5", "1.2":"1 2/10"};
+                                                const decimalToFrac = {"0.75":"3/4", "0.3333":"1/3", "0.4":"2/5", "0.6":"3/5", "0.25":"1/4", "0.5":"1/2", "0.625":"5/8", "0.8":"4/5", "1.2":"1 2/10", "1.5":"1 1/2", "2.5":"2 1/2", "1.75":"1 3/4", "2.25":"2 1/4"};
                                                 if(decimalToFrac[a]) a = decimalToFrac[a];
                                             }
                                             segAnswers.push(a);
@@ -399,18 +662,23 @@
 
                                 } else if (p.ans) {
                                     let a = String(p.ans);
-                                    const decimalToFrac = {"0.75":"3/4", "0.3333":"1/3", "0.4":"2/5", "0.6":"3/5", "0.25":"1/4", "0.5":"1/2", "0.625":"5/8", "0.8":"4/5"};
+                                    const decimalToFrac = {"0.75":"3/4", "0.3333":"1/3", "0.4":"2/5", "0.6":"3/5", "0.25":"1/4", "0.5":"1/2", "0.625":"5/8", "0.8":"4/5", "1.5":"1 1/2", "2.5":"2 1/2"};
                                     if(decimalToFrac[a]) a = decimalToFrac[a];
                                     answers.push(a);
                                 }
                             });
-                        } else if (section.type === 'grid') {
+                        } 
+                        
+                        if (section.type === 'grid' || section.grid) {
+                            let gridData = section.grid || section;
                             let gridAns = [];
-                            section.rows.forEach(r => {
-                                gridAns.push(r.correct ? (section.col1 || 'True') : (section.col2 || 'False'));
+                            gridData.rows.forEach(r => {
+                                gridAns.push(r.correct ? (gridData.col1 || 'True') : (gridData.col2 || 'False'));
                             });
                             answers.push(gridAns.join(', '));
-                        } else if (section.type === 'matrix_match') {
+                        } 
+                        
+                        if (section.type === 'matrix_match') {
                             let matchAns = [];
                             section.rows.forEach(r => {
                                 r.matches.forEach((m, idx) => {
@@ -495,10 +763,13 @@
         function selectModule(index) {
             currentModuleIndex = index;
             
-            // Update the URL so the state can be saved/shared
-            const url = new URL(window.location);
-            url.searchParams.set('module', index);
-            window.history.replaceState({}, '', url);
+            try {
+                const url = new URL(window.location);
+                url.searchParams.set('module', index);
+                window.history.replaceState({}, '', url);
+            } catch (e) {
+                console.warn("URL state cannot be saved when running via file:// protocol.");
+            }
 
             document.querySelectorAll('.btn-module').forEach((btn, idx) => { if (idx === index) btn.classList.add('active'); else btn.classList.remove('active'); });
             
@@ -536,7 +807,6 @@
                     weekData.days.forEach((day, index) => {
                         const btn = document.createElement('button'); btn.className = 'nav-btn'; btn.textContent = day.name; btn.onclick = () => showDay(day.id, btn); row.appendChild(btn);
                         
-                        // Create a new print page wrapper for every 2 days
                         if (index % 2 === 0) {
                             currentPrintPage = document.createElement('div');
                             currentPrintPage.className = 'print-page';
@@ -563,20 +833,32 @@
                         day.sections.forEach((section, sIdx) => {
                             const card = document.createElement('div'); card.className = 'question-card';
                             const instr = document.createElement('p'); instr.className = 'instructions';
+                            
                             if (section.instructionSegments) {
-                                const container = document.createElement('div'); container.className = 'mixed-text-container';
-                                section.instructionSegments.forEach(seg => { if (seg.type === 'text') { const s = document.createElement('span'); s.innerHTML = seg.val; container.appendChild(s); } else if (seg.type === 'fraction') { container.appendChild(createFraction(seg)); } });
-                                instr.appendChild(container);
-                            } else { instr.innerHTML = section.instruction; }
+                                section.instructionSegments.forEach(seg => { 
+                                    if (seg.type === 'text') { 
+                                        const s = document.createElement('span'); 
+                                        s.innerHTML = seg.val; 
+                                        instr.appendChild(s); 
+                                    } else if (seg.type === 'fraction') { 
+                                        instr.appendChild(createFraction(seg)); 
+                                    } 
+                                });
+                            } else { 
+                                instr.innerHTML = section.instruction; 
+                            }
                             card.appendChild(instr);
                             
                             if (section.type === 'mixed_row') section.problems.forEach(prob => card.appendChild(createMixedRow(prob)));
                             else if (section.type === 'grid') card.appendChild(createGrid(section));
                             else if (section.type === 'matrix_match') card.appendChild(createMatchGrid(section));
                             else if (section.type === 'multiple_choice') card.appendChild(createMultipleChoice(section, sIdx));
+                            else if (section.type === 'angle_diagram') card.appendChild(createAngleDiagram(section));
+                            else if (section.type === 'protractor') card.appendChild(createProtractor(section));
+                            else if (section.type === 'line_plot') card.appendChild(createLinePlot(section));
                             else if (section.type === 'word_problem') {
                                 const pText = document.createElement('div'); pText.className = 'word-prob-text';
-                                section.textSegments.forEach(seg => { if (seg.type === 'text') { const span = document.createElement('span'); span.textContent = seg.val; pText.appendChild(span); } else if (seg.type === 'fraction') { pText.appendChild(createFraction(seg)); } });
+                                section.textSegments.forEach(seg => { if (seg.type === 'text') { const span = document.createElement('span'); span.innerHTML = seg.val; pText.appendChild(span); } else if (seg.type === 'fraction') { pText.appendChild(createFraction(seg)); } });
                                 card.appendChild(pText); section.problems.forEach(prob => card.appendChild(createMixedRow(prob)));
                             } else if (section.type === 'number_line') card.appendChild(createNumberLine(section));
                             else if (section.type === 'rect_model_equiv') {
@@ -704,22 +986,25 @@
             container.querySelectorAll('.mixed-input-group, .fraction-input-group').forEach(group => {
                 const inputs = group.querySelectorAll('input');
                 const type = group.getAttribute('data-type');
-                const target = parseFloat(group.getAttribute('data-answer'));
+                const targetStr = group.getAttribute('data-answer');
+                const targetVals = targetStr.split('|').map(v => parseFloat(v));
                 let isCorrect = false;
 
                 if (type === 'equiv-frac') {
                     const n = parseFloat(inputs[0].value);
                     const d = parseFloat(inputs[1].value);
-                    if (!isNaN(n) && !isNaN(d) && d !== 0) { if (Math.abs((n / d) - target) < 0.001) isCorrect = true; }
+                    if (!isNaN(n) && !isNaN(d) && d !== 0) { 
+                        if (targetVals.some(t => Math.abs((n / d) - t) < 0.001)) isCorrect = true; 
+                    }
                 } else if (type === 'mixed-check') {
                     const w = parseFloat(inputs[0].value) || 0;
                     const n = parseFloat(inputs[1].value) || 0;
                     const d = parseFloat(inputs[2].value) || 1;
-                    if (Math.abs((w + (n/d)) - target) < 0.001) isCorrect = true;
+                    if (targetVals.some(t => Math.abs((w + (n/d)) - t) < 0.001)) isCorrect = true;
                 } else {
                     const n = parseFloat(inputs[0].value) || 0;
                     const d = parseFloat(inputs[1].value) || 1;
-                    if (Math.abs((n/d) - target) < 0.001) isCorrect = true;
+                    if (targetVals.some(t => Math.abs((n/d) - t) < 0.001)) isCorrect = true;
                 }
 
                 if (isCorrect) inputs.forEach(i => { i.classList.add('correct-bg'); i.classList.remove('incorrect-bg'); });
@@ -728,6 +1013,7 @@
 
             container.querySelectorAll('tr[data-type="grid-row"]').forEach(row => {
                 const checkboxes = row.querySelectorAll('input[type="checkbox"]');
+                if(checkboxes.length < 2) return;
                 const trueBox = checkboxes[0]; const falseBox = checkboxes[1];
                 const correctIsFirst = trueBox.getAttribute('data-correct') === 'true';
                 let isRowCorrect = false;
@@ -819,10 +1105,11 @@
 
             container.querySelectorAll('.mixed-input-group, .fraction-input-group').forEach(group => {
                 if (!group.querySelector('.correction-text')) { 
-                    const ans = parseFloat(group.getAttribute('data-answer'));
+                    const ansStr = group.getAttribute('data-answer');
+                    const ans = parseFloat(ansStr.split('|')[0]);
                     let txt = `Val: ${ans}`; 
                     if(ans === 0.75) txt = "3/4"; if(ans === 0.3333) txt = "1/3"; if(ans === 0.4) txt = "2/5"; if(ans === 0.6) txt = "3/5"; if(ans === 0.25) txt = "1/4"; if(ans === 0.5) txt = "1/2";
-                    if(ans === 0.625) txt = "5/8"; if(ans === 0.8) txt = "4/5";
+                    if(ans === 0.625) txt = "5/8"; if(ans === 0.8) txt = "4/5"; if(ans === 1.5) txt = "1 1/2"; if(ans === 2.5) txt = "2 1/2"; if(ans === 1.75) txt = "1 3/4"; if(ans === 2.25) txt = "2 1/4";
                     const span = document.createElement('span'); span.className = 'correction-text'; span.innerText = txt; group.appendChild(span); 
                 }
             });
@@ -851,19 +1138,16 @@
         }
 
         window.onload = function () {
-            // Check the URL for the ?module= parameter
             const urlParams = new URLSearchParams(window.location.search);
             const modParam = urlParams.get('module');
             
             let initialModule = 0;
             if (modParam !== null && !isNaN(modParam)) {
                 initialModule = parseInt(modParam, 10);
-                // Ensure the parameter is a valid module index
                 if (initialModule < 0 || initialModule >= appData.modules.length) {
                     initialModule = 0;
                 }
             }
-            
             selectModule(initialModule);
         };
     </script>
