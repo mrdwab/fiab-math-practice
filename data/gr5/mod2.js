@@ -375,16 +375,6 @@ const module2 = {
                     title: "Module Quiz",
                     sections: [
                         {
-                            instruction: "Which expression is equal to: ",
-                            instructionMath: [{ type: "fraction", n: "5", d: "8" }],
-                            type: "multiple_choice",
-                            options: [
-                                { id: "opt1", content: [{ type: "text", val: "5 x 8" }], correct: false },
-                                { id: "opt2", content: [{ type: "text", val: "5 ÷ 8" }], correct: true },
-                                { id: "opt3", content: [{ type: "text", val: "8 ÷ 5" }], correct: false },
-                            ],
-                        },
-                        {
                             instruction: [
                                 {
                                     type: "text",
