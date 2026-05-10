@@ -102,13 +102,12 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
     <div class="module-nav">
         <button class="btn-module" onclick="selectModule(0)">Add & Subtract with Equivalent Fractions</button>
         <button class="btn-module" onclick="selectModule(1)">Multiply & Divide Fractions I</button>
-        <!-- <button class="btn-module" onclick="selectModule(2)">Review: Fractions & Ops</button> -->
-        <button class="btn-module" onclick="selectModule(3)">Multiply & Divide Fractions II</button>
-        <button class="btn-module" onclick="selectModule(4)">Volume Concepts</button>
-        <!-- <button class="btn-module" onclick="selectModule(5)">Review: Area & Volume</button> -->
-        <button class="btn-module" onclick="selectModule(6)">Place Value Systems</button>
-        <button class="btn-module" onclick="selectModule(7)">Numerical Expressions</button>
-        <button class="btn-module" onclick="selectModule(8)">Operations with Whole Numbers & Decimals</button>
+        <button class="btn-module" onclick="selectModule(2)">Multiply & Divide Fractions II</button>
+        <button class="btn-module" onclick="selectModule(3)">Volume Concepts</button>
+        <button class="btn-module" onclick="selectModule(4)">Place Value Systems</button>
+        <button class="btn-module" onclick="selectModule(5)">Numerical Expressions</button>
+        <button class="btn-module" onclick="selectModule(6)">Operations with Whole Numbers & Decimals</button>
+        <button class="btn-module" onclick="selectModule(7)">Convert Measurements</button>
     </div>
 
     <div class="version-nav" id="versionNav"></div>
@@ -127,13 +126,12 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 
 <script src="data/gr5/mod1.js"></script>
 <script src="data/gr5/mod2.js"></script>
-<script src="data/gr5/rev1.js"></script>
 <script src="data/gr5/mod3.js"></script>
 <script src="data/gr5/mod4.js"></script>
-<script src="data/gr5/rev2.js"></script>
 <script src="data/gr5/mod5.js"></script>
 <script src="data/gr5/mod6.js"></script>
 <script src="data/gr5/mod7.js"></script>
+<script src="data/gr5/mod8.js"></script>
 
 <script>
     const dayMap = { "Mon": "Monday", "Tue": "Tuesday", "Wed": "Wednesday", "Thu": "Thursday", "Fri": "Friday" };
@@ -357,13 +355,12 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
         modules: [
             typeof module1 !== 'undefined' ? module1 : { id: "m1", name: "Add/Sub Equiv Fractions (Missing)", weeks: [] },
             typeof module2 !== 'undefined' ? module2 : { id: "m2", name: "Mult/Div Fractions I (Missing)", weeks: [] },
-            typeof reviewModule !== 'undefined' ? reviewModule : { id: "rev", name: "Review: Fractions & Ops (Missing)", weeks: [] },
             typeof module3 !== 'undefined' ? module3 : { id: "m3", name: "Mult/Div Fractions II (Missing)", weeks: [] },
             typeof module4 !== 'undefined' ? module4 : { id: "m4", name: "Volume Concepts (Missing)", weeks: [] },
-            typeof reviewModule2 !== 'undefined' ? reviewModule2 : { id: "rev2", name: "Review: Area & Volume (Missing)", weeks: [] },
             typeof module5 !== 'undefined' ? module5 : { id: "m5", name: "Place Value Systems (Missing)", weeks: [] },
             typeof module6 !== 'undefined' ? module6 : { id: "m6", name: "Numerical Expressions (Missing)", weeks: [] },
-            typeof module7 !== 'undefined' ? module7 : { id: "m7", name: "Ops: Whole Num & Dec", weeks: [] }
+            typeof module7 !== 'undefined' ? module7 : { id: "m7", name: "Ops: Whole Num & Dec", weeks: [] },
+            typeof module8 !== 'undefined' ? module8 : { id: "m8", name: "Convert Measurements (Missing)", weeks: [] }
         ]
     };
 
