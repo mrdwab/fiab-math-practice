@@ -44,40 +44,50 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
     .print-page:last-child { page-break-after: auto; }
     
     /* SINGLE ROW HEADER */
-    .print-worksheet-header { display: flex; justify-content: space-between; align-items: center; border-bottom: none; margin-bottom: 25px; font-size: 16px; font-weight: bold; width: 100%; }
+    .print-worksheet-header { display: flex; justify-content: space-between; align-items: center; border-bottom: none; margin-bottom: 25px; font-size: 14px !important; font-weight: bold; width: 100%; }
     
     /* HALF-PAGE COLUMNS */
     .print-day-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; width: 100%; }
     .print-day-col { display: flex; flex-direction: column; gap: 15px; }
 
     /* DAY HEADER ABOVE CARDS */
-    .print-day-title { font-size: 18px; font-weight: bold; margin-bottom: 5px; color: #000; text-align: left; }
+    .print-day-title { font-size: 15px !important; font-weight: bold; margin-bottom: 5px; color: #000; text-align: left; text-transform: uppercase; letter-spacing: 0.5px; }
 
     /* INDIVIDUAL QUESTION CARDS */
-    .question-card { border: 2px solid #444 !important; border-radius: 12px !important; padding: 12px 15px !important; background: #fff !important; break-inside: avoid; page-break-inside: avoid; box-shadow: none !important; margin-bottom: 0 !important; border-left: 2px solid #444 !important;}
+    .question-card { border: 2px solid #444 !important; border-radius: 8px !important; padding: 12px 15px !important; background: #fff !important; break-inside: avoid; page-break-inside: avoid; box-shadow: none !important; margin-bottom: 0 !important; border-left: 2px solid #444 !important;}
     
-    .instructions { margin-bottom: 4px; font-size: 16px; line-height: 1.3; }
-    .instruction-math-block { margin: 8px 0 12px 0; font-size: 18px; }
-    .frac-input, .mixed-whole-input, .whole-input { border: 1px solid #000; background-color: white; color: transparent; text-shadow: none; }
+    /* MORE ELEGANT FONT SIZES */
+    .instructions { margin-bottom: 6px; font-size: 13px !important; line-height: 1.4; color: #000; }
+    .instruction-math-block { margin: 8px 0 10px 0; font-size: 15px !important; }
+    .math-row { font-size: 15px !important; margin-bottom: 15px !important; }
+    
+    /* INPUT BOX SCALING */
+    .frac-input, .mixed-whole-input, .whole-input { border: 1px solid #000; background-color: white; color: transparent; text-shadow: none; height: 22px !important; width: 35px !important; font-size: 13px !important; padding: 2px !important; border-radius: 4px !important; }
+    .whole-input { width: 45px !important; }
     
     .expr-toolbar { display: none !important; }
     .expression-input-group { border: none !important; background: transparent !important; margin-top: 10px; }
-    .expr-input { border: none !important; border-bottom: 2px solid #000 !important; background: transparent !important; width: 250px; color: transparent; text-shadow: none; }
+    .expr-input { border: none !important; border-bottom: 1px solid #000 !important; background: transparent !important; width: 200px !important; color: transparent; text-shadow: none; font-size: 14px !important; }
 
-    .mc-container { gap: 3px; }
-    .mc-option { border: 1px solid #aaa; padding: 4px 8px; min-height: auto; font-size: 16px; line-height: 1.3; }
-    .mc-option input { transform: scale(1.1); margin-right: 5px; }
+    /* MULTIPLE CHOICE / CHECKBOXES */
+    .mc-container { gap: 4px; }
+    .mc-option { border: 1px solid #aaa; padding: 4px 8px; min-height: auto; font-size: 13px !important; line-height: 1.3; border-radius: 6px !important; }
+    .mc-content { font-size: 13px !important; }
+    .mc-option input { transform: scale(1); margin-right: 6px; }
+    
+    /* VISUALS */
     .visual-container { border: 1px solid #ccc; background: none; margin: 5px 0; padding: 5px; gap: 10px; }
-    svg { transform: scale(0.9); transform-origin: left center; margin-bottom: -10px; }
+    .visual-label { font-size: 12px !important; }
+    svg { transform: scale(0.85); transform-origin: left center; margin-bottom: -15px; }
     svg, .math-square-box, .math-circle-box { filter: grayscale(100%); }
 
     .correction-text { display: none !important; }
     .correct-bg, .incorrect-bg { background-color: white !important; }
     
-    /* RESTORED OLD ANSWER KEY BOX STYLE */
-    .answer-key-box { border: 2px solid #ccc; padding: 15px; border-radius: 12px; background: #fff; margin-bottom: 15px; break-inside: avoid; text-align: left; }
-    .answer-key-day { margin-top: 10px; margin-bottom: 5px; font-weight: bold; border-bottom: 1px dashed #ccc; color: #000 !important; font-size: 15px; }
-    .answer-item { margin-bottom: 3px; font-size: 14px; }
+    /* ANSWER KEY */
+    .answer-key-box { border: 2px solid #ccc; padding: 12px; border-radius: 8px; background: #fff; margin-bottom: 15px; break-inside: avoid; text-align: left; }
+    .answer-key-day { margin-top: 8px; margin-bottom: 5px; font-weight: bold; border-bottom: 1px dashed #ccc; color: #000 !important; font-size: 14px; }
+    .answer-item { margin-bottom: 3px; font-size: 12px !important; }
 }
 </style>
 </head>
@@ -147,7 +157,6 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
         input.focus();
         input.selectionStart = input.selectionEnd = start + symbol.length;
     }
-
 
     function renderVisualModel(whole, num, den, color = "#ccc") {
         const size = 80; const padding = 10;
@@ -359,7 +368,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
     };
 
     // --- STATE ---
-    let currentModuleIndex = 8; // Defaulting to Module 7
+    let currentModuleIndex = 0; // Defaulting to Module 1 to test versions!
     let currentVersionIndex = 0; 
     let currentWeekIndex = 0; 
     let currentDayIndex = 0; 
@@ -537,6 +546,16 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
         if (day.sections && Array.isArray(day.sections)) {
             day.sections.forEach((sec, idx) => { contentHtml += renderSection(sec, idx); });
         }
+        
+        // --- RENDER HELPER HUB ON FRIDAY (WEB VIEW) ---
+        if ((day.name === "Fri" || day.name === "Friday") && week.helperHub) {
+            contentHtml += `
+            <div style="border: 3px solid #9b59b6; border-radius: 20px; padding: 25px; background: #fff; margin-top: 30px; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                <div style="font-size: 24px; font-weight: bold; color: #8e44ad; border-bottom: 2px dashed #e8daef; padding-bottom: 10px; margin-bottom: 15px;">${week.helperHub.title}</div>
+                ${week.helperHub.content}
+            </div>`;
+        }
+        
         contentHtml += `</div>`;
         
         document.getElementById('content-area').innerHTML = contentHtml;
@@ -734,7 +753,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 
                     if (day.sections) {
                         day.sections.forEach((sec, idx) => {
-                            dHtml += renderSection(sec, idx); // No printLabel passed, purely renders the card
+                            dHtml += renderSection(sec, idx); 
 
                             let ansList = [];
                             if (sec.type === 'multiple_choice' && sec.options) {
@@ -767,8 +786,18 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
                 });
             }
             
-            ansHtml += `</div>`; // Close the Answer Key Box
+            ansHtml += `</div>`; 
             ansKeys.push(ansHtml);
+
+            // --- FIXED: BUILD PRINT HELPER HUB FOR THIS SPECIFIC WEEK ---
+            let helperHubPrintHtml = '';
+            if (week.helperHub) {
+                helperHubPrintHtml = `
+                <div style="border: 2px solid #444; border-radius: 12px; padding: 12px 15px; background: #fff; break-inside: avoid; text-align: left;">
+                    <div style="font-size: 18px; font-weight: bold; margin-bottom: 8px; color: #000; border-bottom: 1px dashed #ccc; padding-bottom: 4px;">${week.helperHub.title}</div>
+                    ${week.helperHub.content}
+                </div>`;
+            }
 
             // PAGE 1 (For this week): Header + Mon/Tue
             fullHtml += `
@@ -793,12 +822,12 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
                 </div>
             </div>`;
 
-            // PAGE 3: Fri/Blank
+            // PAGE 3: Fri/Helper Hub
             fullHtml += `
             <div class="print-page">
                 <div class="print-day-columns">
                     <div class="print-day-col">${daysHtml[4] || ''}</div>
-                    <div class="print-day-col"></div>
+                    <div class="print-day-col">${helperHubPrintHtml}</div>
                 </div>
             </div>`;
         });
@@ -806,9 +835,10 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
         // FINAL PAGE: Answer Key
         fullHtml += `
         <div class="print-page">
-            <div class="print-worksheet-header" style="border-bottom: 2px solid #000; margin-bottom: 15px; padding-bottom: 8px;">
+            <div class="print-worksheet-header" style="border-bottom: 2px solid #000; margin-bottom: 15px; padding-bottom: 8px; text-align: left;">
                 <div>
-                    <div style="font-size: 24px; font-weight: bold;">Answer Key - ${module.name} ${versionText}</div>
+                    <div style="font-size: 24px; font-weight: bold;">Answer Key - ${module.name}</div>
+                    <div style="font-size: 16px; color: #444; font-weight: normal;">Grade 5 Math Warmups${versionText}</div>
                 </div>
             </div>
             <div class="print-day-columns">
@@ -821,7 +851,8 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
     }
 
     window.addEventListener('beforeprint', buildPrintHTML);
-    selectModule(8); 
+    // Setting default to Module 0 so you immediately see the Version A/B/C tabs and the Helper Hub!
+    selectModule(0); 
 </script>
 </body>
 </html>
