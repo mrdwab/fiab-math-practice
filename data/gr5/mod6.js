@@ -1,4 +1,3 @@
-<<<<<<< HEAD
     // --- MODULE 6: NUMERICAL EXPRESSIONS (INLINE DATA) ---
     const module6 = {
         id: "mod-6",
