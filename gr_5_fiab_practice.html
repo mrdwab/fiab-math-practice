@@ -19,7 +19,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .mc-container{display:flex;flex-direction:column;gap:12px}.mc-option{display:flex;align-items:center;gap:15px;background:#fff;padding:15px;border:2px solid #ffeaa7;border-radius:10px;cursor:pointer;transition:.2s;min-height:50px}.mc-option:hover{border-color:#ffab00;background:#fffcf2}.mc-option input[type=radio],.mc-option input[type=checkbox]{transform:scale(1.5);accent-color:#e67e22;margin-right:10px}.mc-content{font-size:18px;color:#333;display:flex;align-items:center;flex-wrap:wrap;gap:5px}.math-row{font-size:22px;font-weight:600;margin-bottom:25px;color:#444;display:flex;align-items:center;flex-wrap:wrap;gap:5px}.correct-bg{background-color:#e8f5e9!important;border-color:#2e7d32!important;color:#2e7d32!important}.incorrect-bg{background-color:#ffebee!important;border-color:#c62828!important}.correction-text{color:#27ae60;font-weight:700;font-size:16px;background:#e8f5e9;padding:4px 10px;border-radius:8px;margin-left:auto}.footer-controls{margin-top:40px;padding-top:20px;border-top:2px dashed #ffeaa7;display:flex;flex-direction:column;align-items:center;gap:20px}.check-btn{background-color:#00c853;color:#fff;font-family:inherit;padding:15px 50px;border:none;border-radius:50px;font-size:24px;font-weight:600;cursor:pointer;box-shadow:0 8px 0 #009624,0 15px 20px rgba(0,0,0,.2);transition:all .1s}.check-btn:hover{background-color:#00e676;transform:translateY(2px)}.check-btn:active{transform:translateY(6px);box-shadow:0 2px 0 #009624,0 5px 10px rgba(0,0,0,.2)}.feedback-box{font-size:20px;font-weight:700;padding:15px;border-radius:15px;width:100%;max-width:600px;display:none}.feedback-box.correct{display:block;background-color:#e8f5e9;color:#2e7d32;border:2px solid #a5d6a7}.feedback-box.warning{display:block;background-color:#fff3e0;color:#ef6c00;border:2px solid #ffcc80}.tbd-message{background:#fff;border:3px dashed #ccc;padding:50px;border-radius:20px;color:#777;font-size:24px;margin-top:30px}#print-area{display:none}
 
 /* VISUAL BOX STYLES */
-.math-square-box { display: inline-block; width: 24px; height: 24px; border: 2px solid #333; background: #fff; margin: 0 5px; vertical-align: middle; }
+.math-square-box { display: inline-block; width: 28px; height: 28px; border: 2px solid #333; background: #fff; margin: 0 5px; vertical-align: middle; }
 .math-circle-box { display: inline-block; width: 28px; height: 28px; border: 2px solid #333; border-radius: 50%; background: #fff; margin: 0 8px; vertical-align: middle; }
 .term-wrap { display: inline-block; white-space: nowrap; margin-right: 4px; } 
 
@@ -78,6 +78,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
         <button class="btn-module" onclick="selectModule(5)">Review: Area & Volume</button>
         <button class="btn-module" onclick="selectModule(6)">Place Value Systems</button>
         <button class="btn-module" onclick="selectModule(7)">Numerical Expressions</button>
+        <button class="btn-module" onclick="selectModule(8)">Ops: Whole Num & Dec</button>
     </div>
 
     <div class="nav-container" id="navContainer"></div>
@@ -100,6 +101,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 <script src="data/gr5/rev2.js"></script>
 <script src="data/gr5/mod5.js"></script>
 <script src="data/gr5/mod6.js"></script>
+<script src="data/gr5/mod7.js"></script>
 
 <script>
     const dayMap = { "Mon": "Monday", "Tue": "Tuesday", "Wed": "Wednesday", "Thu": "Thursday", "Fri": "Friday" };
@@ -322,6 +324,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
         svg += `</svg>`; return svg;
     }
 
+
     // COMBINE MODULES
     const appData = {
         modules: [
@@ -332,12 +335,13 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
             typeof module4 !== 'undefined' ? module4 : { id: "m4", name: "Volume Concepts (Missing)", weeks: [] },
             typeof reviewModule2 !== 'undefined' ? reviewModule2 : { id: "rev2", name: "Review: Area & Volume (Missing)", weeks: [] },
             typeof module5 !== 'undefined' ? module5 : { id: "m5", name: "Place Value Systems (Missing)", weeks: [] },
-            typeof module6 !== 'undefined' ? module6 : { id: "m6", name: "Numerical Expressions (Missing)", weeks: [] }
+            typeof module6 !== 'undefined' ? typeof module6 !== 'undefined' ? module6 : { id: "m6", name: "Numerical Expressions (Missing)", weeks: [] } : { id: "m6", name: "Numerical Expressions (Missing)", weeks: [] },
+            typeof module7 !== 'undefined' ? module7 : { id: "m7", name: "Ops: Whole Num & Dec", weeks: [] }
         ]
     };
 
     // --- STATE ---
-    let currentModuleIndex = 7; // Defaulting to Module 6
+    let currentModuleIndex = 8; // Defaulting to Module 7
     let currentWeekIndex = 0; let currentDayIndex = 0; let currentAttempts = 0;
 
     function renderFraction(n, d) { return `<div class="fraction-wrap"><span class="frac-top">${n}</span><span class="frac-bottom">${d}</span></div>`; }
@@ -355,6 +359,27 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
         if (seg.type === 'mixed_group') return `<div class="mixed-input-group" data-answer="${seg.ans}"><input type="number" class="mixed-whole-input" placeholder=""><div class="mixed-frac-container"><input type="number" class="frac-input" placeholder=""><div class="frac-line"></div><input type="number" class="frac-input" placeholder=""></div></div>`;
         if (seg.type === 'whole_number') return `<div class="whole-input-group" data-answer="${seg.ans}"><input type="number" class="whole-input" placeholder=""></div>`;
         
+        // --- NEW: STACKED MATH UI ---
+        if (seg.type === 'stacked_math') {
+            return `<div class="whole-input-group" data-answer="${seg.ans}" style="border:none; background:transparent; padding:0; margin: 0 15px;">
+                <table style="display: inline-table; border-collapse: collapse; font-size: 24px; font-family: 'Courier New', monospace; font-variant-numeric: tabular-nums; line-height: 1;">
+                    <tr>
+                        <td style="border: none; padding: 0 10px 5px 5px;"></td>
+                        <td style="border: none; text-align: right; padding: 0 5px 5px 0; letter-spacing: 2px;">${seg.top}</td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom: 2px solid black; padding: 0 10px 5px 5px;">${seg.operator}</td>
+                        <td style="border-bottom: 2px solid black; text-align: right; padding: 0 5px 5px 0; letter-spacing: 2px;">${seg.bottom}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding-top: 10px; text-align: right;">
+                            <input type="number" class="whole-input" placeholder="" style="width: 110px; text-align: right;">
+                        </td>
+                    </tr>
+                </table>
+            </div>`;
+        }
+
         // EXPRESSION INPUT UI
         if (seg.type === 'expression_input') {
             let ansStr = JSON.stringify(seg.ans).replace(/"/g, '&quot;');
@@ -521,7 +546,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
             if(Math.abs((w+(n/d))-target) < 0.001) { group.classList.add('correct-bg'); group.classList.remove('incorrect-bg'); correctCount++; }
             else { group.classList.add('incorrect-bg'); group.classList.remove('correct-bg'); }
         });
-        // Whole Number Groups
+        // Whole Number Groups (Includes Stacked Math now)
         document.querySelectorAll('.whole-input-group').forEach(group => {
             totalCount++;
             const input = group.querySelector('.whole-input');
@@ -543,7 +568,6 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
         document.querySelectorAll('.expression-input-group').forEach(group => {
             totalCount++;
             const input = group.querySelector('.expr-input');
-            // Normalize: remove spaces, force lowercase, standard 'x'
             let val = input.value.replace(/\s+/g, '').toLowerCase().replace(/×/g, 'x').replace(/\*/g, 'x').replace(/\//g, '÷');
             const targets = JSON.parse(group.getAttribute('data-answers'));
             
@@ -553,7 +577,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
             } else { 
                 group.classList.add('incorrect-bg'); group.classList.remove('correct-bg'); 
                 if(currentAttempts >= 2) {
-                    input.value = targets[0]; // Reveal the first acceptable answer
+                    input.value = targets[0]; 
                     input.style.color = "#c0392b";
                     input.style.fontWeight = "bold";
                 }
@@ -633,7 +657,6 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
         else { fbBox.className = 'feedback-box warning'; fbBox.innerHTML = `You got ${correctCount} out of ${totalCount} correct. ${currentAttempts < 2 ? 'Try again!' : 'Review the solutions.'}`; }
     }
 
-    // --- AUTOMATIC PRINT PREPARATION ---
     function buildPrintHTML() {
         const module = appData.modules[currentModuleIndex];
         if (!module || !module.weeks || module.weeks.length === 0) { 
@@ -684,7 +707,6 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
                                     if (prob.segments) {
                                         prob.segments.forEach(seg => {
                                             if (seg.ans !== undefined) {
-                                                // Handle Expressions (array of strings) vs Numbers
                                                 if (seg.type === 'expression_input' && Array.isArray(seg.ans)) {
                                                     ansList.push(seg.ans[0]);
                                                 } else {
@@ -716,7 +738,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
     }
 
     window.addEventListener('beforeprint', buildPrintHTML);
-    selectModule(7); 
+    selectModule(8); 
 </script>
 </body>
 </html>
