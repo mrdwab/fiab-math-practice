@@ -103,7 +103,7 @@ const helperHubW2_Mod7 = {
 
 const module7 = {
     id: "mod-7",
-    name: "Ops: Whole Num & Dec",
+    name: "Operations with Whole Numbers & Decimals",
     versions: [
         // ==========================================
         // VERSION A (Baseline)
